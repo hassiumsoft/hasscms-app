@@ -1,0 +1,9 @@
+.main-header .sidebar-logo{display:none}
+
+.sidebar-collapse .logo{display:none}
+
+.sidebar-collapse .sidebar-logo{display:block}
+
+.index-content-body{
+	background:url(images/background.png) no-repeat center center;
+	min-height:700px;

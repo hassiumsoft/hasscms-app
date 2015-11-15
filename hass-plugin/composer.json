@@ -1,0 +1,20 @@
+{
+    "name": "hassium/hass-plugin",
+    "description": "hass-plugin",
+    "type": "hass-core",
+    "keywords": ["hass","hass plugin","hass theme","yii2","extension"],
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "zhepama",
+            "email": "zhepama@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "hass\\plugin\\": ""
+        }
+    }
+}
