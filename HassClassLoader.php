@@ -62,3 +62,5 @@ class HassClassLoader
     }
 
 }
+
+HassClassLoader::registerAlias();
