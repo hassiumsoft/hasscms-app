@@ -98,6 +98,6 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
 
     public static function getLocalConfigPath()
     {
-        return \Yii::getAlias("@app/config") . DIRECTORY_SEPARATOR . "local.php";
+        return \Yii::getAlias("@app/config") . DIRECTORY_SEPARATOR . "main-local.php";
     }
 }
