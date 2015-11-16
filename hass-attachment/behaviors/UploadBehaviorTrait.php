@@ -15,7 +15,7 @@ use hass\attachment\models\Attachment;
 /**
  * @author zhepama <zhepama@gmail.com>
  *
- * @since 1.0
+ * @since 0.1.0
  */
 trait UploadBehaviorTrait
 {

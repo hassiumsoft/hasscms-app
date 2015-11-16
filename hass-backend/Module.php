@@ -16,7 +16,7 @@ use hass\helpers\Util;
  *
  * @package hass\backend
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class Module extends \yii\base\Module implements BootstrapInterface
@@ -24,7 +24,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     const HASS_CMS_NAME = "HASSIUM";
 
-    const HASS_CMS_VERSION = "1.0";
+    const HASS_CMS_VERSION = "0.1.0";
 
     public $state;
 

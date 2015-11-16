@@ -15,7 +15,7 @@ use hass\backend\traits\SearchModelTrait;
  * AreaSearch represents the model behind the search form about `hass\area\models\Area`.
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class BlockSearch extends Block{
      use SearchModelTrait;

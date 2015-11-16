@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 * 每次insert查找排序值最大的值.然后+1
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 
 class SetMaxSortableModel extends \yii\base\Behavior

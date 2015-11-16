@@ -16,7 +16,7 @@ use hass\system\enums\ModuleGroupEnmu;
  *
  * @package hass\user
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class Module extends \dektrium\user\Module implements BootstrapInterface

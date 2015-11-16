@@ -7,12 +7,14 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 namespace hass\frontend\components;
+
 use yii\base\InvalidConfigException;
+
 /**
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class Theme extends \yii\base\Theme
@@ -40,32 +42,33 @@ class Theme extends \yii\base\Theme
      */
     public function getBundle()
     {
-        if ($this->assetClass != null) {
-            $assetClass = $this->assetClass;
-            $this->_bundle = $assetClass::register(\Yii::$app->getView());
-        }
-
         return $this->_bundle;
+    }
+
+    public function publicBundle($view)
+    {
+        $assetClass = $this->assetClass;
+        $this->_bundle = $assetClass::register($view);
     }
 
     public function getUrl($url)
     {
-        if (!empty(($baseUrl = $this->getBaseUrl()))) {
+        if (! empty(($baseUrl = $this->getBaseUrl()))) {
             return $baseUrl . '/' . ltrim($url, '/');
         } elseif ($this->getBundle() != null) {
             return $this->_bundle->baseUrl . '/' . ltrim($url, '/');
-        }else {
+        } else {
             throw new InvalidConfigException('The "baseUrl" property must be set.');
         }
     }
 
     public function getPath($path)
     {
-        if (!empty(($basePath = $this->getBasePath())) ) {
+        if (! empty(($basePath = $this->getBasePath()))) {
             return $basePath . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
         } elseif ($this->getBundle() != null) {
             return $this->_bundle->basePath . '/' . ltrim($path, '/');
-        }else {
+        } else {
             throw new InvalidConfigException('The "baseUrl" property must be set.');
         }
     }

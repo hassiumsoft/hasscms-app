@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 /**
 * @package hass\admin
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class ActiveForm extends \yii\widgets\ActiveForm
 {

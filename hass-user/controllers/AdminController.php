@@ -15,7 +15,7 @@ use hass\backend\traits\BaseControllerTrait;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class AdminController extends \dektrium\user\controllers\AdminController
 {

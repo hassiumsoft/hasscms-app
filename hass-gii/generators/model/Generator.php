@@ -162,7 +162,7 @@ class Generator extends \yii\gii\Generator
      */
     public function requiredTemplates()
     {
-        // @todo-hass make 'query.php' to be required before 2.1 release
+        // @todo make 'query.php' to be required before 2.1 release
         return ['model.php'/*, 'query.php'*/];
     }
 

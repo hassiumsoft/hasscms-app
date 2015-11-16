@@ -51,7 +51,7 @@ use yii\filters\VerbFilter;
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {

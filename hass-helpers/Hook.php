@@ -16,7 +16,7 @@ use League\Event\ListenerProviderInterface;
 /**
  * @package hass\helpers
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Hook extends Object
 {

@@ -16,7 +16,7 @@ use hass\attachment\models\Attachment;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class MediaItem

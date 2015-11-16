@@ -22,7 +22,7 @@ use hass\helpers\Serializer;
  * @property string $blocks
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Area extends \hass\backend\ActiveRecord
 {

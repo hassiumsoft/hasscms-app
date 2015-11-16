@@ -17,7 +17,7 @@ use yii\bootstrap\BootstrapPluginAsset;
 /**
 * @package hass\admin
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class DropDown extends Widget {
 	/**

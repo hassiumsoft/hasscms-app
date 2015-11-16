@@ -21,7 +21,7 @@ use hass\backend\enums\BooleanEnum;
  * @property integer $installed
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Plugin extends \hass\backend\ActiveRecord
 {

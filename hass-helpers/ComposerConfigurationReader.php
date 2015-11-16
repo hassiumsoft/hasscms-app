@@ -13,7 +13,7 @@ use yii\base\Component;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class ComposerConfigurationReader extends Component
 {

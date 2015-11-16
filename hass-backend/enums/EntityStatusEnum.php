@@ -15,7 +15,7 @@ use hass\helpers\Enmu;
  * 使用PostStatusEnum::listData()放在下拉菜单里
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class EntityStatusEnum extends Enmu
 {

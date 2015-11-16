@@ -13,7 +13,7 @@ use hass\helpers\Enmu;
 *
 * @package hass\comment
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class CommentEnabledEnum extends Enmu
 {

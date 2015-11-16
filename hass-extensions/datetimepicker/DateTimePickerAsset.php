@@ -12,7 +12,7 @@ namespace hass\extensions\datetimepicker;
 /**
 * @package hass\extensions
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class DateTimePickerAsset extends \yii\web\AssetBundle
 {

@@ -17,7 +17,7 @@ use yii\data\Sort;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class IndexAction extends \yii\base\Action

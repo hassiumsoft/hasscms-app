@@ -12,7 +12,7 @@ use hass\backend\traits\BaseControllerTrait;
  *
  * @package hass\backend
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class BaseController extends  \yii\web\Controller

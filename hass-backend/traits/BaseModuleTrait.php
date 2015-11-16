@@ -13,7 +13,7 @@ namespace hass\backend\traits;
 * 因为有一些模块需要继承从composer拉下来的Module
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 
 

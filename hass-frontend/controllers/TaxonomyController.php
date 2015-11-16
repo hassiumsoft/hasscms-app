@@ -20,7 +20,7 @@ use hass\frontend\models\Post;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class TaxonomyController extends BaseController
 {

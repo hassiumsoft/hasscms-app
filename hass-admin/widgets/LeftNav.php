@@ -16,7 +16,7 @@ use yii\helpers\Html;
 /**
 * @package hass\admin
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class LeftNav extends \yii\bootstrap\Nav {
 	/**

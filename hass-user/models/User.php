@@ -17,7 +17,7 @@ use hass\attachment\models\AttachmentIndex;
  *
  * @package hass\user
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class User extends \dektrium\user\models\User
 {

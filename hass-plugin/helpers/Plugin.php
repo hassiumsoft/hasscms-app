@@ -13,7 +13,7 @@ use hass\plugin\models\Plugin as Model;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class Plugin extends Package
 {

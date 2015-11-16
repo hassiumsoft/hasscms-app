@@ -19,7 +19,7 @@ namespace hass\config\models;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class Config extends \yii\db\ActiveRecord
 {

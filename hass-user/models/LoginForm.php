@@ -12,7 +12,7 @@ use Yii;
 *
 * @package hass\user
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class LoginForm extends \dektrium\user\models\LoginForm
 {

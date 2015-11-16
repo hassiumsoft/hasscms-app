@@ -18,7 +18,7 @@ use Serializable;
 /**
 * @package hass\helpers
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Countable
 {

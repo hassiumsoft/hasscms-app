@@ -15,7 +15,7 @@ use hass\helpers\Util;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class Theme extends Package
@@ -42,7 +42,6 @@ class Theme extends Package
         {
             $paths = [];
             $parentThemes = $this->getParentThemes();
-            $themePath = Util::getThemeLoader()->getThemePath();
 
             $appViewPath = \Yii::$app->getViewPath();
 

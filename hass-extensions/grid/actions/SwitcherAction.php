@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
 * 使用在控制器中,添加方法
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class SwitcherAction extends \yii\base\Action
 {

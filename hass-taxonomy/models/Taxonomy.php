@@ -31,7 +31,7 @@ use hass\backend\enums\StatusEnum;
  * @property integer $status
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Taxonomy extends \hass\backend\ActiveRecord
 {

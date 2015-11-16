@@ -13,7 +13,7 @@ use hass\admin\widgets\LeftNav;
 *
 * @package hass\admin
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 /* @var $module \hass\admin\Module */
 

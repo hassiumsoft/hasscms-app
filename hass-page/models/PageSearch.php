@@ -28,7 +28,7 @@ use hass\backend\traits\SearchModelTrait;
  * @property integer $weight
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class PageSearch extends Page
 {

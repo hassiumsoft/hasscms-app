@@ -20,7 +20,7 @@ use hass\config\enums\I18nEnum;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 hass\config\assets\ConfigAsset::register($this);

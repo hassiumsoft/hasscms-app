@@ -15,7 +15,7 @@ use hass\extensions\nestedsortable\NestedSortableAsset;
 /**
 * @package hass\extensions
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class NestedSortable extends \yii\base\Widget
 {

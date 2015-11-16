@@ -14,7 +14,7 @@ namespace hass\config\enums;
  *
  * @package hass\backend
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class TimeZoneEnum

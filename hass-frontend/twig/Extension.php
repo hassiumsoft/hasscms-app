@@ -7,8 +7,7 @@
 * @copyright Copyright (c) 2016-2099 Hassium Software LLC.
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
-namespace hass\menu\models;
-use yii\base\Model;
+namespace hass\frontend\twig;
 
 /**
 *
@@ -16,28 +15,13 @@ use yii\base\Model;
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
-class LinkForm extends Model
+
+
+class Extension extends \Twig_Extension
 {
-    public $url = "";
 
-    public $name ="";
-
-    public function rules()
+    public function getName()
     {
-        return [
-            [['url', 'name'], 'required'],
-            [['url', 'name'], 'string'],
-
-        ];
+        // TODO Auto-generated method stub
     }
-
-
-    public function attributeLabels()
-    {
-        return [];
-    }
-
-
 }
-
-?>

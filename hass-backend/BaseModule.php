@@ -15,7 +15,7 @@ use \hass\backend\traits\BaseModuleTrait;
 *
 * @package hass\backend
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 abstract class BaseModule extends \yii\base\Module
 {

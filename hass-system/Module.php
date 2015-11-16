@@ -20,7 +20,7 @@ use hass\backend\components\UrlManager;
  *
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *       
  */
 class Module extends \hass\backend\BaseModule implements BootstrapInterface

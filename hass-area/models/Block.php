@@ -27,7 +27,7 @@ use hass\backend\enums\BooleanEnum;
  * @property integer $used
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Block extends \hass\backend\ActiveRecord
 {

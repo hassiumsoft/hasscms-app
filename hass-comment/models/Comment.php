@@ -31,7 +31,7 @@ use yii\behaviors\BlameableBehavior;
  * @property string $user_ip
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  */
 class Comment extends \hass\backend\ActiveRecord
 {

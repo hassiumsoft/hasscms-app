@@ -15,7 +15,7 @@ use Yii;
 *
 * @package hass\system
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 
 class CacheController extends \hass\backend\BaseController

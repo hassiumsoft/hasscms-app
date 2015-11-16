@@ -15,7 +15,7 @@ use hass\backend\traits\SearchModelTrait;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
 */
 class TagSearch extends Tag
 {

@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 *
 * @package hass\backend
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class CacheFlushModel extends \yii\base\Behavior
 {

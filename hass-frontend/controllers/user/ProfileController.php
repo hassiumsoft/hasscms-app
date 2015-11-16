@@ -13,7 +13,7 @@ namespace hass\frontend\controllers\user;
 *
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 
 class ProfileController extends \dektrium\user\controllers\ProfileController

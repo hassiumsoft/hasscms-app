@@ -20,7 +20,7 @@ use Yii;
 * @property integer $total
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
-* @since 1.0
+* @since 0.1.0
  */
 class CommentInfo extends \yii\db\ActiveRecord
 {

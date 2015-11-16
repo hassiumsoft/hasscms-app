@@ -17,7 +17,7 @@ use hass\system\enums\ModuleGroupEnmu;
  *
  * @package hass\rbac
  * @author zhepama <zhepama@gmail.com>
- * @since 1.0
+ * @since 0.1.0
  *
  */
 class Module extends \mdm\admin\Module implements BootstrapInterface
