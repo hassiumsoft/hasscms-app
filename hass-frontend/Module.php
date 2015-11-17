@@ -10,11 +10,6 @@ namespace hass\frontend;
 
 use yii\base\BootstrapInterface;
 use hass\helpers\ArrayHelper;
-use Maiorano\Shortcodes\Manager\ShortcodeManager;
-use yii\base\Event;
-use yii\web\View;
-use hass\area\shortcode\AreaShortcode;
-use hass\area\shortcode\BlockShortcode;
 use hass\helpers\Hook;
 use hass\urlrule\components\UrlRule;
 use yii\i18n\PhpMessageSource;
@@ -90,7 +85,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $this->initControllerMap($app);
         $this->initTheme($app);
         $this->initPlugin($app);
-        $this->initShortcode($app);
+
 
         $this->initUserModule($app);
     }
@@ -196,15 +191,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         }
     }
 
-    public function initShortCode($app)
-    {
-        \Yii::$container->set('scManager', new ShortcodeManager());
-        \Yii::$container->get('scManager')->register(new AreaShortcode());
-        \Yii::$container->get('scManager')->register(new BlockShortcode());
-        Event::on(View::className(), View::EVENT_AFTER_RENDER, function ($event) {
-            $event->output = \Yii::$container->get('scManager')->doShortcode($event->output);
-        });
-    }
+
 
     public function coreModules()
     {

@@ -13,6 +13,7 @@ use yii\base\InvalidParamException;
 use yii\helpers\FileHelper;
 use Yii;
 use yii\base\ViewEvent;
+
 /**
  *
  * @package hass\package_name
@@ -27,13 +28,13 @@ class View extends \yii\web\View
     public function renderRead($pathMap, $params = [], $context = null)
     {
         $viewFile = null;
-
+        
         foreach ($pathMap as $view) {
-
+            
             $view = $this->findViewFile($view, $context);
-
+            
             $view = Yii::getAlias($view);
-
+            
             if ($this->theme !== null) {
                 $view = $this->theme->applyTo($view);
             }
@@ -42,15 +43,13 @@ class View extends \yii\web\View
                 break;
             }
         }
-
+        
         if ($viewFile == null) {
             throw new InvalidParamException("The view file does not exist: $viewFile");
         }
-
+        
         return $this->renderFile($viewFile, $params, $context);
     }
-
-
 
     /**
      * Renders a view file.
@@ -64,44 +63,51 @@ class View extends \yii\web\View
      * Otherwise, it will simply include the view file as a normal PHP file, capture its output and
      * return it as a string.
      *
-     * @param string $viewFile the view file. This can be either an absolute file path or an alias of it.
-     * @param array $params the parameters (name-value pairs) that will be extracted and made available in the view file.
-     * @param object $context the context that the view should use for rendering the view. If null,
-     * existing [[context]] will be used.
+     * @param string $viewFile
+     *            the view file. This can be either an absolute file path or an alias of it.
+     * @param array $params
+     *            the parameters (name-value pairs) that will be extracted and made available in the view file.
+     * @param object $context
+     *            the context that the view should use for rendering the view. If null,
+     *            existing [[context]] will be used.
      * @return string the rendering result
      * @throws InvalidParamException if the view file does not exist
      */
     public function renderFile($viewFile, $params = [], $context = null)
     {
-
         $viewFile = Yii::getAlias($viewFile);
-
-        if ($this->theme !== null) {
-            $viewFile = $this->theme->applyTo($viewFile);
-        }
-        //defaultExtension>php
+        
+        // defaultExtension>php
         $pathParts = pathinfo($viewFile);
         if ($pathParts["extension"] == 'php') {
-            $path = $pathParts["dirname"].DIRECTORY_SEPARATOR.$pathParts["filename"]  . '.' . $this->defaultExtension;
+            $path = $pathParts["dirname"] . DIRECTORY_SEPARATOR . $pathParts["filename"] . '.' . $this->defaultExtension;
+            
+            if ($this->theme !== null) {
+                $path = $this->theme->applyTo($path);
+            }
+            
             if (is_file($path)) {
                 $viewFile = $path;
+            } else {
+                if ($this->theme !== null) {
+                    $viewFile = $this->theme->applyTo($viewFile);
+                }
             }
         }
-
-
+        
         if (is_file($viewFile)) {
             $viewFile = FileHelper::localize($viewFile);
         } else {
             throw new InvalidParamException("The view file does not exist: $viewFile");
         }
-
+        
         $oldContext = $this->context;
         if ($context !== null) {
             $this->context = $context;
         }
         $output = '';
         $this->_viewFiles[] = $viewFile;
-
+        
         if ($this->beforeRender($viewFile, $params)) {
             Yii::trace("Rendering view file: $viewFile", __METHOD__);
             $ext = pathinfo($viewFile, PATHINFO_EXTENSION);
@@ -117,28 +123,25 @@ class View extends \yii\web\View
             }
             $this->afterRender($viewFile, $params, $output);
         }
-
+        
         array_pop($this->_viewFiles);
         $this->context = $oldContext;
-
+        
         return $output;
     }
 
     public function beforeRender($viewFile, $params)
     {
-
-        if($this->theme instanceof Theme)
-        {
+        if ($this->theme instanceof Theme) {
             $this->theme->publicBundle($this);
         }
-
+        
         $event = new ViewEvent([
             'viewFile' => $viewFile,
-            'params' => $params,
+            'params' => $params
         ]);
         $this->trigger(self::EVENT_BEFORE_RENDER, $event);
-
+        
         return $event->isValid;
     }
-
 }
