@@ -12,7 +12,6 @@ namespace hass\frontend\widgets;
 use yii\base\InvalidConfigException;
 use hass\frontend\models\Menu;
 use hass\helpers\Hook;
-
 use hass\helpers\NestedSetsTree;
 use Yii;
 use hass\helpers\ArrayHelper;
@@ -29,13 +28,18 @@ use hass\helpers\Serializer;
  */
 class MenuRenderWidget extends \yii\widgets\Menu
 {
+
     public $currentAbsoluteUrl;
 
     public $activateParents = true;
 
     public $slug;
-    
+
     public $showParentUrl = false;
+
+    public $labelTemplate = '<a href="#">{label}</a>';
+
+    public $hasChildrenCssClass = "has-children";
 
     public function init()
     {
@@ -57,29 +61,79 @@ class MenuRenderWidget extends \yii\widgets\Menu
         }, 'items');
     }
 
+    protected function renderItems($items)
+    {
+        $n = count($items);
+        $lines = [];
+        foreach ($items as $i => $item) {
+            $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+            $tag = ArrayHelper::remove($options, 'tag', 'li');
+            $class = [];
+            if ($item['active']) {
+                $class[] = $this->activeCssClass;
+            }
+            if ($i === 0 && $this->firstItemCssClass !== null) {
+                $class[] = $this->firstItemCssClass;
+            }
+            if ($i === $n - 1 && $this->lastItemCssClass !== null) {
+                $class[] = $this->lastItemCssClass;
+            }
+            if (! empty($class)) {
+                if (empty($options['class'])) {
+                    $options['class'] = implode(' ', $class);
+                } else {
+                    $options['class'] .= ' ' . implode(' ', $class);
+                }
+            }
+            
+            $menu = $this->renderItem($item);
+            if (! empty($item['items'])) {
+                $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
+                $menu .= strtr($submenuTemplate, [
+                    '{items}' => $this->renderItems($item['items'])
+                ]);
+                
+                if (empty($options['class'])) {
+                    $options['class'] = $this->hasChildrenCssClass;
+                } else {
+                    $options['class'] .= ' ' . $this->hasChildrenCssClass;
+                }
+            }
+            if ($tag === false) {
+                $lines[] = $menu;
+            } else {
+                $lines[] = Html::tag($tag, $menu, $options);
+            }
+        }
+        
+        return implode("\n", $lines);
+    }
+
     /**
      * 这里添加一个判断标准..即当有子的时候...是否显示该url
-     * @param array $item the menu item to be rendered. Please refer to [[items]] to see what data might be in the item.
+     * 
+     * @param array $item
+     *            the menu item to be rendered. Please refer to [[items]] to see what data might be in the item.
      * @return string the rendering result
      */
     protected function renderItem($item)
     {
-        if (!isset($item['url']) ||($this->showParentUrl == false &&isset($item["items"])&& count($item["items"])>0)) {
+        if (! isset($item['url']) || ($this->showParentUrl == false && isset($item["items"]) && count($item["items"]) > 0)) {
             $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
-
+            
             return strtr($template, [
-                '{label}' => $item['label'],
+                '{label}' => $item['label']
             ]);
         }
-
+        
         $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
         
         return strtr($template, [
             '{url}' => Html::encode(Url::to($item['url'])),
-            '{label}' => $item['label'],
+            '{label}' => $item['label']
         ]);
     }
-    
+
     protected function isItemActive($item)
     {
         if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
@@ -105,16 +159,14 @@ class MenuRenderWidget extends \yii\widgets\Menu
         } elseif (isset($item['url'])) {
             
             $url = $item["url"];
-            if (($pos = strpos($url, ':')) === false || !ctype_alpha(substr($url, 0, $pos))) {
+            if (($pos = strpos($url, ':')) === false || ! ctype_alpha(substr($url, 0, $pos))) {
                 // turn relative URL into absolute
                 $url = \Yii::$app->getUrlManager()->getHostInfo() . '/' . ltrim($url, '/');
             }
             
-            if($url == $this->currentAbsoluteUrl)
-            {
+            if ($url == $this->currentAbsoluteUrl) {
                 return true;
             }
-            
         }
         
         return false;

@@ -8,7 +8,6 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\frontend\twig;
-
 /**
 *
 * @package hass\package_name
@@ -17,11 +16,46 @@ namespace hass\frontend\twig;
  */
 
 
-class Extension extends \Twig_Extension
+class Extension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
+    /**
+     * Creates new instance
+     *
+     * @param array $uses namespaces and classes to use in the template
+     */
+    public function __construct()
+    {
 
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions()
+    {
+        $options = [
+            'is_safe' => ['html'],
+        ];
+        
+        $class = new \ReflectionClass("\\hass\\frontend\\helpers\\ViewHelper");
+        
+        $methods  =  $class->getMethods(\ReflectionMethod::IS_STATIC);
+        
+        $functions = [];
+        
+        foreach ($methods  as $method)
+        {
+            $functions[] = new \Twig_SimpleFunction($method->name, ["\\hass\\frontend\\helpers\\ViewHelper", $method->name], $options);
+        }
+       
+        return $functions;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
-        // TODO Auto-generated method stub
+        return 'hass-twig';
     }
 }

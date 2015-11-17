@@ -19,6 +19,9 @@ class AdminAsset extends \yii\web\AssetBundle
 
     public $sourcePath = '@hass/admin/media';
     public $css = [
+        "AdminLTE.min.css",
+        "_all-skins.min.css",
+        "skin-blue.css",
         'admin.css',
     ];
     public $js = [
@@ -26,6 +29,11 @@ class AdminAsset extends \yii\web\AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
+        'hass\admin\assets\FontAwesomeAsset',
+        'hass\admin\assets\IoniconsAsset',
         'hass\admin\assets\AdminLteAsset',
     ];
 
