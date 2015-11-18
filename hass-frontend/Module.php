@@ -120,6 +120,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'pathMap' => [
                     "@dektrium/user/views" => [
                         $themePath . "/user",
+                        "@app/views/user",
                         "@dektrium/user/views"
                     ]
                 ]

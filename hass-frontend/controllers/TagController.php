@@ -10,8 +10,8 @@
 namespace hass\frontend\controllers;
 
 use yii\data\ActiveDataProvider;
-use hass\frontend\models\Post;
 use hass\frontend\BaseController;
+use hass\tag\models\TagIndex;
 
 /**
 *
@@ -22,21 +22,23 @@ use hass\frontend\BaseController;
 
 class TagController extends BaseController
 {
-
-
-
+    /**
+     * @todo-hass 这里有问题..不能只取查找post模型的
+     * @param unknown $id
+     */
     public function actionRead($id)
     {
-        $query = Post::find();
-
-        $query->innerJoin("tag_index","`tag_index`.`entity_id`=`post`.`id`")->where(["entity"=>\hass\post\models\Post::className(),"tag_id"=>$id]);
-
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => TagIndex::find()->where(["tag_id"=>$id]),
+            'pagination' => [
+                'pageSize' => 15
+            ]
         ]);
-
-
-        return $this->render('index',['dataProvider'=>$dataProvider]);
+        
+        return $this->render('view',[
+            'tagIndexs' => $dataProvider->getModels(),
+            "pagination" => $dataProvider->getPagination()
+        ]);
     }
 
 }

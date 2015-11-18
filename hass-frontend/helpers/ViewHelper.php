@@ -14,6 +14,7 @@ use hass\helpers\Util;
 use yii\helpers\Url;
 use hass\area\widgets\Area;
 use hass\area\widgets\Block;
+use hass\frontend\models\Tag;
 
 /**
  *
@@ -48,16 +49,29 @@ class ViewHelper
         return Block::widget($config);
     }
 
-    public static function tags()
-    {}
+    public static function tags($limit = 10)
+    {
+        return Tag::find()->orderBy(['frequency' => SORT_DESC])->limit($limit)->all();
+    }
 
     public static function entityToUrl($entity)
     {
         return Url::to(Util::getEntityUrl($entity));
     }
     
-    public static function call($callback,$paramArr=[])
+    public static function breadcrumb($entity)
     {
-        return call_user_func_array($callback, $paramArr);
+        return Util::getBreadcrumbs($entity);
     }
+    
+    public static function call($className, $method, $arguments = null)
+    {
+        $callable = [$className, $method];
+        if ($arguments === null) {
+            return call_user_func($callable);
+        } else {
+            return call_user_func_array($callable, $arguments);
+        }
+    }
+    
 }

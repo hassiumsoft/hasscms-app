@@ -26,14 +26,9 @@ class SearchController extends BaseController
 
     public function actionRead($id)
     {
-        $id = intval($id);
-        $condition = ["id"=>$id];
-        if($id == 0)
-        {
-            $condition = ["slug"=>$id];
-        }
 
-        $model = Post::findOne($condition);
+
+        $model = Post::findByIdOrSlug($id);
 
         return $this->render('view',["model"=>$model]);
     }

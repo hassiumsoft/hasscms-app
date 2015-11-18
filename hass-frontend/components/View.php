@@ -27,19 +27,11 @@ class View extends \yii\web\View
 
     public function renderRead($pathMap, $params = [], $context = null)
     {
-        $viewFile = null;
-        
-        foreach ($pathMap as $view) {
+        foreach ($pathMap as $viewFile) {
             
-            $view = $this->findViewFile($view, $context);
-            
-            $view = Yii::getAlias($view);
-            
-            if ($this->theme !== null) {
-                $view = $this->theme->applyTo($view);
-            }
-            if (is_file($view)) {
-                $viewFile = FileHelper::localize($view);
+            $viewFile = $this->findViewFile($viewFile, $context);
+            $viewFile = $this->findViewFileByDefault($viewFile);
+            if (is_file($viewFile)) {
                 break;
             }
         }
@@ -49,6 +41,30 @@ class View extends \yii\web\View
         }
         
         return $this->renderFile($viewFile, $params, $context);
+    }
+
+    public function findViewFileByDefault($viewFile)
+    {
+        $viewFile = Yii::getAlias($viewFile);
+        // defaultExtension>php
+        $pathParts = pathinfo($viewFile);
+        if ($pathParts["extension"] == 'php') {
+            $path = $pathParts["dirname"] . DIRECTORY_SEPARATOR . $pathParts["filename"] . '.' . $this->defaultExtension;
+            
+            if ($this->theme !== null) {
+                $path = $this->theme->applyTo($path);
+            }
+            
+            if (is_file($path)) {
+                $viewFile = $path;
+            } else {
+                if ($this->theme !== null) {
+                    $viewFile = $this->theme->applyTo($viewFile);
+                }
+            }
+        }
+        
+        return $viewFile;
     }
 
     /**
@@ -75,25 +91,7 @@ class View extends \yii\web\View
      */
     public function renderFile($viewFile, $params = [], $context = null)
     {
-        $viewFile = Yii::getAlias($viewFile);
-        
-        // defaultExtension>php
-        $pathParts = pathinfo($viewFile);
-        if ($pathParts["extension"] == 'php') {
-            $path = $pathParts["dirname"] . DIRECTORY_SEPARATOR . $pathParts["filename"] . '.' . $this->defaultExtension;
-            
-            if ($this->theme !== null) {
-                $path = $this->theme->applyTo($path);
-            }
-            
-            if (is_file($path)) {
-                $viewFile = $path;
-            } else {
-                if ($this->theme !== null) {
-                    $viewFile = $this->theme->applyTo($viewFile);
-                }
-            }
-        }
+        $viewFile = $this->findViewFileByDefault($viewFile);
         
         if (is_file($viewFile)) {
             $viewFile = FileHelper::localize($viewFile);
@@ -143,5 +141,11 @@ class View extends \yii\web\View
         $this->trigger(self::EVENT_BEFORE_RENDER, $event);
         
         return $event->isValid;
+    }
+    
+    
+    public function getViewFile()
+    {
+        return end($this->_viewFiles);
     }
 }

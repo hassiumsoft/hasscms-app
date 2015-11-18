@@ -27,7 +27,7 @@ class PageController extends BaseController
     public function actionRead($id)
     {
         $model = Page::findByIdOrSlug($id);
-        return $this->renderRead('view',$model,["model"=>$model]);
+        return $this->renderRead('view',$model,["page"=>$model]);
     }
 
 }

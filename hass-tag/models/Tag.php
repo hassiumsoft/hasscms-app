@@ -22,7 +22,7 @@ class Tag extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'tag';
+        return '{{%tag}}';
     }
 
     public function rules()

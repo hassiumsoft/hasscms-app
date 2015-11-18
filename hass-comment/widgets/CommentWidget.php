@@ -9,7 +9,6 @@
  */
 namespace hass\comment\widgets;
 
-use Yii;
 use hass\comment\enums\CommentEnabledEnum;
 
 /**
@@ -28,6 +27,21 @@ class CommentWidget extends \yii\base\Widget
     public function init()
     {
         parent::init();
+        if ($this->entityClass == null)
+        {
+            $this->entityClass = '\\hass\\post\\models\\Post';
+        }
+        
+        if($this->commentUrl == null)
+        {
+            $this->commentUrl = ["/comment/create"];
+        }
+        
+        if($this->replyFormUrl == null)
+        {
+            $this->replyFormUrl =  ["/comment/replyform"] ;
+        }
+        
     }
 
     public function run()

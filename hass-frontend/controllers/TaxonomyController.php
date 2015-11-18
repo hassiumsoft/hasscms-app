@@ -14,7 +14,6 @@ use hass\helpers\ArrayHelper;
 use hass\taxonomy\models\Taxonomy;
 use hass\taxonomy\models\TaxonomyIndex;
 use yii\data\ActiveDataProvider;
-use hass\frontend\models\Post;
 
 /**
  *
@@ -25,30 +24,34 @@ use hass\frontend\models\Post;
 class TaxonomyController extends BaseController
 {
 
-    public function actionList()
-    {
-        $query = Post::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->from("post"),
-        ]);
-
-        return $this->render('index', ['dataProvider' => $dataProvider]);
-    }
 
     public function actionRead($id)
     {
-        $taxonomy = Taxonomy::findOne($id);
+        $taxonomy = Taxonomy::findByIdOrSlug($id);
         $children = $taxonomy->children()->all();
-        $ids =  ArrayHelper::getColumn($children,"taxonomy_id");
-        array_unshift($ids,$id);
+        $ids = ArrayHelper::getColumn($children, "taxonomy_id");
+        array_unshift($ids, $taxonomy->getPrimaryKey());
         $dataProvider = new ActiveDataProvider([
-            'query' => TaxonomyIndex::find()->select(['entity', 'entity_id'])->distinct()->where(["taxonomy_id"=>$ids])->orderBy(['taxonomy_index_id' => SORT_DESC]),
+            'query' => TaxonomyIndex::find()->select([
+                'entity',
+                'entity_id'
+            ])
+                ->distinct()
+                ->where([
+                "taxonomy_id" => $ids
+            ])
+                ->orderBy([
+                'taxonomy_index_id' => SORT_DESC
+            ]),
             'pagination' => [
-                'pageSize' => 15,
-            ],
+                'pageSize' => 15
+            ]
         ]);
-        return $this->render('view', ['dataProvider' => $dataProvider, "model" => $taxonomy]);
+        
+        return $this->render('view', [
+            'taxonomyIndexs' => $dataProvider->getModels(),
+            "pagination" => $dataProvider->getPagination(),
+            "taxonomy" => $taxonomy
+        ]);
     }
-
 }

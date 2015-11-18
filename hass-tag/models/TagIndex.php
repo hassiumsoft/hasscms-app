@@ -10,6 +10,7 @@
 namespace hass\tag\models;
 
 use hass\backend\ActiveRecord;
+use hass\backend\traits\GetEntityObject;
 /**
 *
 * @package hass\package_name
@@ -19,10 +20,11 @@ use hass\backend\ActiveRecord;
 
 class TagIndex extends ActiveRecord
 {
-
+    use GetEntityObject;
+    
     public static function tableName()
     {
-        return 'tag_index';
+        return '{{%tag_index}}';
     }
 }
 
