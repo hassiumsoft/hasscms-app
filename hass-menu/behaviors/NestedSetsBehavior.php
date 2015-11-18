@@ -10,7 +10,7 @@
 namespace hass\menu\behaviors;
 
 use hass\backend\ActiveRecord;
-
+use yii\db\Exception;
 /**
  *
  * @package hass\package_name
@@ -82,6 +82,35 @@ class NestedSetsBehavior extends \creocoder\nestedsets\NestedSetsBehavior
         // $this->owner->afterDelete();
 
         return $result;
+    }
+    
+    
+    /**
+     * @throws Exception
+     */
+    public function afterInsert()
+    {
+        if ($this->operation === self::OPERATION_MAKE_ROOT && $this->treeAttribute !== false) {
+       
+            $primaryKey = $this->owner->primaryKey();
+    
+            if (!isset($primaryKey[0])) {
+                throw new Exception('"' . get_class($this->owner) . '" must have a primary key.');
+            }
+            
+            $maxOrderNum = (int)(new \yii\db\Query())
+            ->select('MAX(`'.$this->treeAttribute.'`)')
+            ->from($this->owner->tableName())
+            ->scalar();
+    
+            $this->owner->updateAll(
+                [$this->treeAttribute => ++$maxOrderNum],
+                [$primaryKey[0] => $this->owner->primaryKey]
+                );
+        }
+    
+        $this->operation = null;
+        $this->node = null;
     }
 }
 

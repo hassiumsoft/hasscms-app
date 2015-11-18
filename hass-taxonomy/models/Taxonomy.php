@@ -13,7 +13,6 @@ use Yii;
 use hass\meta\behaviors\MetaBehavior;
 use yii\behaviors\SluggableBehavior;
 use creocoder\nestedsets\NestedSetsBehavior;
-use hass\helpers\NestedSetsTree;
 use hass\backend\enums\StatusEnum;
 
 /**

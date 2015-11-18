@@ -15,7 +15,6 @@ use hass\menu\models\Menu;
 use yii\web\NotFoundHttpException;
 use hass\helpers\Hook;
 use yii\web\HttpException;
-use hass\helpers\AdjacencyListTree;
 use hass\helpers\NestedSetsTree;
 use hass\backend\BaseController;
 use hass\menu\models\MenuSearch;
