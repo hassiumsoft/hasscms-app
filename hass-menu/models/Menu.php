@@ -78,6 +78,7 @@ class Menu extends \hass\backend\ActiveRecord
             'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
+                "immutable"=>true,
                 'ensureUnique' => true
             ],
             'tree' => [
@@ -128,7 +129,8 @@ class Menu extends \hass\backend\ActiveRecord
             $model->attachBehavior("sluggable",  [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'originalName',
-                'ensureUnique' => true
+                'ensureUnique' => true,
+                "immutable"=>true,
             ]);
             $model->originalName = $value["originalName"];
             $model->setAttributes($value);

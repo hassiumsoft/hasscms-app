@@ -106,7 +106,8 @@ class Taxonomy extends \hass\backend\ActiveRecord
             'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
-                'ensureUnique' => true
+                'ensureUnique' => true,
+                "immutable"=>true,
             ],
             'tree' => [
                 'class' => NestedSetsBehavior::className(),

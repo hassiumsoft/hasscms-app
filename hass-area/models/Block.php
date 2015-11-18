@@ -64,6 +64,7 @@ class Block extends \hass\backend\ActiveRecord
             'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
+                "immutable"=>true,
                 'ensureUnique' => true
             ]
         ];

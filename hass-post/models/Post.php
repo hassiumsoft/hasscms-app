@@ -124,6 +124,7 @@ class Post extends \hass\backend\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
                 'ensureUnique' => true,
+                "immutable"=>true,
             ],
         ];
         $behaviors['author_id'] = [

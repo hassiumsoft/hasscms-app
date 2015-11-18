@@ -127,7 +127,8 @@ class Page extends \hass\backend\ActiveRecord
             'sluggable' => [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
-                'ensureUnique' => true
+                'ensureUnique' => true,
+                "immutable"=>true,
             ],
             SetMaxSortableModel::className()
         ];
