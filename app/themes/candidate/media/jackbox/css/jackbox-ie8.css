@@ -1,0 +1,29 @@
+.jackbox-modal {
+	background: url(../img/graphics/ie_bg.png);
+}
+
+.jackbox-info-text {
+	padding-bottom: 1px;
+	overflow: auto;
+}
+
+.jackbox-holder, .jackbox-content, .jackbox-container {
+	zoom: 1;
+	z-index: 99999;
+}
+
+.jackbox-modal h2, .jackbox-modal h3 {
+	font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.jackbox-title-text {
+	font: 14px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.jackbox-thumb-tip-text {
+	font: 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.jackbox-thumb-tip {
+	z-index: 99999;
+}

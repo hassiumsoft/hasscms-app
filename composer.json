@@ -1,0 +1,71 @@
+{
+  "name": "hassium/hasscms",
+  "description": "hassium hasscms",
+  "keywords": [
+  ],
+  "homepage": "http://www.hassium.org/",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "support": {
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "dev-master",
+    "yiisoft/yii2-bootstrap": "dev-master",
+    "yiisoft/yii2-swiftmailer": "dev-master",
+    "yiisoft/yii2-httpclient": "dev-master",
+    "yiisoft/yii2-imagine": "dev-master",
+    "yiisoft/yii2-twig": "dev-master",
+
+    "league/event": "*",
+    "maiorano84/shortcodes": "*",
+    "eloquent/composer-config-reader": "2.0.0",
+    "raulfraile/distill": "*",
+    "paquettg/php-html-parser": "dev-master",
+    "fourteenmeister/dsn": "*",
+    "creocoder/yii2-flysystem": "*",
+    "creocoder/yii2-nested-sets": "dev-master",
+
+    "almasaeed2010/adminlte": "~2.0",
+    "FortAwesome/Font-Awesome": "*",
+    "driftyco/ionicons": "*",
+
+    "mdmsoft/yii2-admin": "dev-3.master",
+    "dektrium/yii2-user": "dev-master",
+
+    "bower-asset/switchery": "*",
+    "bower-asset/eonasdan-bootstrap-datetimepicker": "*",
+    "bower-asset/html.sortable": "*",
+    "bower-asset/blueimp-file-upload": "*",
+    "kartik-v/yii2-widget-select2": "*",
+    "yiidoc/yii2-timeago": "dev-master",
+    "vova07/yii2-imperavi-widget": "dev-master"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "digitalnature/php-ref": "dev-master",
+    "php-console/php-console": "*"
+  },
+  "config": {
+    "process-timeout": 3600
+  },
+  "scripts": {
+  },
+  "extra": {
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://packagist.phpcomposer.com"
+    },
+    {
+      "packagist": false
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{{ use("/hass/revolutionslider/widgets/Revolutionslider") }}
+<div class="inner clr">
+	<!-- Revolution Slider -->
+	<div class="tp-banner-container main-revolution">
+		<span class="Apple-tab-span"></span>
+		<div class="tp-banner">{{ revolutionslider_widget() }}</div>
+	</div>
+	<!-- /Revolution Slider -->
+
+
+	<div class="left">
+		<div class="pageList index-pageList">
+			<!-- 今日更新数量 -->
+			<div class="tip">
+				<h2>
+					<span class="yel">最新</span><span class="gra">资讯</span>
+				</h2>
+			</div>
+			<!-- 今日更新数量END -->
+			<div class="wrap">
+				<ul>
+					{% for post in posts %}
+					<li class="pbox clr">
+						<div class="img">
+
+							{% for taxonomy in post.taxonomys %} <a class="sort"
+								href="{{ entityToUrl(taxonomy) }}" target="_blank"> {{
+								taxonomy.name }} </a> {% endfor %} <a
+								href="{{ entityToUrl(post) }}" target="_blank"> {{
+								html.img(post.thumbnail.getThumb(210,140))|default("")|raw }} </a>
+						</div>
+						<div class="word">
+							<a href="{{  entityToUrl(post) }}" target="_blank">
+								<div class="tit">{{ post.title }}</div>
+							</a>
+							<div class="des">{{ post.short }}</div>
+							<div class="info">
+								{% set author = post.author %}
+								<div class="aut">
+									<a rel="nofollow" href="{{ entityToUrl(author) }}"
+										target="_blank"> {{ html.img(author.getAvatar(26,26))|raw }} <span>{{
+											author.profile.name }}</span>
+									</a>
+								</div>
+								<div class="time">
+									<i></i> <span>{{ post.getPublishedDate() }}</span> <span>{{
+										post.getPublishedTime() }}</span>
+								</div>
+
+								<a rel="nofollow" href="{{ entityToUrl(post) }}" target="_blank"
+									class="cmt"><i></i><span>{{ post.commentTotal }}</span></a>
+							</div>
+						</div>
+					</li> {% endfor %}
+				</ul>
+			</div>
+			{% set currentPage = pagination.getPage() %} {% set pageCount =
+			pagination.getPageCount() %} {% set prev = 0 %} {% if currentPage - 1
+			>= 0 %} {% set prev = currentPage - 1 %} {% endif %} {% set next =
+			pageCount-1 %} {% if currentPage + 1 < pageCount-1 %} {% set next =
+			currentPage + 1 %} {% endif %}
+			<!-- 分页开始-->
+			<div class="pagination clr">
+				<a href="{{pagination.createUrl(prev)}}"
+					class="pr {{ (currentPage<= 0) ?"disabled":"" }}">上一页</a><a
+					href="{{pagination.createUrl(next)}}"
+					class="nt {{  (currentPage >= pageCount - 1) ?"disabled":"" }}">下一页</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="right">{{ this.render('/_sidebar')|raw }}</div>
+</div>

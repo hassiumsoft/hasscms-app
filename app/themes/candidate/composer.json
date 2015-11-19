@@ -1,0 +1,25 @@
+{
+    "name": "app/theme-candidate",
+    "description": "candidate template",
+    "type": "hass-theme",
+    "keywords": ["hass","hass plugin","hass theme"],
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "zhepama",
+            "email": "zhepama@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "extra":{
+    	"packageClass":"app\\themes\\candidate\\Theme",
+    	"themeName":"candidate主题"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\themes\\candidate\\": ""
+        }
+    }
+}
