@@ -33,5 +33,3 @@ phpunit.phar
 
 /app/modules
 
-/admin.php
-/index.php
