@@ -24,7 +24,6 @@ class BaseController extends  \yii\web\Controller
     use BaseControllerTrait;
 
     /**
-     * @todo-hass 可能在使用twig模板会出现问题.后缀
      * @param $view
      * @param $model
      * @param array $params

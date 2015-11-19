@@ -42,6 +42,10 @@ class Theme extends \yii\base\Theme
      */
     public function getBundle()
     {
+        if ($this->_bundle == null)
+        {
+            $this->publicBundle(\Yii::$app->getView());
+        }
         return $this->_bundle;
     }
 

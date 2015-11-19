@@ -149,6 +149,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ],
             "rbac" => [
                 'class' => '\hass\rbac\Module'
+            ],
+            "install"=>[
+                "class"=>'hass\install\Module'
             ]
         ], $modules);
 

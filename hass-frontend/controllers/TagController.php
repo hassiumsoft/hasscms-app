@@ -23,7 +23,7 @@ use hass\tag\models\TagIndex;
 class TagController extends BaseController
 {
     /**
-     * @todo-hass 这里有问题..不能只取查找post模型的
+     * 
      * @param unknown $id
      */
     public function actionRead($id)

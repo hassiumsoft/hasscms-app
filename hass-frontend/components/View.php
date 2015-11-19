@@ -12,7 +12,6 @@ namespace hass\frontend\components;
 use yii\base\InvalidParamException;
 use yii\helpers\FileHelper;
 use Yii;
-use yii\base\ViewEvent;
 
 /**
  *
@@ -128,20 +127,7 @@ class View extends \yii\web\View
         return $output;
     }
 
-    public function beforeRender($viewFile, $params)
-    {
-        if ($this->theme instanceof Theme) {
-            $this->theme->publicBundle($this);
-        }
-        
-        $event = new ViewEvent([
-            'viewFile' => $viewFile,
-            'params' => $params
-        ]);
-        $this->trigger(self::EVENT_BEFORE_RENDER, $event);
-        
-        return $event->isValid;
-    }
+
     
     
     public function getViewFile()

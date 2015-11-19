@@ -28,7 +28,6 @@ class MainNavBehavior extends Behavior
     }
 
     /**
-     * @todo-hass 导航形式需要更改为顶栏..现在十分的不好
      * @param \hass\helpers\Event $event
      */
     public function onSetGroupNav($event)

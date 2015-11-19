@@ -46,7 +46,6 @@ class SettingsController extends \dektrium\user\controllers\SettingsController
             $w = \Yii::$app->getRequest()->post("w");
             $h = \Yii::$app->getRequest()->post("h");
 
-            //@todo-hass 裁剪待做
             $original = Util::getFileStorage()->getPath($avatar);
             Image::crop($original, $w, $h, [
                 $x,

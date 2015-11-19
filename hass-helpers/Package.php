@@ -32,9 +32,6 @@ class Package extends Object
     protected $configuration;
 
 
-    /**
-     *@todo-hass 也可以在初始化的时候保存namespace
-     */
     public function getNamespace()
     {
         $class = get_class($this);

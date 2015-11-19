@@ -80,14 +80,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $app->setTimeZone(Util::getConfig()->get("app.timezone"));
         $app->language = Util::getConfig()->get("app.language");
         $app->name = Util::getConfig()->get("app.name");
-
         $this->initCoreHooks();
         $this->initControllerMap($app);
         $this->initTheme($app);
         $this->initPlugin($app);
-
-
-        $this->initUserModule($app);
+        $this->initUserModule($app);        
     }
 
     /**
@@ -97,6 +94,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function initControllerMap($app)
     {
         $app->controllerMap = ArrayHelper::merge([
+            "site"=> 'hass\frontend\controllers\SiteController',
             "attachment" => 'hass\frontend\controllers\AttachmentController',
             "comment" => 'hass\frontend\controllers\CommentController',
             "offline" => 'hass\frontend\controllers\OfflineController',
@@ -213,6 +211,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     'settings' => 'hass\frontend\controllers\user\SettingsController',
                     "security" => 'hass\frontend\controllers\user\SecurityController'
                 ]
+            ],
+            "install"=>[
+                "class"=>'\hass\install\Module'
             ]
         ];
     }

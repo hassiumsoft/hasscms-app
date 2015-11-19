@@ -53,6 +53,10 @@
   array (
     __DIR__ .'/hass-i18n',
   ),
+  'hass\\install\\' => 
+  array (
+    __DIR__ .'/hass-install',
+  ),
   'hass\\menu\\' => 
   array (
     __DIR__ .'/hass-menu',
