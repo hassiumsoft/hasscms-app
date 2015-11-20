@@ -9,7 +9,7 @@
  */
 namespace hass\page\models;
 
-use hass\helpers\Node;
+
 use hass\helpers\Tree;
 use Yii;
 use yii\behaviors\SluggableBehavior;
@@ -20,7 +20,7 @@ use hass\backend\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\backend\behaviors\SetMaxSortableModel;
-use hass\helpers\AdjacencyListTree;
+
 
 /**
  * This is the model class for table "{{%page}}".
@@ -128,7 +128,7 @@ class Page extends \hass\backend\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
                 'ensureUnique' => true,
-                "immutable"=>true,
+                "immutable" => true
             ],
             SetMaxSortableModel::className()
         ];
@@ -166,7 +166,7 @@ class Page extends \hass\backend\ActiveRecord
             return false;
         }
     }
-
+    
     // 还需要卸载掉当前节点和子节点
     public function getCanParentNodes()
     {
@@ -177,32 +177,32 @@ class Page extends \hass\backend\ActiveRecord
         ])
             ->asArray()
             ->all();
-
-        $tree =  new Tree($models);
+        
+        $tree = new Tree($models);
         $nodes = $tree->getNodes();
-        //去处当前节点和子节点
-        if($this->primaryKey)
-        {
+        // 去处当前节点和子节点
+        if ($this->primaryKey) {
             $node = $tree->getNodeById($this->primaryKey);
-            $ancestors =  $node->getDescendantsAndSelf();
-            $nodes =  array_diff($nodes,$ancestors);
+            $ancestors = $node->getDescendantsAndSelf();
+            $nodes = array_diff($nodes, $ancestors);
         }
         $result = [];
-        foreach($nodes as $node)
-        {
-            $result[$node->get("id")] = str_repeat("--",$node->getLevel()-1).$node->get("title");
+        foreach ($nodes as $node) {
+            $result[$node->get("id")] = str_repeat("--", $node->getLevel() - 1) . $node->get("title");
         }
         return $result;
     }
 
     public function getParents($includeSelf = false)
     {
-        $ancestors = $includeSelf ? array($this) : array();
+        $ancestors = $includeSelf ? array(
+            $this
+        ) : array();
         if ($this->parent == 0) {
             return $ancestors;
         }
         $parent = static::findOne($this->parent);
-        return array_merge($parent->getParents(true),$ancestors);
+        return array_merge($parent->getParents(true), $ancestors);
     }
 
     public function getParentsAndSelf()
@@ -213,11 +213,11 @@ class Page extends \hass\backend\ActiveRecord
     public static function getAppDefaultPage()
     {
         return [
-                "id" => -1,
-                "parent" => 0,
-                "title" => "首页",
-                "depth" => 0,
-                "children" => []
-            ];
+            "id" => - 1,
+            "parent" => 0,
+            "title" => "首页",
+            "depth" => 0,
+            "children" => []
+        ];
     }
 }

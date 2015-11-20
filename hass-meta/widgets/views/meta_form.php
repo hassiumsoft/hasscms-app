@@ -8,11 +8,6 @@ $inputOptions = [
 ];
 
 ?>
-
-<div class="form-group">
-	<?= Html::activeLabel($model, 'h1', $labelOptions)?>
-	<?= Html::activeTextInput($model, 'h1', $inputOptions)?>
-</div>
 <div class="form-group">
 	<?= Html::activeLabel($model, 'title', $labelOptions)?>
 	<?= Html::activeTextInput($model, 'title', $inputOptions)?>

@@ -26,6 +26,9 @@ class PostController extends BaseController
     {
         $model = Post::findByIdOrSlug($id);
         $model->addViewsNumber();
+ 
+        list($title,$desc,$keys) = $model->getMetaData();
+        $this->getView()->setMetaData($title,$desc,$keys);
         return $this->render('view',["post"=>$model]);
     }
 

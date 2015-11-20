@@ -20,84 +20,50 @@ use yii\db\ActiveRecord;
  */
 class MetaBehavior extends \yii\base\Behavior
 {
-    private $_model;
     use \hass\helpers\traits\EntityRelevance;
 
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
-            ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
-            ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
+            ActiveRecord::EVENT_AFTER_INSERT => 'afterSave',
+            ActiveRecord::EVENT_AFTER_UPDATE => 'afterSave',
+            ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete'
         ];
     }
 
-    public function afterInsert()
+    public function afterSave()
     {
-        if ($this->meta->load(Yii::$app->request->post())) {
-            if (!$this->meta->isEmpty()) {
-                $this->meta->save();
-            }
-        }
-    }
-
-    public function afterUpdate()
-    {
-        if ($this->meta->load(Yii::$app->request->post())) {
-            if (!$this->meta->isEmpty()) {
-                $this->meta->save();
-            } else {
-                if ($this->meta->primaryKey) {
-                    $this->meta->delete();
-                }
-            }
+        $model = $this->getMetaModel();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
         }
     }
 
     public function afterDelete()
     {
-        if (!$this->meta->isNewRecord) {
-            $this->meta->delete();
+        $this->getMetaModel()->delete();
+    }
+
+    public function getMetaModel()
+    {
+        $model = $this->owner->meta;
+        
+        if ($model == null) {
+            $model = new Meta([
+                'entity' => $this->getEntityClass(),
+                'entity_id' => $this->getEntityId()
+            ]);
         }
-    }
-
-    public function getMeta_h1()
-    {
-        return $this->meta->h1;
-    }
-
-    public function getMeta_title()
-    {
-        return $this->meta->title;
-    }
-
-    public function getMeta_keywords()
-    {
-        return $this->meta->keywords;
-    }
-
-    public function getMeta_description()
-    {
-        return $this->meta->description;
+        return $model;
     }
 
     public function getMeta()
     {
-        if (!$this->_model) {
-            if ($this->owner && $this->getEntityId()) {
-                $itemModel = $this->getEntityClass();
-                $this->_model = Meta::findOne(['entity' => $itemModel, 'entity_id' => $this->getEntityId()]);
-                if (!$this->_model) {
-                    $this->_model = new Meta([
-                        'entity' => $itemModel,
-                        'entity_id' => $this->getEntityId()
-                    ]);
-                }
-            } else {
-                $this->_model = new Meta();
-            }
-        }
-
-        return $this->_model;
+        return $this->owner->hasOne(Meta::className(), [
+            'entity_id' => $this->owner->primaryKey()[0]
+        ])
+            ->where([
+            "entity" => $this->getEntityClass()
+        ]);
     }
 }

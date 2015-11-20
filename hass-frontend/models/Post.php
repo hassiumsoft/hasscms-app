@@ -9,6 +9,7 @@
 */
 namespace hass\frontend\models;
 use hass\backend\behaviors\TimestampFormatter;
+use hass\helpers\ArrayHelper;
 
 /**
 *
@@ -40,6 +41,10 @@ class Post extends \hass\post\models\Post
             'defaultStatus' => \hass\comment\enums\CommentEnabledEnum::STATUS_ON,
             'entityClass'=>'hass\post\models\Post'
         ];
+        $behaviors['meta'] = [
+            'class'=>\hass\meta\behaviors\MetaBehavior::className(),
+            'entityClass'=>'hass\post\models\Post'
+        ];
         $behaviors["TimestampFormatter"] = TimestampFormatter::className();
         return $behaviors;
     }
@@ -53,5 +58,15 @@ class Post extends \hass\post\models\Post
         $this->save();
         $this->attachBehaviors($this->behaviors());
     }
-
+    
+    
+    public function getMetaData()
+    {
+       $model =  $this->getMetaModel();       
+       
+       $title = $model->title?:$this->title;
+       $description =$model->description?:$this->short;
+       $keywords = $model->keywords?:implode(",", (array)ArrayHelper::getColumn($this->tags, "name"));
+       return [$title,$description,$keywords];
+    }
 }

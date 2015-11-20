@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use hass\frontend\models\Post;
 use yii\data\ActiveDataProvider;
+use hass\helpers\Util;
 
 /**
  *
@@ -79,6 +80,8 @@ class SiteController extends Controller
                 'pageSize' => 15
             ]
         ]);
+        
+        $this->getView()->setMetaData(Util::getConfig()->get("app.name"),Util::getConfig()->get("app.description"),Util::getConfig()->get("app.keywords"));
         return $this->render('index', [
             "posts" => $dataProvider->getModels(),
             "pagination" => $dataProvider->getPagination()

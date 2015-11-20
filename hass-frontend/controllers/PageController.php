@@ -27,6 +27,11 @@ class PageController extends BaseController
     public function actionRead($id)
     {
         $model = Page::findByIdOrSlug($id);
+        
+        
+        list($title,$desc,$keys) = $model->getMetaData();
+        $this->getView()->setMetaData($title,$desc,$keys);
+        
         return $this->renderRead('view',$model,["page"=>$model]);
     }
 
