@@ -13,6 +13,7 @@ use hass\backend\BaseController;
 use hass\revolutionslider\models\Revolutionslider;
 use hass\revolutionslider\models\CaptionForm;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  *
