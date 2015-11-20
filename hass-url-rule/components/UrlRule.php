@@ -10,7 +10,6 @@
 namespace hass\urlrule\components;
 
 use Yii;
-use hass\helpers\Util;
 
 /**
  *
@@ -25,85 +24,95 @@ class UrlRule extends \yii\web\UrlRule
      * @inheritdoc
      */
     public function init()
-    {
-        if ($this->name === null) {
-            $this->name = static::className();
-        }
-    }
+    {}
 
     /**
      *
-     * @param \yii\web\UrlManager $manager
-     * @param string $route
-     * @param array $params
+     * @param \yii\web\UrlManager $manager            
+     * @param string $route            
+     * @param array $params            
      * @return bool|mixed
      */
     public function createUrl($manager, $route, $params)
     {
-
-        $rule = $this->getRuleByRouteOrPattern($route, $params);
-
+        $rule = $this->getRuleByRoute($route, $params);
+        
         if ($rule) {
             return $rule->pattern;
         }
-
+        
         return false;
     }
 
-    public function getRuleByRouteOrPattern($route, $params)
+    public function getRuleByRoute($route, $params)
     {
-
-        if(!is_array($params))
-        {
-            $pattern = $route;
-
-            $rule = Util::cache($this->name.md5($pattern), function () use($pattern) {
-                $rule = \hass\urlrule\models\UrlRule::getRuleByPattern($pattern);
-                return $rule;
-            });
-
-            if(!$rule)
-            {
-                return $rule;
-            }
-
-            parse_str($rule->defaults, $params);
-            \Yii::$app->getCache()->set($this->name.md5($rule->route . serialize($params)), $rule);
+        $ruleCache = \Yii::$app->getCache()->get(UrlRule::className());
+        if ($ruleCache == null) {
+            $ruleCache = [];
         }
-        else
-        {
-            $rule =  Util::cache($this->name.md5($route . serialize($params)), function () use($route, $params) {
-                $rule = \hass\urlrule\models\UrlRule::getRuleByRoute($route, $params);
-                return $rule;
-            });
-
-            if(!$rule)
-            {
-                return $rule;
-            }
-            \Yii::$app->getCache()->set($this->name.md5($rule->pattern), $rule);
+        
+        $params = (array) $params;
+        
+        $cacheKey = $route . '?' . serialize($params);
+        
+        if (isset($ruleCache[$cacheKey])) {
+            return $ruleCache[$cacheKey];
         }
 
-       return $rule;
+        $rule = \hass\urlrule\models\UrlRule::getRuleByRoute($route, $params);
+        if (! $rule) {
+            return null;
+        }
+        
+        $ruleCache[$cacheKey] = $rule;        
+        \Yii::$app->getCache()->set(UrlRule::className(), $ruleCache);
+        
+        return $rule;
     }
 
     /**
      *
-     * @param \yii\web\UrlManager $manager
-     * @param \yii\web\Request $request
+     * @param \yii\web\UrlManager $manager            
+     * @param \yii\web\Request $request            
      * @return array|bool
      */
     public function parseRequest($manager, $request)
     {
-        $rule = $this->getRuleByRouteOrPattern($request->getPathInfo(),null);
+        $rule = $this->getRuleByPattern($request->getPathInfo(), null);
         if ($rule) {
+            $params = [];
             parse_str($rule->defaults, $params);
             return [
                 $rule->route,
                 $params
             ];
         }
-
+        
         return false;
+    }
+    
+    
+    public function getRuleByPattern($pattern)
+    {
+        $ruleCache = \Yii::$app->getCache()->get(UrlRule::className());
+        if ($ruleCache == null) {
+            $ruleCache = [];
+        }
+        
+        $cacheKey = $pattern;
+        
+        if (isset($ruleCache[$cacheKey])) {
+            return $ruleCache[$cacheKey];
+        }
+        
+        $rule = \hass\urlrule\models\UrlRule::getRuleByPattern($pattern);
+        if (! $rule) {
+            return null;
+        }
+        
+        $ruleCache[$cacheKey] = $rule;
+        \Yii::$app->getCache()->set(UrlRule::className(), $ruleCache);
+        
+        return $rule;
     }
 }

@@ -14,7 +14,6 @@ use hass\backend\BaseController;
 
 use yii\data\ArrayDataProvider;
 use hass\backend\enums\BooleanEnum;
-use yii\helpers\FileHelper;
 use hass\helpers\Util;
 
 /**

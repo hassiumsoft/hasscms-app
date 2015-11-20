@@ -78,13 +78,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function bootstrap($app)
     {
         foreach ($this->_modules as $id => $config) {
-            
-     
             if (method_exists($config["class"], "bootstrap")) {
-  
                 $module = $app->getModule($id);
-                
-    
                 $module->bootstrap($app);
             }
         }
@@ -295,12 +290,33 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'enablePrettyUrl' => true,
                 'showScriptName' => true,
                 'rules' => [
-                    '<controller:(post|page|cat|tag)>/<id>' => '<controller>/read',
-                    '<controller:(post|page|cat|tag)>s' => '<controller>/list',
                     [
                         "class" => UrlRule::className()
-                    ]
-                ]
+                    ],
+                    '<controller:(post|page|cat|tag)>/<id>' => '<controller>/read',
+                    '<controller:(post|page|cat|tag)>s' => '<controller>/list'
+                ],
+                'on ' . UrlManager::EVENT_INIT_RULECACHE => function ($event) {
+                    $dbrule = null;
+                    foreach ($event->urlManager->rules as $rule) {
+                        if ($rule instanceof \hass\urlrule\components\UrlRule) {
+                            $dbrule = $rule;
+                        }
+                    }
+                    
+                    if ($dbrule) {
+                        $ruleCache = [];
+                        // @todo-hass 可以缓存
+                        $models = \hass\urlrule\models\UrlRule::find()->all();
+                        foreach ($models as $model) {
+                            $params = [];
+                            parse_str($model->defaults, $params);
+                            $cacheKey = $model->route . '?' . implode('&', array_keys($params));
+                            $ruleCache[$cacheKey][] = $dbrule;
+                        }
+                    }
+                    $event->ruleCache = array_merge($ruleCache, (array) $event->ruleCache);
+                }
             ],
             "fileStorage" => [
                 'class' => '\hass\attachment\components\FileStorage',

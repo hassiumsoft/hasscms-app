@@ -7,6 +7,8 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\backend\components;
+
+use yii\web\UrlRule;
 /**
 *
 * @package hass\package_name
@@ -22,8 +24,20 @@ class UrlManager extends \yii\web\UrlManager
     
     const EVENT_CREATE_PARAMS = "EVENT_CREATE_PARAMS";
     
+    const EVENT_INIT_RULECACHE = "EVENT_INIT_RULECACHE";
+    
+    public function init()
+    {
+        parent::init();
+       
+        $event = new UrlRuleCacheEvent(["ruleCache"=>$this->_ruleCache,"urlManager"=>$this]);
+        $this->trigger(static::EVENT_INIT_RULECACHE,$event);
+        $this->_ruleCache = $event->ruleCache;
+    }
+    
     public function createUrl($params)
     {
+     
         $params = (array) $params;
         $anchor = isset($params['#']) ? '#' . $params['#'] : '';
         unset($params['#'], $params[$this->routeParam]);
