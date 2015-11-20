@@ -11,7 +11,6 @@ namespace hass\helpers;
 
 use Yii;
 use yii\helpers\StringHelper;
-use yii\helpers\Url;
 
 /**
  * @author zhepama <zhepama@gmail.com>

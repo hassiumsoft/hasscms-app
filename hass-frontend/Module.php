@@ -24,7 +24,7 @@ define('ISFRONTEND', true);
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -42,15 +42,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
         foreach ($this->coreComponents() as $name => $component) {
             Util::setComponent($name, $component);
         }
-
+        
         // merge core modules with custom modules
         foreach ($this->coreModules() as $id => $module) {
             if (! isset($config['modules'][$id])) {
                 $config['modules'][$id] = $module;
             } elseif (is_array($config['modules'][$id]) && ! isset($config['modules'][$id]['class'])) {
-
+                
                 $config['modules'][$id]['class'] = $module['class'];
-
+                
                 if (isset($config['modules'][$id]['settings'])) {
                     $config['modules'][$id]['settings'] = array_merge($module['settings'], $config['modules'][$id]['settings']);
                 } else {
@@ -72,11 +72,23 @@ class Module extends \yii\base\Module implements BootstrapInterface
      * 1.在这里加载配置等..通过配置对应用做一些修改
      * 2.在这里注册常用的组件
      *
-     * @param \yii\web\Application $app
+     * @param \yii\web\Application $app            
      * @see \yii\base\BootstrapInterface::bootstrap()
      */
     public function bootstrap($app)
     {
+        foreach ($this->_modules as $id => $config) {
+            
+     
+            if (method_exists($config["class"], "bootstrap")) {
+  
+                $module = $app->getModule($id);
+                
+    
+                $module->bootstrap($app);
+            }
+        }
+        
         $app->setTimeZone(Util::getConfig()->get("app.timezone"));
         $app->language = Util::getConfig()->get("app.language");
         $app->name = Util::getConfig()->get("app.name");
@@ -84,17 +96,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $this->initControllerMap($app);
         $this->initTheme($app);
         $this->initPlugin($app);
-        $this->initUserModule($app);        
+        $this->initUserModule($app);
     }
 
     /**
      *
-     * @param \yii\web\Application $app
+     * @param \yii\web\Application $app            
      */
     public function initControllerMap($app)
     {
         $app->controllerMap = ArrayHelper::merge([
-            "site"=> 'hass\frontend\controllers\SiteController',
+            "site" => 'hass\frontend\controllers\SiteController',
             "attachment" => 'hass\frontend\controllers\AttachmentController',
             "comment" => 'hass\frontend\controllers\CommentController',
             "offline" => 'hass\frontend\controllers\OfflineController',
@@ -110,7 +122,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         $boot = \Yii::createObject('\dektrium\user\Bootstrap');
         $boot->bootstrap(\Yii::$app);
-
+        
         $definitions = $app->getComponents();
         $themePath = $definitions["view"]["theme"]["pathMap"][\Yii::$app->getViewPath()][0];
         Util::setComponent("view", [
@@ -131,14 +143,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
         Hook::on(new \hass\menu\hooks\MenuCreateHook());
         Hook::on(new \hass\page\hooks\MenuCreateHook());
         Hook::on(new \hass\taxonomy\hooks\MenuCreateHook());
-
-        Hook::on(new  \hass\taxonomy\hooks\EntityUrlPrefix());
-        Hook::on(new  \hass\user\hooks\EntityUrlPrefix());
+        
+        Hook::on(new \hass\taxonomy\hooks\EntityUrlPrefix());
+        Hook::on(new \hass\user\hooks\EntityUrlPrefix());
     }
 
     /**
      *
-     * @param \yii\web\Application $app
+     * @param \yii\web\Application $app            
      * @see \yii\base\BootstrapInterface::bootstrap()
      */
     public function initTheme($app)
@@ -149,7 +161,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
          */
         if (($param = $app->getRequest()->get("theme", null)) != null) {
             $theme = Util::getThemeLoader()->findOne($param);
-
+            
             \Yii::$app->getUrlManager()->on(UrlManager::EVENT_CREATE_PARAMS, function ($event) use($param) {
                 $event->urlParams = array_merge([
                     "theme" => $param
@@ -158,9 +170,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
         } else {
             $theme = Util::getThemeLoader()->getDefaultTheme();
         }
-
+        
         $package = $theme->getPackage();
-
+        
         $config = [];
         if (! empty($css = Util::getThemeLoader()->getCustomCss($package))) {
             $config["css"] = [
@@ -174,7 +186,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'pathMap' => $theme->getPathMap()
         ];
         Util::setComponent("view", $config, true);
-
+        
         if ($theme instanceof BootstrapInterface) {
             $theme->bootstrap($app);
         }
@@ -189,8 +201,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
             }
         }
     }
-
-
 
     public function coreModules()
     {
@@ -212,8 +222,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     "security" => 'hass\frontend\controllers\user\SecurityController'
                 ]
             ],
-            "install"=>[
-                "class"=>'\hass\install\Module'
+            "install" => [
+                "class" => '\hass\install\Module'
             ]
         ];
     }

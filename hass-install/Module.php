@@ -10,6 +10,7 @@
 namespace hass\install;
 
 use Yii;
+use yii\base\BootstrapInterface;
 
 /**
  *
@@ -17,28 +18,46 @@ use Yii;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Module extends \yii\base\Module
+class Module extends \yii\base\Module implements BootstrapInterface
 {
 
     const APP_INSTALLED = "installed";
 
     public $layout = "main";
 
+    
+    public function init(){
+        parent::init();
+    }
+    
     public function beforeAction($action)
-    {
+    {        
         if ($this->getIsInstalled() == true) {
-            \Yii::$app->getResponse()->redirect(Yii::$app->homeUrl);
+            \Yii::$app->getResponse()->redirect("/index.php");
             return false;
         }
         
         return parent::beforeAction($action);
     }
 
-    public function goInstall()
+    
+    /**
+     *  index.php 因为其引导的配置和前台模块使用了大量的数据库..所以不使用
+     *  
+     *  为了不污染frontend模块.所以不会在frontend模块中判断是否是安装模块.进行安装判断
+     * 
+     *  
+     * {@inheritDoc}
+     * @see \yii\base\BootstrapInterface::bootstrap()
+     */
+    public function bootstrap($app)
     {
-        \Yii::$app->getResponse()->redirect([
-            '/install/default/index'
-        ]);
+        if ($this->getIsInstalled() == true || ($this->getIsInstalled() == false && Yii::$app->getRequest()->getScriptUrl() == "/install.php")) {
+            return;
+        }
+        
+        \Yii::$app->getResponse()->redirect("/install.php");
+        \Yii::$app->end();
     }
 
     public function getIsInstalled()
@@ -94,7 +113,7 @@ class Module extends \yii\base\Module
     public static function generateCookieValidationKey()
     {
         $configs = func_get_args();
- 
+        
         $key = self::generateRandomString();
         foreach ($configs as $config) {
             if (is_file($config)) {

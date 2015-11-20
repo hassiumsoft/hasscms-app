@@ -28,15 +28,6 @@ class DefaultController extends \hass\backend\BaseController
         ];
     }
 
-    public function beforeAction($action)
-    {
-        if ($action->id == "index"&&\Yii::$app->hasModule("install") && \Yii::$app->getModule("install")->getIsInstalled() == false) {
-            \Yii::$app->getModule("install")->goInstall();
-            return false;
-        }
-        return parent::beforeAction($action);
-    }
-
     public function actionIndex()
     {
         return $this->render('index');

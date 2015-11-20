@@ -16,26 +16,26 @@ $(function() {
 
 	if (nextUrl == undefined) {
 		$("#nextButton").text("完成");
-	} else {
-		$("#nextButton").click(function() {
-
-			if ($(".install-form").length == 0) {
-				location.href = nextUrl;
-				return;
-			}
-			$.ajax({
-				type : "POST",
-				url : activeUrl,
-				data : $("form.install-form").serializeArray(),
-				success : function(msg) {
-					if (msg.status == true) {
-						location.href = nextUrl;
-					} else {
-						alert(msg.content.split(" ")[0]);
-					}
-				}
-			});
-		});
 	}
+	$("#nextButton").click(function() {
+		if ($(".install-form").length == 0) {
+			location.href = nextUrl;
+			return;
+		}
+		$.ajax({
+			type : "POST",
+			url : activeUrl,
+			data : $("form.install-form").serializeArray(),
+			success : function(msg) {
+				if (msg.status == true) {
+					if (nextUrl) {
+						location.href = nextUrl;
+					}
+				} else {
+					alert(msg.content.split("=_=")[0]);
+				}
+			}
+		});
+	});
 
 });

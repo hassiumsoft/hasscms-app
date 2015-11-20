@@ -14,6 +14,12 @@ use hass\backend\traits\BaseControllerTrait;
 use hass\install\helpers\EnvCheck;
 use hass\install\models\DatabaseForm;
 use Yii;
+use hass\install\models\SiteForm;
+use hass\install\models\AdminForm;
+use hass\install\Module;
+use hass\config\models\Config;
+use hass\user\models\User;
+use yii\rbac\Assignment;
 
 /**
  *
@@ -24,9 +30,9 @@ use Yii;
 class DefaultController extends Controller
 {
     use BaseControllerTrait;
-    
-    
-    public function init(){
+
+    public function init()
+    {
         parent::init();
         
         Yii::$app->getRequest()->enableCookieValidation = false;
@@ -80,6 +86,8 @@ class DefaultController extends Controller
     {
         $model = new DatabaseForm();
         
+        $model->loadDefaultValues();
+        
         if ($model->load(Yii::$app->request->post())) {
             
             if ($model->validate() && $model->save()) {
@@ -94,15 +102,90 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionSetEnv()
+    public function actionSetSite()
     {
-        return $this->render('index');
+        $model = new SiteForm();
+        
+        $model->loadDefaultValues();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if ($model->validate() && $model->save()) {
+                return $this->renderJsonMessage(true);
+            } else {
+                return $this->renderJsonMessage(false, $model->formatErrors());
+            }
+        }
+        
+        return $this->render('setsite', [
+            "model" => $model
+        ]);
     }
 
     public function actionSetAdmin()
     {
-        // 设置前台和后台的cookie验证
-        // 设置数据库的地址
-        return $this->render('index');
+        $model = new AdminForm();
+        
+        $model->loadDefaultValues();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if ($model->validate() && $model->save()) {
+                return $this->install();
+            } else {
+                return $this->renderJsonMessage(false, $model->formatErrors());
+            }
+        }
+        
+        return $this->render('setadmin', [
+            "model" => $model
+        ]);
+    }
+
+    public function install()
+    {
+        $data = file_get_contents((dirname(__DIR__) . '/migrations/data.sql'));
+        Yii::$app->db->createCommand($data)->execute();
+        return $this->writeConfig();
+    }
+
+    public function writeConfig()
+    {
+      
+        $data = \Yii::$app->getCache()->get("install-site-form");
+        
+        foreach ($data as $name => $value) {
+            $config = new Config();
+            
+            $config->name = preg_replace_callback('/([a-z]*)([A-Z].*)/', function ($matches) {
+                return $matches[1] . "." . strtolower($matches[2]);
+            }, $name);
+            $config->value = $value;
+            $config->save();
+        }
+        
+        $data = \Yii::$app->getCache()->get("install-admin-form");
+        
+        $user = new User();
+        $user->setScenario("create");
+        $user->email = $data['email'];
+        $user->username = $data['username'];
+        $user->password = $data['password'];
+        
+        $user->create();
+    
+                
+        $connection= \Yii::$app->getDb();
+        $connection->createCommand()->insert('{{%auth_assignment}}', [
+            'item_name' => 'admin',
+            'user_id' => $user->id,
+            "created_at"=>time()
+        ])->execute();
+        
+        
+        Module::getInstance()->generateCookieValidationKey();
+        Module::getInstance()->setInstalled();
+        \Yii::$app->getCache()->flush();
+        return $this->refresh();
     }
 }
