@@ -56,7 +56,7 @@ $(document).ready(function() {
 						content.hide().show(displayFormDuration);
 					}
 				} else {
-					alert(msg.content.split(" ")[0]);
+					alert(msg.content.split("=_=")[0]);
 				}
 			}
 		});

@@ -108,13 +108,13 @@ $this->beginPage();
                                             ]
                                         ],
                                         [
-                                            'label' => '环境设置',
+                                            'label' => '站点设置',
                                             "url" => [
-                                                "default/set-env"
+                                                "default/set-site"
                                             ],
                                             "options" => [
                                                 "data-url" => Url::to([
-                                                    "default/set-env"
+                                                    "default/set-site"
                                                 ])
                                             ]
                                         ],
