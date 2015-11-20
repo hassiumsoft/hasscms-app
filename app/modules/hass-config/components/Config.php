@@ -163,11 +163,7 @@ class Config extends Component
      */
     public function getAll()
     {
-        $result = [];
-        foreach ($this->getData() as $key => $value) {
-            $result[$key] = $this->get($key);
-        }
-        return $result;
+        return $this->getData();
     }
     /**
      * Sets configuration variable
