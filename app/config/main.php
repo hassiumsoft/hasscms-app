@@ -1,17 +1,17 @@
 <?php
-$basePath =  dirname(__DIR__);
+$basePath = dirname(__DIR__);
 $webroot = dirname($basePath);
-$config =  [
+$config = [
     'language' => 'zh-CN',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
     'runtimePath' => $webroot . '/runtime',
     'vendorPath' => $webroot . '/vendor',
     'bootstrap' => [
-        'log',
+        'log'
     ],
     'components' => [
-       'assetManager' => [
+        'assetManager' => [
             'linkAssets' => true,
             'bundles' => [
                 'yii\web\JqueryAsset' => [
@@ -50,7 +50,7 @@ $config =  [
                 ]
             ]
         ]
-    ],
+    ]
 ];
 
 if (YII_ENV_DEV) {

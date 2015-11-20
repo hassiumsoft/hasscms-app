@@ -31,7 +31,7 @@ trait ModelTrait
                 $result = array_pop($errors);
                 break;
             }
-            $result .= implode(" ", $errors) . " ";
+            $result .= implode("=_=", $errors) . "=_=";
         }
         return $result;
     }
