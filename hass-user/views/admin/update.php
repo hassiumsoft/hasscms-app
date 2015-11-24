@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
+
 <div class="row">
     <div class="col-md-3">
         <div class="box box-solid">
@@ -37,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['label' => '<i class="fa fa-user"></i> '.Yii::t('hass', 'Account details'), 'url' => ['/user/admin/update', 'id' => $user->id],'encode'=>false],
                         ['label' => '<i class="fa fa-file-text-o"></i> '.Yii::t('hass', 'Profile details'), 'url' => ['/user/admin/update-profile', 'id' => $user->id],'encode'=>false],
                         ['label' => '<i class="fa  fa-info-circle"></i> '.Yii::t('hass', 'Information'), 'url' => ['/user/admin/info', 'id' => $user->id],'encode'=>false],
+                        [
+                        'label' => Yii::t('hass', 'Assignments'),
+                        'url' => ['/user/admin/assignments', 'id' => $user->id],
+                        'visible' => Yii::$app->getModule("rbac"),
+                        ],
+                    
                     ],
                 ]) ?>
             </div>

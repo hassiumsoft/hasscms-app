@@ -61,7 +61,7 @@ class Module extends \dektrium\user\Module implements BootstrapInterface
     {
         $event->parameters->set(ModuleGroupEnmu::PEOPLE,[[
             'label' => "用户",
-            'icon' => "fa-users",
+            'icon' => "fa-user",
             'url' => [
                 "/user/admin/index"
             ]

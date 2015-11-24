@@ -52,7 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'description',
                 'slug',
-                'depth',
                 [
                     'class' => 'hass\extensions\grid\SwitcherColumn',
                     'attribute' => 'status',

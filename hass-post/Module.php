@@ -37,6 +37,8 @@ class Module extends BaseModule implements BootstrapInterface
     public function bootstrap($backend)
     {
         Hook::on(new  \hass\post\hooks\EntityUrlPrefix());
+        
+        Hook::on(new  \hass\post\hooks\Permission());
     }
 
     public static function getUserList()

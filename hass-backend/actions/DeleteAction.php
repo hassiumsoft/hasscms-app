@@ -1,45 +1,44 @@
 <?php
 
 /**
-* HassCMS (http://www.hassium.org/)
-*
-* @link http://github.com/hasscms for the canonical source repository
-* @copyright Copyright (c) 2016-2099 Hassium Software LLC.
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
-*/
+ * HassCMS (http://www.hassium.org/)
+ *
+ * @link http://github.com/hasscms for the canonical source repository
+ * @copyright Copyright (c) 2016-2099 Hassium Software LLC.
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ */
 namespace hass\backend\actions;
+
 use yii\web\NotFoundHttpException;
 
 /**
-*
-* @package hass\package_name
-* @author zhepama <zhepama@gmail.com>
-* @since 0.1.0
-*/
+ *
+ * @package hass\package_name
+ * @author zhepama <zhepama@gmail.com>
+ * @since 0.1.0
+ *       
+ */
 class DeleteAction extends \yii\base\Action
 {
+
     public $modelClass;
 
     public function run($id)
     {
-        if(($model = $this->findModel($id))!=null &&  $model->delete()){
-
-            if(\Yii::$app->getRequest()->getIsAjax() == true)
-            {
-                return $this->controller->renderJsonMessage(true,\Yii::t("hass", "删除成功"));
+        if (($model = $this->findModel($id)) != null && $model->delete()) {
+            
+            if (\Yii::$app->getRequest()->getIsAjax() == true) {
+                return $this->controller->renderJsonMessage(true, \Yii::t("hass", "删除成功"));
+            } else {
+                $this->controller->flash("success", "删除成功");
+                return $this->controller->redirect([
+                    "index"
+                ]);
             }
-            else
-            {
-                 $this->controller->flash("success","删除成功");
-                return $this->controller->redirect(["index"]);
-            }
-        }
-        else
-        {
+        } else {
             $error = $model->formatErrors();
-            if(\Yii::$app->getRequest()->getIsAjax() == true)
-            {
-                 return $this->controller->renderJsonMessage(false,$error);
+            if (\Yii::$app->getRequest()->getIsAjax() == true) {
+                return $this->controller->renderJsonMessage(false, $error);
             }
         }
     }
