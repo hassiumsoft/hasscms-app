@@ -85,6 +85,10 @@
   array (
     __DIR__ .'/hass-rbac',
   ),
+  'hass\\search\\' => 
+  array (
+    __DIR__ .'/hass-search',
+  ),
   'hass\\system\\' => 
   array (
     __DIR__ .'/hass-system',

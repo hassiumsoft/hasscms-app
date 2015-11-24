@@ -152,7 +152,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ],
             "install"=>[
                 "class"=>'hass\install\Module'
-            ]
+            ],
         ], $modules);
 
         return $modules;

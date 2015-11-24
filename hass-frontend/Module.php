@@ -141,6 +141,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
         
         Hook::on(new \hass\taxonomy\hooks\EntityUrlPrefix());
         Hook::on(new \hass\user\hooks\EntityUrlPrefix());
+        
+        Hook::on(new \hass\post\hooks\SearchModel());
+        Hook::on(new \hass\page\hooks\SearchModel());
     }
 
     /**
@@ -334,6 +337,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ],
             "themeLoader" => [
                 "class" => 'hass\theme\components\ThemeLoader'
+            ],
+            "search" => [
+                "class" => 'hass\search\components\Search'
             ]
         ];
     }
