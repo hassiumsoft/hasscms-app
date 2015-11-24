@@ -753,12 +753,12 @@ a {
 .pageList .wrap li.pbox{padding: 30px 0; border-bottom: solid 1px #EEEEEE;position: relative;}
 .pageList .wrap li.pbox .img{float: left; position: relative; }
 .pageList .wrap li.pbox .img a.sort{padding: 5px 12px; background: rgba(0,0,0,0.7); font-size: 14px; color: #fff; line-height: 1; position: absolute; top: 0; left: 0; }
-.pageList .wrap li.pbox .word{ padding-left: 235px; padding-right: 10px; }
+.pageList .wrap li.pbox .word{ padding-left: 235px; padding-right: 10px;}
 .pageList .wrap li.pbox .word .tit{ color: #272322; font-size: 20px; font-weight: bold; }
 .pageList .wrap li.pbox .word .tit{-webkit-transition: all .3s;-o-transition: all .3s;transition: all .3s; }
 .pageList .wrap li.pbox:hover .word .tit{ color: #5878D7;}
 .pageList .wrap li.pbox .word .des{ font-size: 13px; color: #888; line-height: 1.6; line-height: 20px;height: 40px;overflow: hidden;}
-.pageList .wrap li.pbox .word .info{height: 26px; line-height: 26px;font-size: 13px; color: #b8b8b8; padding-top: 12px;width: 543px;position: absolute;bottom: 35px;}
+.pageList .wrap li.pbox .word .info{height: 26px; line-height: 26px;font-size: 13px; color: #b8b8b8; padding-top: 12px;width: 543px;}
 .pageList .wrap li.pbox .word .info .tags{float: left; height: 100%; width: 200px; overflow: hidden;}
 .pageList .wrap li.pbox .word .info .tags i{float: left;background: url(../images/pageList-sprite.png) no-repeat -30px -43px;width: 18px;height: 13px; margin-top: 7px; }
 .pageList .wrap li.pbox .word .info .tags a{float: left; font-size: 13px; color: #b8b8b8; margin-left:5px;}
