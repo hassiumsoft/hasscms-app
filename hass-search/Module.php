@@ -22,7 +22,7 @@ use yii\base\BootstrapInterface;
 class Module extends BaseModule implements BootstrapInterface
 {
         
-    const EVENT_SEARCH_MODELS = "EVENT_SEARCH_MODELS"; 
+    const EVENT_SEARCH_CONFIG = "EVENT_SEARCH_CONFIG"; 
     
     public function bootstrap($backend)
     {
@@ -31,9 +31,16 @@ class Module extends BaseModule implements BootstrapInterface
             "onSetGroupNav"
         ]);
     
-        Util::setComponent("search", [
-            "class"=>"\\hass\\search\\components\\Search"
-        ]);
+//         Util::setComponent("search", [
+//             "class"=>"\\hass\\search\\components\\Search"
+//         ]);
+            
+           Util::setComponent("sphinx", [
+               'class' => 'yii\sphinx\Connection',
+               'dsn' => 'mysql:host=127.0.0.1;port=9306;',
+               'username' => '',
+               'password' => '',
+           ]);
     }
 
     /**
@@ -42,14 +49,14 @@ class Module extends BaseModule implements BootstrapInterface
      */
     public function onSetGroupNav($event)
     {
-        $event->parameters->set(ModuleGroupEnmu::STRUCTURE, [
-            [
-                'label' => "搜索",
-                'icon' => "fa-users",
-                'url' => [
-                    "/search/default/index"
-                ]
-            ]
-        ]);
+//         $event->parameters->set(ModuleGroupEnmu::STRUCTURE, [
+//             [
+//                 'label' => "搜索",
+//                 'icon' => "fa-users",
+//                 'url' => [
+//                     "/search/default/index"
+//                 ]
+//             ]
+//         ]);
     }
 }

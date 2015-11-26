@@ -30,10 +30,7 @@ class SearchAction extends Action
     public function run($q)
     {
         $search = Yii::$app->search;
-        $searchData = $search->find($q);
-        
-
-        
+        $searchData = $search->search($q);
         $dataProvider = new ArrayDataProvider([
             'allModels' => $searchData,
             'pagination' => [

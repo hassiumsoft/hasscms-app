@@ -22,7 +22,7 @@ class SearchModel implements ListenerProviderInterface
 
     public function provideListeners(ListenerAcceptorInterface $acceptor)
     {
-        $acceptor->addListener(\hass\search\Module::EVENT_SEARCH_MODELS, [
+        $acceptor->addListener(\hass\search\Module::EVENT_SEARCH_CONFIG, [
             $this,
             "onEvent"
         ]);
@@ -31,11 +31,15 @@ class SearchModel implements ListenerProviderInterface
     public function onEvent($event)
     {
       $event->parameters->set("page", [
-            "class"=>'\hass\page\models\Page',
-            "fields"=>[
-                "title",
-                "content"
-            ]
+           "like"=>[
+               "class"=>'\hass\page\models\Page',
+               "fields"=>[
+                   "title",
+                   "content"
+               ]
+           ],
+          "sphinx"=>"pagert",
+          "xunsearch"=>"@hass/page/xsconfig/page.ini"
         ]);
     }
 }

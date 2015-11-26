@@ -10,7 +10,6 @@
 namespace hass\search\components;
 
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 use hass\helpers\Hook;
 use hass\search\Module;
 
@@ -20,35 +19,33 @@ use hass\search\Module;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Search extends Component
+class LikeSearch extends Component
 {
-
+    public $indexs;
+    
     public function init()
-    {}
-
-    /**
-     * Indexing the contents of the specified models.
-     * 
-     * @throws InvalidConfigException
-     */
-    public function index()
-    {}
-
-    /**
-     * Search page for the term in the index.
-     * 
-     * @param string $term            
-     * @param array $fields
-     *            (string => string)
-     */
-    public function find($term, $fields = [])
     {
+        parent::init();
         /** @var \hass\helpers\Parameters $parameters */
-        $parameters = Hook::trigger(Module::EVENT_SEARCH_MODELS)->parameters;
-        
+        $parameters = Hook::trigger(Module::EVENT_SEARCH_CONFIG)->parameters;
+
+        $this->indexs = [];
+        foreach ($parameters as $index =>$parameter)
+        {
+            $this->indexs[$index] = $parameter["like"];
+        }
+    }
+    
+    /**
+     * 
+     * @param string $q 关键词
+     * @param array $indexs  搜索的索引项 
+     */
+    public function search($q)
+    {
         $result = [];
-        
-        foreach ($parameters as $parameter) {
+        foreach ($this->indexs as $parameter)
+        {
             /** @var \yii\db\ActiveQuery $query */
             $query = $parameter["class"]::find();
             
@@ -56,10 +53,11 @@ class Search extends Component
                 $query->orWhere([
                     "like",
                     $field,
-                    $term
+                    $q
                 ]);
             }
-            $result = array_merge($result, $query->all());
+            //@todo-hass 这里可以根据时间进行排序
+            $result = array_merge($result, $query->all());    
         }
         
         return $result;

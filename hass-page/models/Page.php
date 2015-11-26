@@ -20,6 +20,7 @@ use hass\backend\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\backend\behaviors\SetMaxSortableModel;
+use hass\search\behaviors\RtSphinxBehavior;
 
 
 /**
@@ -130,7 +131,14 @@ class Page extends \hass\backend\ActiveRecord
                 'ensureUnique' => true,
                 "immutable" => true
             ],
-            SetMaxSortableModel::className()
+            SetMaxSortableModel::className(),
+            'rtSphinxBehavior' => [
+                'class' => RtSphinxBehavior::className(),
+                'rtIndex' => "pagert",
+                'idAttributeName' => 'id',
+                'rtFieldNames' => ['title', 'content'],
+                'rtAttributeNames' => ["published_at"]
+            ],
         ];
         $behaviors['timestamp'] = TimestampBehavior::className();
         $behaviors['published_at'] = [
