@@ -16,21 +16,16 @@
 							<a href="{{  entityToUrl(post) }}" target="_blank">
 								<div class="tit">{{ post.title }}</div>
 							</a>
+							<div class="desc">
+								{{ post.content|slice(0, 250)|raw }}
+							</div>
 							<div class="info">
-								{% set author = post.author %}
-								<div class="aut">
-									<a rel="nofollow" href="{{ entityToUrl(author) }}"
-										target="_blank"> {{ html.img(author.getAvatar(26,26))|raw }} <span>{{
-											author.profile.name }}</span>
-									</a>
-								</div>
+				
 								<div class="time">
 									<i></i> <span>{{ post.getPublishedDate() }}</span> <span>{{
 										post.getPublishedTime() }}</span>
 								</div>
 
-								<a rel="nofollow" href="{{ entityToUrl(post) }}" target="_blank"
-									class="cmt"><i></i><span>{{ post.commentTotal }}</span></a>
 							</div>
 						</div>
 					</li> {% endfor %}

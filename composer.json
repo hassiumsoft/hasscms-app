@@ -13,6 +13,8 @@
 		"yiisoft/yii2-httpclient" : "dev-master",
 		"yiisoft/yii2-imagine" : "dev-master",
 		"yiisoft/yii2-twig" : "dev-master",
+		"yiisoft/yii2-sphinx" : "dev-master",
+		"hightman/xunsearch": "*@beta",
 		"league/event" : "*",
 		"eloquent/composer-config-reader" : "2.0.0",
 		"raulfraile/distill" : "*",
