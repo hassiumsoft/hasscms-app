@@ -8,6 +8,7 @@
  */
 namespace hass\backend;
 use hass\backend\traits\BaseControllerTrait;
+use hass\rbac\components\AccessControl;
 /**
  *
  * @package hass\backend
@@ -18,7 +19,15 @@ use hass\backend\traits\BaseControllerTrait;
 class BaseController extends  \yii\web\Controller
 {
     use BaseControllerTrait;
-
+    
+    public function behaviors()
+    {
+        return [
+            'rbac' => [
+                'class' => AccessControl::className()
+            ]
+        ];
+    }
 
     /**
      * 检查用户是否登录,未登录则跳转到登录页面
@@ -36,5 +45,4 @@ class BaseController extends  \yii\web\Controller
         \Yii::$app->getUser()->loginRequired();
         return false;
     }
-
 }

@@ -22,8 +22,6 @@ use hass\backend\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\backend\behaviors\StrToTimeBehavior;
-use hass\search\behaviors\RtSphinxBehavior;
-use hass\search\behaviors\XsBehavior;
 
 /**
  * This is the model class for table "post".

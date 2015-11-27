@@ -13,6 +13,7 @@ use hass\helpers\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 use hass\backend\BaseModule;
 use hass\helpers\Util;
+
 /**
  *
  * @package hass\rbac
@@ -24,7 +25,7 @@ class Module extends BaseModule implements BootstrapInterface
 {
 
     const EVENT_RBAC_PERMISSION = "EVENT_RBAC_PERMISSION";
-    
+
     public function init()
     {
         parent::init();
@@ -38,8 +39,10 @@ class Module extends BaseModule implements BootstrapInterface
         ]);
         
         Util::setComponent("authManager", [
-            "class"=>"\\hass\\rbac\\components\\DbManager"
+            "class" => "\\hass\\rbac\\components\\DbManager"
         ]);
+        
+        Hook::on(new  \hass\rbac\hooks\Permission());
     }
 
     /**
@@ -55,8 +58,14 @@ class Module extends BaseModule implements BootstrapInterface
                 'url' => [
                     "/rbac/role/index"
                 ]
-            ]
+            ],
+//             [
+//                 'label' => "权限生成",
+//                 'icon' => "fa-users",
+//                 'url' => [
+//                     "/rbac/tool/index"
+//                 ]
+//             ]
         ]);
     }
-
 }

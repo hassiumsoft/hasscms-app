@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use hass\rbac\assets\RbacAsset;
 /**
 * HassCMS (http://www.hassium.org/)
 *
@@ -8,7 +9,7 @@ use yii\helpers\Html;
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 
-
+RbacAsset::register($this);
 /**
 *
 * @package hass\package_name
@@ -26,6 +27,10 @@ use yii\helpers\Html;
 <div class="box">
 <div class="box-header with-border">
 <?php echo $permission['module']?>
+
+<div class="box-tools pull-right">
+<button class="btn btn-box-tool btn-xs select-all" type="button">全选</button>
+</div>
 </div>
 <div class="box-body">
 <?php foreach ($permission["permissions"] as $name=>$data):?>

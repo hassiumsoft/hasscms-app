@@ -132,13 +132,6 @@ class Page extends \hass\backend\ActiveRecord
                 "immutable" => true
             ],
             SetMaxSortableModel::className(),
-            'rtSphinxBehavior' => [
-                'class' => RtSphinxBehavior::className(),
-                'rtIndex' => "pagert",
-                'idAttributeName' => 'id',
-                'rtFieldNames' => ['title', 'content'],
-                'rtAttributeNames' => ["published_at"]
-            ],
         ];
         $behaviors['timestamp'] = TimestampBehavior::className();
         $behaviors['published_at'] = [
