@@ -3,7 +3,12 @@
 	"description" : "hassium hasscms",
 	"homepage" : "http://www.hassium.org/",
 	"type" : "project",
-	"license" : "BSD-3-Clause",
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
 	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.4.0",
@@ -13,8 +18,6 @@
 		"yiisoft/yii2-httpclient" : "dev-master",
 		"yiisoft/yii2-imagine" : "dev-master",
 		"yiisoft/yii2-twig" : "dev-master",
-		"yiisoft/yii2-sphinx" : "dev-master",
-		"hightman/xunsearch": "*@beta",
 		"league/event" : "*",
 		"eloquent/composer-config-reader" : "2.0.0",
 		"raulfraile/distill" : "*",
@@ -54,5 +57,19 @@
 			"type" : "composer",
 			"url" : "http://packagist.phpcomposer.com"
 		}
-	]
+	],
+	"keywords" : [
+		"yii",
+		"cms",
+		"hass",
+		"yii2"
+	],
+	"suggest" : {
+		"yiisoft/yii2-sphinx" : "sphinx search",
+		"hightman/xunsearch" : "xunsearch search"
+	},
+	"support" : {
+		"email" : "zhepama@gmail.com",
+		"forum" : "http://www.hassium.org/forum"
+	}
 }
