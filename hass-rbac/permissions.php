@@ -402,6 +402,23 @@
       ),
     ),
   ),
+  'i18n' => 
+  array (
+    'module' => 'i18n',
+    'permissions' => 
+    array (
+      'i18n/default/index' => 
+      array (
+        'type' => 2,
+        'description' => 'Index',
+      ),
+      'i18n/default/update' => 
+      array (
+        'type' => 2,
+        'description' => 'Update',
+      ),
+    ),
+  ),
   'install' => 
   array (
     'module' => 'install',

@@ -59,13 +59,13 @@ class Module extends BaseModule implements BootstrapInterface
                     "/rbac/role/index"
                 ]
             ],
-//             [
-//                 'label' => "权限生成",
-//                 'icon' => "fa-users",
-//                 'url' => [
-//                     "/rbac/tool/index"
-//                 ]
-//             ]
+            [
+                'label' => "权限生成",
+                'icon' => "fa-users",
+                'url' => [
+                    "/rbac/tool/index"
+                ]
+            ]
         ]);
     }
 }

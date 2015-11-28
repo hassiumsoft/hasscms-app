@@ -17,7 +17,7 @@ use hass\helpers\Util;
  * @package hass\backend
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -55,19 +55,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         \Yii::$app->layout = $this->layout;
         \Yii::$app->defaultRoute = $this->adminDefaultRoute;
-
+        
         foreach ($this->coreComponents() as $name => $component) {
             Util::setComponent($name, $component);
         }
-
+        
         // merge core modules with custom modules
         foreach ($this->coreModules() as $id => $module) {
             if (! isset($config['modules'][$id])) {
                 $config['modules'][$id] = $module;
             } elseif (is_array($config['modules'][$id]) && ! isset($config['modules'][$id]['class'])) {
-
+                
                 $config['modules'][$id]['class'] = $module['class'];
-
+                
                 if (isset($config['modules'][$id]['settings'])) {
                     $config['modules'][$id]['settings'] = array_merge($module['settings'], $config['modules'][$id]['settings']);
                 } else {
@@ -94,12 +94,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
     /**
      * !CodeTemplates.overridecomment.nonjd!
      *
-     * @param \yii\web\Application $app
+     * @param \yii\web\Application $app            
      */
     public function bootstrap($app)
     {
         $this->state = self::STATE_BEFORE_BOOTSTRAP;
-
+        
         /**
          * 后台实例化所有开启的模块,并进行引导
          */
@@ -114,10 +114,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
             } elseif (strpos($id, '\\') === false) {
                 throw new \InvalidArgumentException("Unknown bootstrapping component ID: $id");
             }
-
+            
             // 为所有模块附加行为--添加钩子
             $module->ensureBehaviors();
-
+            
             if ($module instanceof BootstrapInterface) {
                 \Yii::trace("Bootstrap with " . get_class($module) . '::bootstrap()', __METHOD__);
                 $module->bootstrap($this);
@@ -131,11 +131,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function coreModules()
     {
         $modules = [];
-
+        
         foreach (\Yii::$app->get("moduleManager")->getActiveModules() as $name => $module) {
             $modules[$name]['class'] = $module->class;
         }
-
+        
         $modules = array_merge([
             "admin" => [
                 'class' => '\hass\admin\Module'
@@ -150,14 +150,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
             "rbac" => [
                 'class' => '\hass\rbac\Module'
             ],
-            "install"=>[
-                "class"=>'hass\install\Module'
+            "install" => [
+                "class" => 'hass\install\Module'
             ],
-            "search"=>[
-                "class"=>'hass\search\Module'
+            "search" => [
+                "class" => 'hass\search\Module'
             ],
+            "i18n" => [
+                "class" => 'hass\i18n\Module'
+            ]
         ], $modules);
-
+        
         return $modules;
     }
 
@@ -166,14 +169,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
         return [
             'moduleManager' => [
                 "class" => 'hass\backend\components\ModuleManager'
-            ],
-            'i18n' => [
-                'translations' => [
-                    'hass*' => [
-                        'class' => PhpMessageSource::className(),
-                        'basePath' => '@hass/backend/messages'
-                    ]
-                ]
             ],
             'appUrlManager' => [
                 "class" => '\yii\web\UrlManager',
@@ -187,10 +182,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     'httpOnly' => true
                 ]
             ],
-            'request' => [
+            'request' => [ // 避免前台的csrf和后台的冲突
                 'csrfParam' => "_backendCsrf"
-            ] // 避免前台的csrf和后台的冲突
-,
+            ],
             'session' => [
                 'class' => 'yii\web\DbSession',
                 'name' => 'BACKENDSESSID'

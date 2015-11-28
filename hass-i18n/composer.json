@@ -12,9 +12,6 @@
 			"email" : "zhepama@gmail.com"
 		}
 	],
-	"require" : {
-		
-	},
 	"autoload" : {
 		"psr-4" : {
 			"hass\\i18n\\" : ""

@@ -52,7 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterPosition'=>GridView::FILTER_POS_HEADER,
             "tableOptions"=>['class' => 'table table-hover table-striped no-margin'],
             "columns"=>[
-
                 [
                    'attribute' => 'title',
                     "format"=>"html",

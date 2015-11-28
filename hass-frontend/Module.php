@@ -16,6 +16,7 @@ use yii\i18n\PhpMessageSource;
 use hass\helpers\Util;
 use hass\backend\components\UrlManager;
 use yii\helpers\Html;
+use yii\i18n\DbMessageSource;
 define('ISFRONTEND', true);
 
 /**
@@ -238,10 +239,27 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'cacheDuration' => 100
             ],
             'i18n' => [
-                'translations' => [
-                    'hass*' => [
-                        'class' => PhpMessageSource::className(),
-                        'basePath' => '@hass/backend/messages'
+                "translations" => [
+                    "*" => [
+                        'class' => DbMessageSource::className(),
+                        'on missingTranslation' => [
+                            '\hass\i18n\Module',
+                            "missingTranslation"
+                        ]
+                    ],
+                    "app*" => [
+                        'class' => DbMessageSource::className(),
+                        'on missingTranslation' => [
+                            '\hass\i18n\Module',
+                            "missingTranslation"
+                        ]
+                    ],
+                    "hass*" => [
+                        'class' => DbMessageSource::className(),
+                        'on missingTranslation' => [
+                            '\hass\i18n\Module',
+                            "missingTranslation"
+                        ]
                     ]
                 ]
             ],
@@ -340,12 +358,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ],
             "search" => [
                 "class" => 'hass\search\components\LikeSearch'
-            ],
-            "sphinx" => [
-                'class' => 'yii\sphinx\Connection',
-                'dsn' => 'mysql:host=127.0.0.1;port=9306;',
-                'username' => '',
-                'password' => ''
             ]
         ];
     }
