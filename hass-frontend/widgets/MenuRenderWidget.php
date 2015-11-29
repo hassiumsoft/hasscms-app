@@ -11,13 +11,13 @@ namespace hass\frontend\widgets;
 
 use yii\base\InvalidConfigException;
 use hass\frontend\models\Menu;
-use hass\helpers\Hook;
-use hass\helpers\NestedSetsTree;
+use hass\base\classes\Hook;
+use hass\base\helpers\NestedSetsTree;
 use Yii;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use hass\helpers\Serializer;
+use hass\base\helpers\Serializer;
 
 /**
  *

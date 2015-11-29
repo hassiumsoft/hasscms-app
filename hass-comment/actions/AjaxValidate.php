@@ -11,7 +11,7 @@ namespace hass\comment\actions;
 use yii\base\Action;
 use hass\comment\models\Comment;
 use Yii;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use yii\filters\VerbFilter;
 
 

@@ -8,7 +8,7 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\comment\enums;
-use hass\helpers\Enmu;
+use hass\base\classes\Enmu;
 /**
 *
 * @package hass\comment

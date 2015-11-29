@@ -12,7 +12,7 @@ use yii\web\View;
 use hass\i18n\models\SourceMessageSearch;
 use hass\i18n\models\SourceMessage;
 use hass\i18n\Module;
-use hass\extensions\grid\ActionColumn;
+use hass\base\misc\grid\ActionColumn;
 use hass\i18n\assets\I18nAsset;
 use yii\helpers\Url;
 

@@ -10,7 +10,7 @@
 namespace hass\area;
 
 use hass\module\BaseModule;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use yii\base\BootstrapInterface;
 use hass\system\enums\ModuleGroupEnmu;
 
@@ -59,7 +59,7 @@ class Module extends BaseModule implements BootstrapInterface
 
     /**
      *
-     * @param \hass\helpers\Event $event            
+     * @param \hass\base\helpers\Event $event            
      */
     public function onSetGroupNav($event)
     {

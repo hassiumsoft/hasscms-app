@@ -16,7 +16,7 @@ use hass\theme\models\ThemezipForm;
 use Distill\Distill;
 use yii\helpers\FileHelper;
 use yii\data\ArrayDataProvider;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
  *

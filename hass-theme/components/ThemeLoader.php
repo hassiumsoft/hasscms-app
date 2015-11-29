@@ -9,7 +9,7 @@
  */
 namespace hass\theme\components;
 
-use hass\helpers\PackageLoader;
+use hass\base\classes\PackageLoader;
 
 /**
  *

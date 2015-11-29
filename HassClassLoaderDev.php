@@ -38,6 +38,11 @@ class HassClassLoaderDev
      */
     public static function generatePsr4File()
     {
+        
+        
+        
+        
+        
         $filesystem = \Yii::createObject(["class" => LocalFilesystem::className(), "path" => __DIR__]);
         $classMaps = [];
         foreach ($filesystem->listContents() as $item) {

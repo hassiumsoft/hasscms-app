@@ -10,7 +10,7 @@
 namespace hass\area\models;
 
 use Yii;
-use hass\helpers\Serializer;
+use hass\base\helpers\Serializer;
 
 /**
  * This is the model class for table "{{%area}}".

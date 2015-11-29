@@ -28,8 +28,8 @@ class AvatarUploadAsset extends AssetBundle
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
-        'hass\extensions\blueimpFileupload\BlueimpFileuploadAsset',
-        'hass\extensions\jcrop\JcropAsset'
+        'hass\base\misc\blueimpFileupload\BlueimpFileuploadAsset',
+        'hass\base\misc\jcrop\JcropAsset'
     ];
 }
 

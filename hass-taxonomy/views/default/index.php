@@ -2,7 +2,7 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use hass\base\enums\StatusEnum;
 
 
@@ -53,12 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'description',
                 'slug',
                 [
-                    'class' => 'hass\extensions\grid\SwitcherColumn',
+                    'class' => 'hass\base\misc\grid\SwitcherColumn',
                     'attribute' => 'status',
                     'filter'=>StatusEnum::listData()
                 ],
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     "template"=>"{add-child} {update} {delete} {up} {down} ",
                     "buttons"=>["add-child"=>function($url){
                             return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url,['class'=>"btn btn-default btn-xs","title"=>\Yii::t("hass", "增加子类")]);

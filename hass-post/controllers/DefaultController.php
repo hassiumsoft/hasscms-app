@@ -23,7 +23,7 @@ class DefaultController extends BaseController
     {
         return [
             "switcher" => [
-                "class" => '\hass\extensions\grid\actions\SwitcherAction',
+                "class" => '\hass\base\misc\grid\actions\SwitcherAction',
                 'modelClass' => 'hass\post\models\Post'
             ],
             "delete" => [

@@ -12,7 +12,7 @@ use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
 
 use hass\page\models\Page;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 /**
  *
  * @package hass\package_name

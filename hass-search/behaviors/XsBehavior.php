@@ -13,7 +13,7 @@ namespace hass\search\behaviors;
 use yii\db\ActiveRecord;
 use yii\base\Behavior;
 use hightman\xunsearch\Database;
-use hass\helpers\traits\EntityRelevance;
+use hass\base\traits\EntityRelevance;
 
 /**
  *            'xsBehavior' => [

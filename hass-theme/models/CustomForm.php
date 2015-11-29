@@ -9,7 +9,7 @@
 */
 namespace hass\theme\models;
 use yii\base\Model;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 /**
 *
 * @package hass\package_name

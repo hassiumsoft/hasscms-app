@@ -7,9 +7,6 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 namespace hass\module;
-
-
-
 /**
  *
  * @package hass\package_name

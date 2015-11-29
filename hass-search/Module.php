@@ -8,8 +8,8 @@
 namespace hass\search;
 
 use hass\module\BaseModule;
-use hass\helpers\Hook;
-use hass\helpers\Util;
+use hass\base\classes\Hook;
+use hass\base\helpers\Util;
 use hass\system\enums\ModuleGroupEnmu;
 use yii\base\BootstrapInterface;
 
@@ -45,7 +45,7 @@ class Module extends BaseModule implements BootstrapInterface
 
     /**
      *
-     * @param \hass\helpers\Event $event
+     * @param \hass\base\helpers\Event $event
      */
     public function onSetGroupNav($event)
     {

@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
-                    'class' => 'hass\extensions\grid\SwitcherColumn',
+                    'class' => 'hass\base\misc\grid\SwitcherColumn',
                     'label' => "开启",
                     "value" => function ($model, $key, $index, $column) {
                

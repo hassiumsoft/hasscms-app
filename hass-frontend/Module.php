@@ -9,10 +9,10 @@
 namespace hass\frontend;
 
 use yii\base\BootstrapInterface;
-use hass\helpers\ArrayHelper;
-use hass\helpers\Hook;
+use hass\base\helpers\ArrayHelper;
+use hass\base\classes\Hook;
 use hass\urlrule\components\UrlRule;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use hass\base\components\UrlManager;
 use yii\helpers\Html;
 use yii\i18n\DbMessageSource;
@@ -348,7 +348,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'baseUrl' => '@web/uploads'
             ],
             "composerConfigurationReader" => [
-                'class' => 'hass\helpers\ComposerConfigurationReader'
+                'class' => 'hass\base\helpers\ComposerConfigurationReader'
             ],
             "pluginLoader" => [
                 "class" => 'hass\module\components\PluginLoader'

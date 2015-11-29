@@ -12,7 +12,7 @@ namespace hass\module\controllers;
 use hass\base\BaseController;
 use yii\data\ArrayDataProvider;
 use hass\base\enums\BooleanEnum;
-use hass\helpers\Util;
+use hass\module\BaseModule;
 
 /**
  *
@@ -52,8 +52,8 @@ class DefaultController extends BaseController
      */
     public function actionSwitcher($id, $value)
     {
-        $plugin = Util::getPluginLoader()->findOne($id);
-        $model = $plugin->getModel();
+        $module = $this->findModule($id);
+        $model = $module->getModel();
         $model->setAttribute("status", $value);
         $model->save();
         return $this->renderJsonMessage(true, \Yii::t("hass", "更新成功"));
@@ -66,13 +66,11 @@ class DefaultController extends BaseController
      */
     public function actionDelete($id)
     {
-        $plugin = Util::getPluginLoader()->findOne($id);
-        if ($plugin != null) {
-            $plugin->uninstall();
-            $model = $plugin->getModel();
-            $model->delete();
-            
-            $plugin->deletePackage();
+        $module = $this->findModule($id);
+        if ($module != null) {
+            /** @var \hass\module\components\ModuleManager $moduleManager */
+            $moduleManager = \Yii::$app->get("moduleManager");
+            $moduleManager->deleteModule($module);
         }
         
         $this->flash("success", "删除插件成功");
@@ -88,10 +86,10 @@ class DefaultController extends BaseController
      */
     public function actionInstall($id)
     {
-        $plugin = Util::getPluginLoader()->findOne($id);
-        $result = $plugin->install();
+        $module = $this->findModule($id);
+        $result = $module->install();
         if ($result == true) {
-            $model = $plugin->getModel();
+            $model = $module->getModel();
             $model->setAttribute("installed", BooleanEnum::TRUE);
             $model->save();
             
@@ -112,10 +110,10 @@ class DefaultController extends BaseController
      */
     public function actionUninstall($id)
     {
-        $plugin = Util::getPluginLoader()->findOne($id);
-        $result = $plugin->uninstall();
+        $module = $this->findModule($id);
+        $result = $module->uninstall();
         if ($result == true) {
-            $model = $plugin->getModel();
+            $model = $module->getModel();
             $model->delete();
             $this->flash("success", "卸载成功");
         } else {
@@ -125,5 +123,17 @@ class DefaultController extends BaseController
         return $this->redirect([
             "index"
         ]);
+    }
+    
+    /**
+     * 
+     * @param unknown $id
+     * @return \hass\module\BaseModule
+     */
+    protected function findModule($id)
+    {
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        return $moduleManager->findModule($id);
     }
 }

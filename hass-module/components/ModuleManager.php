@@ -10,10 +10,10 @@
  */
 namespace hass\module\components;
 
-use hass\helpers\PackageLoader;
+use hass\base\classes\PackageLoader;
 use yii\base\BootstrapInterface;
 use hass\module\BaseModule;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
  *
@@ -39,12 +39,6 @@ class ModuleManager extends PackageLoader
     {
         parent::init();
     }
-
-    /**
-     * 若模块是启用的,则会添加到psr4File中
-     */
-    public function generatePsr4File()
-    {}
 
     public function loadBootstrapModules($bootstrapType)
     {
@@ -72,14 +66,47 @@ class ModuleManager extends PackageLoader
                 /** @var \hass\module\BaseModule $module */
                 $module = \Yii::$app->getModule($model->id);
                 
-                if ($module instanceof BaseModule) {
-                    $module->setModuleInfoModel($model);
-                }
-                
                 if ($module instanceof BootstrapInterface) {
                     $module->bootstrap(\Yii::$app);
                 }
             }
         }
+    }
+    /**
+     * 
+     * @param \hass\module\BaseModule $module
+     */
+    public function deleteModule($module)
+    {
+        $module->uninstall();
+        $model = $module->getModuleInfo()->getModel();
+        $model->delete();
+        $this->deletePackage($module->getModuleInfo());
+    }
+    
+    
+    /**
+     *
+     * @param \hass\module\BaseModule $module
+     */
+    public function installModule($module)
+    {
+
+    }
+    
+    /**
+     *
+     * @param \hass\module\BaseModule $module
+     */
+    public function uninstallModule($module)
+    {
+
+    }
+    
+    public function findModule($id)
+    {
+        /** @var \hass\module\classes\ModuleInfo $moduleInfo */
+        $moduleInfo = $this->findOne($id);
+        return $moduleInfo->getModule();
     }
 }

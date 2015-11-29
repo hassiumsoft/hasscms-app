@@ -95,7 +95,7 @@ MenuAsset::register($this);
 			<?php //@todo-hass 当删除其中一个,再添加一个的时候会出现bug..索引重复..所以不能用最大索引做索引 ?>
 			<?php echo Html::beginForm(Url::to(["create"]),'post',["id"=>"save-menu-form"])?>
 			<div class="box-body">
-			<?= \hass\extensions\nestedsortable\NestedSortable::widget(); ?>
+			<?= \hass\base\misc\nestedsortable\NestedSortable::widget(); ?>
 			</div>
 			 <div class="box-footer">
 			       <?php echo Html::input("hidden","menu-root", $model->getPrimaryKey())?>

@@ -9,7 +9,7 @@
 */
 namespace hass\frontend\models;
 use hass\base\behaviors\TimestampFormatter;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 
 /**
 *

@@ -10,7 +10,7 @@
 namespace hass\comment;
 
 use hass\module\BaseModule;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 
 use hass\user\models\User;
 use yii\base\BootstrapInterface;
@@ -41,7 +41,7 @@ class Module extends BaseModule implements BootstrapInterface
     }
     /**
      *
-     * @param \hass\helpers\Event $event
+     * @param \hass\base\helpers\Event $event
      */
     public function onSetGroupNav($event)
     {

@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 use hass\theme\assets\ThemeAsset;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 /**
  *
  * @package hass\package_name

@@ -16,7 +16,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\jui\DatePicker;
 
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 /**
  *
  * @var View $this
@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw'
                 ],
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     'template' => "{update} {delete}"
                 ]
             ]

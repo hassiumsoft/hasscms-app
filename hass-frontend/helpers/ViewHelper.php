@@ -10,7 +10,7 @@
 namespace hass\frontend\helpers;
 
 use hass\frontend\widgets\MenuRenderWidget;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use yii\helpers\Url;
 use hass\area\widgets\Area;
 use hass\area\widgets\Block;

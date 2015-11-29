@@ -9,13 +9,13 @@
  */
 namespace hass\menu\controllers;
 
-use hass\helpers\Tree;
+use hass\base\classes\Tree;
 use Yii;
 use hass\menu\models\Menu;
 use yii\web\NotFoundHttpException;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use yii\web\HttpException;
-use hass\helpers\NestedSetsTree;
+use hass\base\helpers\NestedSetsTree;
 use hass\base\BaseController;
 use hass\menu\models\MenuSearch;
 use yii\data\ActiveDataProvider;
@@ -40,11 +40,11 @@ class DefaultController extends BaseController
     {
         return [
             "switcher" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsSwitcherAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsSwitcherAction',
                 'modelClass' => 'hass\menu\models\Menu'
             ],
             "delete" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsDeleteAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsDeleteAction',
                 'modelClass' => 'hass\menu\models\Menu'
             ]
         ];

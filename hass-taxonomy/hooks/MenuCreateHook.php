@@ -8,7 +8,7 @@
  */
 namespace hass\taxonomy\hooks;
 
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
 

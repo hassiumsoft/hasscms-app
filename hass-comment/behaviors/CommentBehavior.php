@@ -26,7 +26,7 @@ use hass\base\ActiveRecord;
  */
 class CommentBehavior extends Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
 
     public $defaultStatus;
 

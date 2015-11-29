@@ -148,7 +148,7 @@ class Post extends \hass\base\ActiveRecord
             'class' => TaxonomyBehavior::className()
         ];
         $behaviors['textEditor'] = [
-            'class' => \hass\extensions\editor\EditorBehavior::className(),
+            'class' => \hass\base\misc\editor\EditorBehavior::className(),
             'attribute' => 'content',
         ];
         $behaviors['TimestampFormatter'] = TimestampFormatter::className();

@@ -15,7 +15,7 @@ use yii\web\NotFoundHttpException;
 use hass\base\BaseController;
 use hass\attachment\enums\CropType;
 use yii\imagine\Image;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
  *

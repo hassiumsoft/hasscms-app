@@ -53,7 +53,7 @@ trait BaseControllerTrait
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         }
 
-        $message = Yii::createObject('\hass\helpers\JSONMessage',[$status, $content,$additionalAttributes,$elementId]);
+        $message = Yii::createObject('\hass\base\classes\JSONMessage',[$status, $content,$additionalAttributes,$elementId]);
 
         $result =  $message->getArray();
         return $result;

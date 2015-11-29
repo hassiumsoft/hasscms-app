@@ -16,7 +16,7 @@ use hass\base\behaviors\TimestampFormatter;
 use Distill\Exception\InvalidArgumentException;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use yii\helpers\StringHelper;
 use yii\imagine\Image;
 /**

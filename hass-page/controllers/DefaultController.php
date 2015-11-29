@@ -24,16 +24,16 @@ class DefaultController extends BaseController
     {
         return [
             "switcher" => [
-                "class" => '\hass\extensions\grid\actions\SwitcherAction',
+                "class" => '\hass\base\misc\grid\actions\SwitcherAction',
                 'modelClass' => 'hass\page\models\Page'
             ],
             "up" => [
-                "class" => '\hass\extensions\grid\actions\SortableAction',
+                "class" => '\hass\base\misc\grid\actions\SortableAction',
                 'modelClass' => 'hass\page\models\Page',
                 'direction' => DirectionEnum::DIRECTION_UP
             ],
             "down" => [
-                "class" => '\hass\extensions\grid\actions\SortableAction',
+                "class" => '\hass\base\misc\grid\actions\SortableAction',
                 'modelClass' => 'hass\page\models\Page',
                 'direction' => DirectionEnum::DIRECTION_DOWN
             ],

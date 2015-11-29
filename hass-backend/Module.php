@@ -10,8 +10,8 @@ namespace hass\backend;
 
 use hass\base\ApplicationModule;
 use hass\module\components\ModuleManager;
-use hass\helpers\Util;
-use hass\helpers\Hook;
+use hass\base\helpers\Util;
+use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 use Yii;
 /**
@@ -58,9 +58,11 @@ class Module extends ApplicationModule
 
     public function loadModules()
     {
+ 
         /** @var \hass\module\components\ModuleManager $moduleManager */
         $moduleManager = \Yii::$app->get("moduleManager");
         $moduleManager->loadBootstrapModules(ModuleManager::BOOTSTRAP_BACKEND);
+
     }
     
     
@@ -78,7 +80,7 @@ class Module extends ApplicationModule
     {
         /**
          *
-         * @var $parameters \hass\helpers\Parameters
+         * @var $parameters \hass\base\classes\Parameters
          */
         $parameters = Hook::trigger(static::EVENT_ADMIN_THEME)->parameters;
         return $parameters->get(static::EVENT_ADMIN_THEME, $this->theme);

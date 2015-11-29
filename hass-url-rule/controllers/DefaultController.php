@@ -11,9 +11,9 @@ namespace hass\urlrule\controllers;
 
 use Yii;
 use hass\base\BaseController;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use hass\urlrule\components\UrlRule;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
 *

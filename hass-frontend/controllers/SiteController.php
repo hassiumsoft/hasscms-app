@@ -14,7 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use hass\frontend\models\Post;
 use yii\data\ActiveDataProvider;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
  *

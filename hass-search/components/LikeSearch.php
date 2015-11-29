@@ -10,7 +10,7 @@
 namespace hass\search\components;
 
 use yii\base\Component;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use hass\search\Module;
 
 /**
@@ -26,7 +26,7 @@ class LikeSearch extends Component
     public function init()
     {
         parent::init();
-        /** @var \hass\helpers\Parameters $parameters */
+        /** @var \hass\base\classes\Parameters $parameters */
         $parameters = Hook::trigger(Module::EVENT_SEARCH_CONFIG)->parameters;
 
         $this->indexs = [];

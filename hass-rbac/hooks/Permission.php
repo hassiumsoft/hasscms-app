@@ -28,7 +28,7 @@ class Permission implements ListenerProviderInterface
         ],ListenerAcceptorInterface::P_HIGH);
     }
 
-    /** @param \hass\helpers\HookEvent $event */
+    /** @param \hass\base\classes\HookEvent $event */
     public function onAddPermission($event)
     {
         $event->parameters->fromArray(require dirname(__DIR__)."/permissions.php");

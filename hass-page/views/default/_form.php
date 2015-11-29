@@ -7,14 +7,14 @@
  * @copyright Copyright (c) 2016-2099 Hassium Software LLC.
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
-use hass\extensions\datetimepicker\DateTimePicker;
+use hass\base\misc\datetimepicker\DateTimePicker;
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 use hass\meta\widgets\MetaForm;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 use hass\base\enums\EntityStatusEnum;
-use hass\extensions\editor\EditorWidget;
+use hass\base\misc\editor\EditorWidget;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\attachment\widgets\SingleMediaWidget;
 

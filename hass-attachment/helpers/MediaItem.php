@@ -9,7 +9,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 namespace hass\attachment\helpers;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use hass\attachment\models\Attachment;
 
 /**

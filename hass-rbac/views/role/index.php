@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'description',
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     "template" => "{permissions} {update} {delete} ",
                     "buttons" => [
                         "permissions" => function ($url) {

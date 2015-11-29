@@ -11,7 +11,7 @@ namespace hass\rbac\components;
 
 
 use yii\rbac\Item;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use yii\rbac\Permission;
 use yii\rbac\Role;
 use yii\db\Query;

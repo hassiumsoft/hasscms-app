@@ -14,9 +14,9 @@ use hass\rbac\models\AuthItem;
 use Yii;
 use yii\rbac\Item;
 use yii\data\ArrayDataProvider;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use hass\rbac\Module;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 
 /**
  *

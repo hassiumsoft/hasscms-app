@@ -19,7 +19,7 @@ use hass\comment\enums\CommentEnabledEnum;
  */
 class CommentWidget extends \yii\base\Widget
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
     public $owner;
     public $commentUrl;
     public $replyFormUrl;

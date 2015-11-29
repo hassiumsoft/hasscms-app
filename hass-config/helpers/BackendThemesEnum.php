@@ -9,7 +9,7 @@
  */
 namespace hass\config\helpers;
 
-use hass\helpers\Enmu;
+use hass\base\classes\Enmu;
 
 /**
  * 常量里存储的是值.

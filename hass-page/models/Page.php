@@ -10,7 +10,7 @@
 namespace hass\page\models;
 
 
-use hass\helpers\Tree;
+use hass\base\classes\Tree;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use hass\meta\behaviors\MetaBehavior;
@@ -144,7 +144,7 @@ class Page extends \hass\base\ActiveRecord
             'attribute' => 'thumbnail'
         ];
         $behaviors["textEditor"] = [
-            'class' => \hass\extensions\editor\EditorBehavior::className(),
+            'class' => \hass\base\misc\editor\EditorBehavior::className(),
             'attribute' => 'content'
         ];
         $behaviors["TimestampFormatter"] = TimestampFormatter::className();

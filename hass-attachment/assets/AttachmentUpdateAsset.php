@@ -28,7 +28,7 @@ class AttachmentUpdateAsset extends AssetBundle
     ];
     public $depends = [
         'hass\backend\assets\AdminAsset',
-        'hass\extensions\jcrop\JcropAsset'
+        'hass\base\misc\jcrop\JcropAsset'
     ];
 }
 

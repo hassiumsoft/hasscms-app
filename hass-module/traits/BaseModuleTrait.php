@@ -20,20 +20,16 @@ use hass\module\classes\ModuleInfo;
 trait BaseModuleTrait
 {
     /** @var \hass\module\classes\ModuleInfo $moduleInfo */
-    public $moduleInfo;
+    protected  $moduleInfo;
     
-    /**
-     *
-     * @param \hass\module\models\Module $model
-     */
-    public function setModuleInfoModel($model) {
+    public function getModuleInfo()
+    {
+        return $this->moduleInfo;
+    }
     
-        if($this->moduleInfo == null)
-        {
-            $this->moduleInfo = new ModuleInfo();
-        }
-    
-        $this->moduleInfo->setModel($model);
+    public function setModuleInfo($moduleInfo)
+    {
+        $this->moduleInfo = $moduleInfo;
     }
     
     public function install()

@@ -9,10 +9,10 @@
 namespace hass\rbac;
 
 use yii\base\BootstrapInterface;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 use hass\module\BaseModule;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
  *
@@ -47,7 +47,7 @@ class Module extends BaseModule implements BootstrapInterface
 
     /**
      *
-     * @param \hass\helpers\Event $event            
+     * @param \hass\base\helpers\Event $event            
      */
     public function onSetGroupNav($event)
     {

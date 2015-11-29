@@ -8,8 +8,8 @@
  */
 namespace hass\theme\helpers;
 
-use hass\helpers\Package;
-use hass\helpers\Util;
+use hass\base\classes\Package;
+use hass\base\helpers\Util;
 
 /**
  *

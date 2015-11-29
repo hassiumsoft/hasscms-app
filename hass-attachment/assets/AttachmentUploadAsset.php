@@ -28,7 +28,7 @@ class AttachmentUploadAsset extends AssetBundle
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
-        'hass\extensions\blueimpFileupload\BlueimpFileuploadAsset',
+        'hass\base\misc\blueimpFileupload\BlueimpFileuploadAsset',
         'hass\backend\assets\AdminAsset'
     ];
 }

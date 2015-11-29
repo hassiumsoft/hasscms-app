@@ -15,7 +15,7 @@ use hass\area\Module;
 use hass\area\models\Block;
 
 use yii\web\NotFoundHttpException;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use hass\area\helpers\AreaHelp;
 
 /**

@@ -15,7 +15,7 @@
  *
  */
 use yii\helpers\Html;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 use hass\attachment\assets\AttachmentUpdateAsset;
 use yii\helpers\Url;
 use yii\web\View;

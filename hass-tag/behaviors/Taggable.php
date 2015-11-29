@@ -23,7 +23,7 @@ use hass\tag\models\TagIndex;
 
 class Taggable extends Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
     private $_tags;
 
     public static $formName = "tagItems";

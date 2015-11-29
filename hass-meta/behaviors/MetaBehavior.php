@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  */
 class MetaBehavior extends \yii\base\Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
 
     public function events()
     {

@@ -8,7 +8,7 @@
 */
 namespace hass\system\enums;
 
-use hass\helpers\Enmu;
+use hass\base\classes\Enmu;
 /**
 *
 * @package hass\package_name
