@@ -40,7 +40,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     private $_modules = [];
 
-    public $layout = "@hass/admin/views/layouts/main";
+    public $layout = "@hass/backend/views/layouts/main";
 
     public $adminDefaultRoute = "/system/default/index";
 

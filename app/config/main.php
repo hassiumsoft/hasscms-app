@@ -6,13 +6,15 @@ $config = [
     'language' => 'zh-CN',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
-    'runtimePath' =>'@root/runtime',
+    'runtimePath' =>'@root/storage/runtime',
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log'
     ],
     'components' => [
         'assetManager' => [
+            "basePath"=>"@webroot/storage/assets",
+            "baseUrl"=>"@web/storage/assets",
             'linkAssets' => true,
             'bundles' => [
                 'yii\web\JqueryAsset' => [
@@ -56,6 +58,31 @@ $config = [
         ],
         "composerConfigurationReader" => [
             'class' => 'hass\helpers\ComposerConfigurationReader'
+        ],
+        "i18n"=>[
+            "translations" => [
+                "*" => [
+                    'class' => "yii\i18n\DbMessageSource",
+                    'on missingTranslation' => [
+                        '\hass\i18n\Module',
+                        "missingTranslation"
+                    ]
+                ],
+                "app*" => [
+                    'class' =>"yii\i18n\DbMessageSource",
+                    'on missingTranslation' => [
+                        '\hass\i18n\Module',
+                        "missingTranslation"
+                    ]
+                ],
+                "hass*" => [
+                    'class' => "yii\i18n\DbMessageSource",
+                    'on missingTranslation' => [
+                        '\hass\i18n\Module',
+                        "missingTranslation"
+                    ]
+                ]
+            ]
         ]
     ]
 ];

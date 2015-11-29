@@ -17,7 +17,7 @@ use hass\user\models\LoginForm;
 */
 class SecurityController extends \dektrium\user\controllers\SecurityController
 {
-    public $layout = '@hass/admin/views/layouts/main-login';
+    public $layout = '@hass/backend/views/layouts/main-login';
 
     public function actionIn()
     {

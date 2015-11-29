@@ -11,7 +11,7 @@ $activeGenerator = Yii::$app->controller->generator;
 
 $asset = hass\gii\GiiAsset::register($this);
 ?>
-<?php $this->beginContent('@hass/admin/views/layouts/main.php'); ?>
+<?php $this->beginContent('@hass/backend/views/layouts/main.php'); ?>
 <div class="row">
 	<div class="col-md-3 col-sm-4">
 		<div class="box box-solid">
