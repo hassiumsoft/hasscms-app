@@ -1,7 +1,7 @@
 {
 	"name" : "hassium/hass-revolutionslider",
 	"description" : "hass-revolutionslider",
-	"type" : "hass-plugin",
+	"type" : "hass-module",
 	"keywords" : [
 		"yii2",
 		"extension"
@@ -13,7 +13,7 @@
 		}
 	],
 	"extra" : {
-		"hass-package-config":{
+		"hass-package-config" : {
 			"id" : "revolutionslider",
 			"name" : "幻灯片"
 		}

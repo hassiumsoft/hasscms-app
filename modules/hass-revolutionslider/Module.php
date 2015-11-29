@@ -13,6 +13,7 @@ use hass\helpers\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 use hass\helpers\ArrayHelper;
 use hass\revolutionslider\models\Revolutionslider;
+use yii\base\BootstrapInterface;
 
 /**
  *
@@ -21,21 +22,10 @@ use hass\revolutionslider\models\Revolutionslider;
  * @since 0.1.0
  *       
  */
-class Plugin extends \hass\module\helpers\Plugin
+class Module extends \hass\module\BaseModule implements BootstrapInterface
 {
 
-    /**
-     *
-     * @param \yii\web\Application $app            
-     */
-    public function bootstrapInFrontend($app)
-    {}
-
-    /**
-     *
-     * @param \yii\web\Application $app            
-     */
-    public function bootstrapInBackend($app)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, function ($event) {
             $item = [
@@ -57,8 +47,7 @@ class Plugin extends \hass\module\helpers\Plugin
 
     public function install()
     {
-
-        $sql = "CREATE TABLE ".Revolutionslider::tableName(). "(
+        $sql = "CREATE TABLE " . Revolutionslider::tableName() . "(
 	`revolutionslider_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`captions` TEXT NULL,
 	`url` TEXT NULL,
@@ -71,20 +60,20 @@ ENGINE=InnoDB";
         $command = \Yii::$app->getDb()->createCommand($sql);
         $command->execute();
         return true;
-   
     }
 
     public function uninstall()
     {
         $models = Revolutionslider::find()->all();
-  
+        
         foreach ($models as $model) {
             $model->delete();
         }
         
         \Yii::$app->getDb()
             ->createCommand()
-            ->dropTable(Revolutionslider::tableName())->execute();
+            ->dropTable(Revolutionslider::tableName())
+            ->execute();
         
         return true;
     }
