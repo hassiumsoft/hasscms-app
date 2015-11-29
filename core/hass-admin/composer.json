@@ -1,0 +1,20 @@
+{
+    "name": "hassium/hass-admin",
+    "description": "hasscms",
+    "type": "hass-core",
+    "keywords": ["yii2","extension","hass"],
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "zhepama",
+            "email": "zhepama@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "hass\\admin\\": ""
+        }
+    }
+}
