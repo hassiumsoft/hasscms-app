@@ -19,7 +19,7 @@ class DefaultController extends \yii\gii\controllers\DefaultController
 
     public function actionIndex()
     {
-        $this->layout = '@hass/admin/views/layouts/main.php';
+        $this->layout = '@hass/backend/views/layouts/main.php';
 
         return $this->render('index');
     }

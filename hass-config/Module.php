@@ -10,8 +10,8 @@ namespace hass\config;
 
 use yii\base\BootstrapInterface;
 use hass\helpers\Hook;
-use hass\config\models\BasicConfigForm;
 use hass\helpers\Util;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -20,7 +20,7 @@ use hass\helpers\Util;
  * @since 0.1.0
  *
  */
-class Module extends \hass\backend\BaseModule implements BootstrapInterface
+class Module extends \hass\module\BaseModule implements BootstrapInterface
 {
     const DEFAULT_CONFIG_TYPE = "basic";
 
@@ -29,7 +29,7 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
@@ -50,8 +50,8 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
             'class' => \Yii::$app->get("config")->get("cache.class")
         ], true);
 
-        Hook::on(\hass\admin\Module::EVENT_ADMIN_THEME, function ($event) {
-            $event->parameters->set(\hass\admin\Module::EVENT_ADMIN_THEME, \Yii::$app->get('config')
+        Hook::on(\hass\backend\Module::EVENT_ADMIN_THEME, function ($event) {
+            $event->parameters->set(\hass\backend\Module::EVENT_ADMIN_THEME, \Yii::$app->get('config')
                 ->get("app.backendTheme"));
         });
     }
@@ -62,9 +62,8 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
      */
     public function onSetGroupNav($event)
     {
-        $model = \Yii::$app->get("moduleManager")->getModuleModel($this->id);
-
-        $event->parameters->set($model->group, [
+ 
+        $event->parameters->set(ModuleGroupEnmu::CONFIG, [
             [
                 'url' => [
                     "/$this->id/default/basic"

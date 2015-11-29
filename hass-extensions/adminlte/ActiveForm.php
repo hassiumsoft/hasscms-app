@@ -12,7 +12,7 @@ namespace hass\extensions\adminlte;
 use yii\helpers\ArrayHelper;
 
 /**
-* @package hass\admin
+* @package hass\backend
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */

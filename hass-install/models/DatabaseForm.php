@@ -10,7 +10,7 @@
 namespace hass\install\models;
 
 use yii\base\Model;
-use hass\backend\traits\ModelTrait;
+use hass\base\traits\ModelTrait;
 use hass\install\Module;
 use Yii;
 use yii\db\Connection;

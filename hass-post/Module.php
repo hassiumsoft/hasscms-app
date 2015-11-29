@@ -9,9 +9,10 @@
  */
 namespace hass\post;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use yii\base\BootstrapInterface;
 use hass\helpers\Hook;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -27,16 +28,32 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function behaviors()
+    public function bootstrap($app)
     {
-        return [
-            '\hass\system\behaviors\MainNavBehavior'
-        ];
+        Hook::on(new \hass\post\hooks\EntityUrlPrefix());
+        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+            $this,
+            "onSetGroupNav"
+        ]);
     }
 
-    public function bootstrap($backend)
+    /**
+     *
+     * @param \hass\helpers\Event $event            
+     */
+    public function onSetGroupNav($event)
     {
-        Hook::on(new  \hass\post\hooks\EntityUrlPrefix());
+        $item = [
+            'label' => "文章",
+            'icon' => "fa-circle-o",
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+        
+        $event->parameters->set(ModuleGroupEnmu::CONTENT, [
+            $item
+        ]);
     }
 
     public static function getUserList()

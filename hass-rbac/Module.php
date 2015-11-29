@@ -11,7 +11,7 @@ namespace hass\rbac;
 use yii\base\BootstrapInterface;
 use hass\helpers\Hook;
 use hass\system\enums\ModuleGroupEnmu;
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use hass\helpers\Util;
 
 /**
@@ -31,7 +31,7 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,

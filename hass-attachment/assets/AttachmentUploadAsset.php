@@ -29,7 +29,7 @@ class AttachmentUploadAsset extends AssetBundle
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'hass\extensions\blueimpFileupload\BlueimpFileuploadAsset',
-        'hass\admin\assets\AdminAsset'
+        'hass\backend\assets\AdminAsset'
     ];
 }
 

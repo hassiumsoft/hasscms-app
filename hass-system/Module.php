@@ -14,7 +14,7 @@ use hass\system\enums\ModuleGroupEnmu;
 use yii\web\Application;
 use hass\helpers\Util;
 use yii\helpers\Url;
-use hass\backend\components\UrlManager;
+use hass\base\components\UrlManager;
 
 /**
  *
@@ -23,7 +23,7 @@ use hass\backend\components\UrlManager;
  * @since 0.1.0
  *       
  */
-class Module extends \hass\backend\BaseModule implements BootstrapInterface
+class Module extends \hass\module\BaseModule implements BootstrapInterface
 {
 
     const EVENT_SYSTEM_GROUPNAV = "EVENT_SYSTEM_GROUPNAV";
@@ -33,14 +33,14 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"
         ], 100000);
         
-        Hook::on(\hass\admin\Module::EVENT_ADMIN_NAVBAR, [
+        Hook::on(\hass\backend\Module::EVENT_ADMIN_NAVBAR, [
             $this,
             "onSetNavbar"
         ], 100000);
@@ -87,7 +87,7 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
                 }
             }
             
-            Hook::on(\hass\admin\Module::EVENT_ADMIN_LEFTNAV, function ($event) use($navs) {
+            Hook::on(\hass\backend\Module::EVENT_ADMIN_LEFTNAV, function ($event) use($navs) {
                 $event->parameters->fromArray($navs);
             });
         }
@@ -133,16 +133,6 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
                 ],
                 'icon' => "fa-circle-o",
                 'label' => '缓存清理'
-            ],
-            [
-                'url' => [
-                    "/$this->id/modules/index"
-                ],
-                'icon' => "fa-circle-o",
-                'label' => '模块管理',
-                "activeItems" => [
-                    "/$this->id/modules/update"
-                ]
             ],
             [
                 'url' => [

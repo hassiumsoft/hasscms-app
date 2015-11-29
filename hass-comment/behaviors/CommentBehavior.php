@@ -12,7 +12,7 @@ namespace hass\comment\behaviors;
 use hass\comment\models\Comment;
 use yii\base\Behavior;
 use hass\comment\models\CommentInfo;
-use hass\backend\ActiveRecord;
+use hass\base\ActiveRecord;
 
 /**
  * Comments Behavior.

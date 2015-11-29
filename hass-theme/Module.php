@@ -10,6 +10,8 @@ namespace hass\theme;
 
 use yii\base\BootstrapInterface;
 use hass\helpers\Util;
+use hass\helpers\Hook;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -18,7 +20,7 @@ use hass\helpers\Util;
  * @since 0.1.0
  *       
  */
-class Module extends \hass\backend\BaseModule implements BootstrapInterface
+class Module extends \hass\module\BaseModule implements BootstrapInterface
 {
 
     function init()
@@ -26,17 +28,33 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function behaviors()
-    {
-        return [
-            '\hass\system\behaviors\MainNavBehavior'
-        ];
-    }
-
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Util::setComponent("themeLoader", [
             "class" => 'hass\theme\components\ThemeLoader'
+        ]);
+        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+            $this,
+            "onSetGroupNav"
+        ]);
+    }
+
+    /**
+     *
+     * @param \hass\helpers\Event $event            
+     */
+    public function onSetGroupNav($event)
+    {
+        $item = [
+            'label' => "主题",
+            'icon' => "fa-circle-o",
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+        
+        $event->parameters->set(ModuleGroupEnmu::APPEARANCE, [
+            $item
         ]);
     }
 }

@@ -11,9 +11,9 @@ namespace hass\taxonomy\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\taxonomy\models\Taxonomy;
-use hass\backend\enums\DirectionEnum;
+use hass\base\enums\DirectionEnum;
 use yii\data\ActiveDataProvider;
 use hass\taxonomy\models\TaxonomySearch;
 

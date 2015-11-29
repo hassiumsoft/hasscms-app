@@ -12,9 +12,8 @@ use yii\base\BootstrapInterface;
 use hass\helpers\ArrayHelper;
 use hass\helpers\Hook;
 use hass\urlrule\components\UrlRule;
-use yii\i18n\PhpMessageSource;
 use hass\helpers\Util;
-use hass\backend\components\UrlManager;
+use hass\base\components\UrlManager;
 use yii\helpers\Html;
 use yii\i18n\DbMessageSource;
 define('ISFRONTEND', true);
@@ -85,15 +84,16 @@ class Module extends \yii\base\Module implements BootstrapInterface
             }
         }
         
-        $app->setTimeZone(Util::getConfig()->get("app.timezone"));
-        $app->language = Util::getConfig()->get("app.language");
-        $app->name = Util::getConfig()->get("app.name");
+        $app->setTimeZone(\Yii::$app->get("config")->get("app.timezone"));
+        $app->language = \Yii::$app->get("config")->get("app.language");
+        $app->name = \Yii::$app->get("config")->get("app.name");
         $this->initCoreHooks();
         $this->initControllerMap($app);
         $this->initTheme($app);
         $this->initPlugin($app);
         $this->initUserModule($app);
     }
+    
 
     /**
      *
@@ -305,7 +305,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'name' => 'FRONTENDSESSID'
             ],
             'moduleManager' => [
-                "class" => 'hass\backend\components\ModuleManager'
+                "class" => 'hass\base\components\ModuleManager'
             ],
             'urlManager' => [
                 'enablePrettyUrl' => true,
@@ -351,7 +351,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => 'hass\helpers\ComposerConfigurationReader'
             ],
             "pluginLoader" => [
-                "class" => 'hass\plugin\components\PluginLoader'
+                "class" => 'hass\module\components\PluginLoader'
             ],
             "themeLoader" => [
                 "class" => 'hass\theme\components\ThemeLoader'

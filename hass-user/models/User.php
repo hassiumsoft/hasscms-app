@@ -10,7 +10,7 @@
 namespace hass\user\models;
 
 use yii\helpers\ArrayHelper;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\behaviors\TimestampFormatter;
 use hass\attachment\models\Attachment;
 use hass\attachment\models\AttachmentIndex;
 /**

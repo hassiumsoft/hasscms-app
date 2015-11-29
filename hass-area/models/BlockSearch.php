@@ -9,7 +9,7 @@
  */
 namespace hass\area\models;
 
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 
 /**
  * AreaSearch represents the model behind the search form about `hass\area\models\Area`.

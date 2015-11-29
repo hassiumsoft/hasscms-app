@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use hass\install\assets\InstallAsset;
 use yii\widgets\Menu;
-use hass\backend\Module;
+use hass\base\Module;
 use yii\helpers\Url;
 
 InstallAsset::register($this);

@@ -10,7 +10,7 @@
 namespace hass\tag\models;
 use hass\tag\models\Tag;
 use Yii;
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 /**
 *
 * @package hass\package_name

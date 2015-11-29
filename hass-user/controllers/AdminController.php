@@ -9,7 +9,7 @@
 namespace hass\user\controllers;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
-use hass\backend\traits\BaseControllerTrait;
+use hass\base\traits\BaseControllerTrait;
 
 /**
 *

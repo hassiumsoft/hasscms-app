@@ -10,7 +10,7 @@
 namespace hass\area\assets;
 
 /**
-* @package hass\admin
+* @package hass\backend
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
@@ -24,7 +24,7 @@ class AreaAsset extends \yii\web\AssetBundle
         'area.js'
     ];
     public $depends = [
-        'hass\admin\assets\AdminAsset',
+        'hass\backend\assets\AdminAsset',
         'hass\area\assets\HtmlSortableAsset'
 
     ];

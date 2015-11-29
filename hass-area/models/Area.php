@@ -24,7 +24,7 @@ use hass\helpers\Serializer;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Area extends \hass\backend\ActiveRecord
+class Area extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc

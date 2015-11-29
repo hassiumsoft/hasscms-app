@@ -9,7 +9,7 @@
  */
 namespace hass\config\controllers;
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
  *
@@ -24,11 +24,11 @@ class CustomController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\config\models\Config'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\config\models\Config',
                 "sort" => [
                     'attributes' => [
@@ -38,7 +38,7 @@ class CustomController extends BaseController
                 "filters"=>["%name"]
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\config\models\Config'
             ]
         ]

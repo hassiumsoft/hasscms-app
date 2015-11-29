@@ -18,7 +18,7 @@ class TaxonomySelectAsset extends \yii\web\AssetBundle
 {
     public $sourcePath = '@hass/taxonomy/widgets';
     public $css = [
-        'taxonomy-select.css',
+        'media/taxonomy-select.css',
     ];
     public $depends = [
         '\hass\admin\assets\AdminAsset',

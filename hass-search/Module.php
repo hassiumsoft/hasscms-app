@@ -7,7 +7,7 @@
 
 namespace hass\search;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use hass\helpers\Hook;
 use hass\helpers\Util;
 use hass\system\enums\ModuleGroupEnmu;
@@ -24,7 +24,7 @@ class Module extends BaseModule implements BootstrapInterface
         
     const EVENT_SEARCH_CONFIG = "EVENT_SEARCH_CONFIG"; 
     
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,

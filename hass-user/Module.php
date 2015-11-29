@@ -21,6 +21,8 @@ use hass\system\enums\ModuleGroupEnmu;
  */
 class Module extends \dektrium\user\Module implements BootstrapInterface
 {
+    use \hass\module\traits\BaseModuleTrait;
+    
     public $modelMap = [
         'User' => 'hass\user\models\User'
     ];

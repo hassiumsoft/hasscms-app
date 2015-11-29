@@ -9,7 +9,7 @@
  */
 namespace hass\rbac\controllers;
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use yii\helpers\FileHelper;
 use yii\helpers\StringHelper;
 use yii\helpers\Inflector;

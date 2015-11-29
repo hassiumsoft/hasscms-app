@@ -46,7 +46,7 @@ class SettingsController extends \dektrium\user\controllers\SettingsController
             $w = \Yii::$app->getRequest()->post("w");
             $h = \Yii::$app->getRequest()->post("h");
 
-            $original = Util::getFileStorage()->getPath($avatar);
+            $original = \Yii::$app->get("fileStorage")->getPath($avatar);
             Image::crop($original, $w, $h, [
                 $x,
                 $y

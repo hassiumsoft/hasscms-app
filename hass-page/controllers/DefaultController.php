@@ -10,8 +10,8 @@
 namespace hass\page\controllers;
 
 use Yii;
-use hass\backend\BaseController;
-use hass\backend\enums\DirectionEnum;
+use hass\base\BaseController;
+use hass\base\enums\DirectionEnum;
 /**
  *
  * @package hass\package_name
@@ -38,11 +38,11 @@ class DefaultController extends BaseController
                 'direction' => DirectionEnum::DIRECTION_DOWN
             ],
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\page\models\Page'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\page\models\Page',
                 "query"=>[
                     "orderBy"=>['weight' => SORT_DESC]
@@ -50,11 +50,11 @@ class DefaultController extends BaseController
                 "filters"=>["%title"]
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\page\models\Page'
             ],
             "create" => [
-                "class" => '\hass\backend\actions\CreateAction',
+                "class" => '\hass\base\actions\CreateAction',
                 'modelClass' => 'hass\page\models\Page'
             ]
         ];

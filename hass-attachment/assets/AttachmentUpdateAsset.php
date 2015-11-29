@@ -27,7 +27,7 @@ class AttachmentUpdateAsset extends AssetBundle
         'attachment-update.js',
     ];
     public $depends = [
-        'hass\admin\assets\AdminAsset',
+        'hass\backend\assets\AdminAsset',
         'hass\extensions\jcrop\JcropAsset'
     ];
 }

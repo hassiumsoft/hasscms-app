@@ -27,7 +27,7 @@ class MenuAsset extends \yii\web\AssetBundle
         'menu.css'
     ];
     public $depends = [
-        '\hass\admin\assets\AdminAsset'
+        '\hass\backend\assets\AdminAsset'
     ];
 
 }

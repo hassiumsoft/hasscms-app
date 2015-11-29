@@ -10,7 +10,7 @@
 namespace hass\extensions\grid;
 
 use yii\helpers\Html;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 use yii\helpers\Url;
 use hass\extensions\grid\assets\SwitcherAsset;
 

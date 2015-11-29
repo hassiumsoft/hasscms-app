@@ -12,7 +12,7 @@ namespace hass\attachment\controllers;
 use Yii;
 use hass\attachment\models\Attachment;
 use yii\web\NotFoundHttpException;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\attachment\enums\CropType;
 use yii\imagine\Image;
 use hass\helpers\Util;
@@ -30,15 +30,15 @@ class DefaultController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\attachment\models\Attachment'
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\attachment\models\Attachment'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\attachment\models\Attachment',
                 "pageSize" => 36
             ]
@@ -89,7 +89,7 @@ class DefaultController extends BaseController
             case CropType::THUMBNAIL:
                 $original = $model->getAbsolutePath();
                 $newPath = $model->getTempDirectory() . DIRECTORY_SEPARATOR . $model->hash . "." . $model->extension;
-                $newOriginal = Util::getFileStorage()->getPath($newPath);
+                $newOriginal = \Yii::$app->get("fileStorage")->getPath($newPath);
 
                 Image::crop($original, $w, $h, [
                     $x,
@@ -101,10 +101,10 @@ class DefaultController extends BaseController
                     $fileName = ltrim(pathinfo(" ".$path, PATHINFO_FILENAME));
                     $parts = explode("_", $fileName);
                     list ($w, $h) = explode("x", $parts[2]);
-                    Image::thumbnail($newOriginal, $w, $h)->save(Util::getFileStorage()->getPath($path));
+                    Image::thumbnail($newOriginal, $w, $h)->save(\Yii::$app->get("fileStorage")->getPath($path));
                 }
 
-                Util::getFileStorage()->delete($newPath);
+                \Yii::$app->get("fileStorage")->delete($newPath);
                 break;
             case CropType::ORIGINAL:
                 $original = $model->getAbsolutePath();

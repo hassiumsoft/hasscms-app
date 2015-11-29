@@ -19,7 +19,7 @@ use hass\tag\behaviors\Taggable;
 use hass\taxonomy\widgets\TaxonomySelect;
 use hass\taxonomy\behaviors\TaxonomyBehavior;
 use hass\attachment\widgets\SingleMediaWidget;
-use hass\backend\enums\EntityStatusEnum;
+use hass\base\enums\EntityStatusEnum;
 use hass\extensions\editor\EditorWidget;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\post\Module;

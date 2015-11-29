@@ -34,7 +34,7 @@ class ViewHelper
 
     public static function config($name, $default = null)
     {
-        return Util::getConfig()->get($name, $default);
+        return \Yii::$app->get("config")->get($name, $default);
     }
 
     public static function area($slug, $config = [])

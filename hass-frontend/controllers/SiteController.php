@@ -81,7 +81,7 @@ class SiteController extends Controller
             ]
         ]);
         
-        $this->getView()->setMetaData(Util::getConfig()->get("app.name"),Util::getConfig()->get("app.description"),Util::getConfig()->get("app.keywords"));
+        $this->getView()->setMetaData(\Yii::$app->get("config")->get("app.name"),\Yii::$app->get("config")->get("app.description"),\Yii::$app->get("config")->get("app.keywords"));
         return $this->render('index', [
             "posts" => $dataProvider->getModels(),
             "pagination" => $dataProvider->getPagination()

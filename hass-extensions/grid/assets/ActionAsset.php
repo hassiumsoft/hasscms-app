@@ -23,6 +23,6 @@ class ActionAsset extends AssetBundle
     ];
 
     public $depends = [
-        '\hass\admin\assets\AdminAsset'
+        '\hass\backend\assets\AdminAsset'
     ];
 }

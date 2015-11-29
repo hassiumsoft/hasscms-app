@@ -11,7 +11,7 @@ namespace hass\area\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
-use hass\backend\enums\BooleanEnum;
+use hass\base\enums\BooleanEnum;
 
 /**
  * This is the model class for table "{{%area_block}}".
@@ -29,7 +29,7 @@ use hass\backend\enums\BooleanEnum;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Block extends \hass\backend\ActiveRecord
+class Block extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc

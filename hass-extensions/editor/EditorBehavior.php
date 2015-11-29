@@ -12,7 +12,7 @@ namespace hass\extensions\editor;
 use Yii;
 use yii\db\ActiveRecord;
 use \hass\attachment\models\Attachment;
-use hass\backend\behaviors\BaseAttachAttribute;
+use hass\base\behaviors\BaseAttachAttribute;
 use PHPHtmlParser\Dom;
 use hass\attachment\behaviors\UploadBehaviorTrait;
 use hass\helpers\Util;
@@ -170,10 +170,10 @@ class EditorBehavior extends BaseAttachAttribute
         $file = [];
         if(!$attachment)
         {
-            $path = Util::getFileStorage()->urlToPath($src);
+            $path = \Yii::$app->get("fileStorage")->urlToPath($src);
 
 
-           if(Util::getFileStorage()->has($path) && ($media =Util::getFileStorage()->get($path)))
+           if(\Yii::$app->get("fileStorage")->has($path) && ($media =\Yii::$app->get("fileStorage")->get($path)))
            {
                $file["id"] = -1;
                $file["path"] =$path;

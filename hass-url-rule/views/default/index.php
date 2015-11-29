@@ -9,7 +9,7 @@ use hass\helpers\ArrayHelper;
  */
 /**
  *
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  *

@@ -13,7 +13,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use hass\meta\widgets\MetaForm;
 use hass\extensions\adminlte\ActiveForm;
-use hass\backend\enums\EntityStatusEnum;
+use hass\base\enums\EntityStatusEnum;
 use hass\extensions\editor\EditorWidget;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\attachment\widgets\SingleMediaWidget;

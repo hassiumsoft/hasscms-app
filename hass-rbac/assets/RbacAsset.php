@@ -25,7 +25,7 @@ class RbacAsset extends \yii\web\AssetBundle
     ];
     
     public $depends = [
-        '\hass\admin\assets\AdminAsset'
+        '\hass\backend\assets\AdminAsset'
     ];
 
 }

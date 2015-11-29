@@ -10,11 +10,11 @@
 namespace hass\area\controllers;
 
 use Yii;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\area\models\Area;
 use yii\web\NotFoundHttpException;
 use hass\area\models\Block;
-use hass\backend\enums\BooleanEnum;
+use hass\base\enums\BooleanEnum;
 
 /**
  * DefaultController implements the CRUD actions for Area model.
@@ -30,15 +30,15 @@ class DefaultController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\area\models\Area'
             ],
             "create" => [
-                "class" => '\hass\backend\actions\CreateAction',
+                "class" => '\hass\base\actions\CreateAction',
                 'modelClass' => 'hass\area\models\Area'
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\area\models\Area'
             ]
         ];

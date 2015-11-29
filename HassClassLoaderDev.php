@@ -32,6 +32,10 @@ class HassClassLoaderDev
         }
     }
     
+    /**
+     * 1.启用的模块
+     * 2.当前的前台主题
+     */
     public static function generatePsr4File()
     {
         $filesystem = \Yii::createObject(["class" => LocalFilesystem::className(), "path" => __DIR__]);
@@ -48,8 +52,7 @@ class HassClassLoaderDev
     
                 $configuration = $reader->read($path . DIRECTORY_SEPARATOR . 'composer.json');
     
-                $classMap = $configuration->autoloadPsr4();
-                foreach ($classMap as $namespace => $paths) {
+                foreach (array_keys($configuration->autoloadPsr4()) as $namespace ) {
                     $classMaps[$namespace] = ['/' . $item["path"]];
                 }
             }

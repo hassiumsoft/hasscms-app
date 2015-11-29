@@ -2,7 +2,7 @@
 
 
 /* @var $this yii\web\View */
-/* @var $model hass\modules\taxonomy\models\Taxonomy */
+/* @var $model hass\bases\taxonomy\models\Taxonomy */
 
 $this->title = 'Update Config: ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Config', 'url' => ['index']];

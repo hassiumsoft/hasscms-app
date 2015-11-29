@@ -21,6 +21,10 @@
   array (
     __DIR__ .'/hass-backend',
   ),
+  'hass\\base\\' => 
+  array (
+    __DIR__ .'/hass-base',
+  ),
   'hass\\comment\\' => 
   array (
     __DIR__ .'/hass-comment',
@@ -69,13 +73,13 @@
   array (
     __DIR__ .'/hass-migration',
   ),
+  'hass\\module\\' => 
+  array (
+    __DIR__ .'/hass-module',
+  ),
   'hass\\page\\' => 
   array (
     __DIR__ .'/hass-page',
-  ),
-  'hass\\plugin\\' => 
-  array (
-    __DIR__ .'/hass-plugin',
   ),
   'hass\\post\\' => 
   array (

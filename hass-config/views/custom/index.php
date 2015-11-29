@@ -10,7 +10,7 @@ use hass\helpers\ArrayHelper;
  * @var $this \yii\web\View
  */
 /**
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider

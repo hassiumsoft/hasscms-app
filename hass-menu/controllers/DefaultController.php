@@ -16,11 +16,11 @@ use yii\web\NotFoundHttpException;
 use hass\helpers\Hook;
 use yii\web\HttpException;
 use hass\helpers\NestedSetsTree;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\menu\models\MenuSearch;
 use yii\data\ActiveDataProvider;
 
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 
 /**
  *

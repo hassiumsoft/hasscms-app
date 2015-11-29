@@ -9,15 +9,12 @@
  */
 namespace hass\i18n;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use yii\base\BootstrapInterface;
-use hass\helpers\Util;
 use yii\i18n\MissingTranslationEvent;
 use hass\i18n\models\SourceMessage;
-use yii\i18n\DbMessageSource;
 use hass\helpers\Hook;
 use hass\system\enums\ModuleGroupEnmu;
-
 /**
  *
  * @package hass\package_name
@@ -26,42 +23,10 @@ use hass\system\enums\ModuleGroupEnmu;
  */
 class Module extends BaseModule implements BootstrapInterface
 {
-
     public $languages = [];
 
-    public function init()
+    public function bootstrap($app)
     {
-        parent::init();
-    }
-
-    public function bootstrap($backend)
-    {
-        Util::setComponent("i18n", [
-            "translations" => [
-                "*" => [
-                    'class' => DbMessageSource::className(),
-                    'on missingTranslation' => [
-                        '\hass\i18n\Module',
-                        "missingTranslation"
-                    ]
-                ],
-                "app*" => [
-                    'class' => DbMessageSource::className(),
-                    'on missingTranslation' => [
-                        '\hass\i18n\Module',
-                        "missingTranslation"
-                    ]
-                ],
-                "hass*" => [
-                    'class' => DbMessageSource::className(),
-                    'on missingTranslation' => [
-                        '\hass\i18n\Module',
-                        "missingTranslation"
-                    ]
-                ]
-            ]
-        ]);
-        
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"

@@ -10,7 +10,7 @@
 namespace hass\frontend\models;
 
 use yii\helpers\StringHelper;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\behaviors\TimestampFormatter;
 /**
  *
  * @package hass\package_name

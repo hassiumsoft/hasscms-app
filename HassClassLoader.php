@@ -36,6 +36,9 @@ class HassClassLoader
 
     public static function generatePsr4File()
     {
+        
+        
+        
         $filesystem = \Yii::createObject(["class" => LocalFilesystem::className(), "path" => __DIR__]);
         $classMaps = [];
         foreach ($filesystem->listContents() as $item) {
@@ -56,6 +59,8 @@ class HassClassLoader
                 }
             }
         }
+        
+        
         $classMapsString = "<?php\n\n return " . var_export($classMaps, true) . ";";
         $classMapsString = str_replace(['0 => '], ["__DIR__ ."], $classMapsString);
         $filesystem->write("autoload_psr4.php", $classMapsString);

@@ -10,7 +10,7 @@
 namespace hass\config\assets;
 
 /**
-* @package hass\admin
+* @package hass\backend
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
@@ -21,7 +21,7 @@ class ConfigAsset extends \yii\web\AssetBundle
         'config.js'
     ];
     public $depends = [
-        'hass\admin\assets\AdminAsset',
+        'hass\backend\assets\AdminAsset',
     ];
     public $jsOptions = array(
         'position' => \yii\web\View::POS_END

@@ -43,9 +43,6 @@ class Util
     }
 
     /**
-     * 1.config下定义的配置文件高于文件内容定义的组件
-     * 2.数据库里定义的组件内容又高于config文件定义的.
-     *
      * @param unknown $id
      * @param unknown $config
      * @param string $override
@@ -60,45 +57,14 @@ class Util
         }
     }
 
-    /**
-     * @return \hass\config\components\Config
-     */
-    public static function getConfig()
+    public static function setModule($id, $config, $override = false)
     {
-        return Yii::$app->get('config');
-    }
-
-    /**
-     * @return \hass\attachment\components\FileStorage
-     */
-    public static function getFileStorage()
-    {
-        return Yii::$app->get('fileStorage');
-    }
-
-    /**
-     * @return \hass\plugin\components\PluginLoader
-     */
-    public static function getPluginLoader()
-    {
-        return Yii::$app->get('pluginLoader');
-    }
-
-    /**
-     * @return \hass\theme\components\ThemeLoader
-     */
-    public static function getThemeLoader()
-    {
-        return Yii::$app->get('themeLoader');
-    }
-
-    /**
-     *
-     * @return \hass\backend\components\ModuleManager
-     */
-    public static function getModuleManager()
-    {
-        return Yii::$app->get('moduleManager');
+        $definitions = \Yii::$app->getModules();
+        if ($override == false) {
+            \Yii::$app->setModule($id, ArrayHelper::merge($config, array_key_exists($id, $definitions) ? $definitions[$id] : []));
+        } else {
+            \Yii::$app->setModule($id, ArrayHelper::merge(array_key_exists($id, $definitions) ? $definitions[$id] : [], $config));
+        }
     }
 
     /**
@@ -166,7 +132,7 @@ class Util
     /**
      * 根据实体返回这个实体的url地址.
      *
-     * @param \hass\backend\ActiveRecord $model
+     * @param \hass\base\ActiveRecord $model
      * @param unknown $type
      */
     public static function getEntityUrl($model, $type = "read")
@@ -209,7 +175,7 @@ class Util
      */
     public static function getBreadcrumbs($model)
     {
-        $result = [Util::getConfig()->get("app.name") => Yii::$app->getHomeUrl()];
+        $result = [\Yii::$app->get("config")->get("app.name") => Yii::$app->getHomeUrl()];
         if ($model->hasMethod("getParentsAndSelf")) {
             $nodes = $model->getParentsAndSelf();
             foreach ($nodes as $node) {

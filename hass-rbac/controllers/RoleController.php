@@ -9,7 +9,7 @@
  */
 namespace hass\rbac\controllers;
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\rbac\models\AuthItem;
 use Yii;
 use yii\rbac\Item;
@@ -30,11 +30,11 @@ class RoleController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\rbac\models\AuthItem'
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\rbac\models\AuthItem'
             ]
         ];

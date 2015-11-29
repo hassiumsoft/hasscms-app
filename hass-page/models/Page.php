@@ -15,11 +15,11 @@ use Yii;
 use yii\behaviors\SluggableBehavior;
 use hass\meta\behaviors\MetaBehavior;
 use yii\behaviors\TimestampBehavior;
-use hass\backend\enums\StatusEnum;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\enums\StatusEnum;
+use hass\base\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
-use hass\backend\behaviors\SetMaxSortableModel;
+use hass\base\behaviors\SetMaxSortableModel;
 use hass\search\behaviors\RtSphinxBehavior;
 
 
@@ -40,7 +40,7 @@ use hass\search\behaviors\RtSphinxBehavior;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Page extends \hass\backend\ActiveRecord
+class Page extends \hass\base\ActiveRecord
 {
 
     /**
@@ -135,7 +135,7 @@ class Page extends \hass\backend\ActiveRecord
         ];
         $behaviors['timestamp'] = TimestampBehavior::className();
         $behaviors['published_at'] = [
-            'class' => \hass\backend\behaviors\StrToTimeBehavior::className(),
+            'class' => \hass\base\behaviors\StrToTimeBehavior::className(),
             "attribute" => "published_at"
         ];
         $behaviors["meta"] = MetaBehavior::className();

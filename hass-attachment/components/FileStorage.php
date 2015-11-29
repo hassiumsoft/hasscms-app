@@ -9,7 +9,6 @@
  */
 namespace hass\attachment\components;
 
-use hass\helpers\Util;
 use creocoder\flysystem\LocalFilesystem;
 
 /**
@@ -43,13 +42,13 @@ class FileStorage extends \yii\base\Component
     public function init()
     {
         if ($this->getFileSystem() == null) {
-            $localStroageFolder = self::validatePath(Util::getConfig()->get('attachment.local.root', '@webroot/uploads'));
+            $localStroageFolder = self::validatePath(\Yii::$app->get("config")->get('attachment.local.root', '@webroot/storage/uploads'));
             $this->fileSystem = new LocalFilesystem([
                 "path" => $localStroageFolder
             ]);
         }
         if ($this->baseUrl == null) {
-            $this->setBaseUrl(rtrim(Util::getConfig()->get('attachment.local.baseurl', '@web/uploads'), '/'));
+            $this->setBaseUrl(rtrim(\Yii::$app->get("config")->get('attachment.local.baseurl', '@web/storage/uploads'), '/'));
         }
     }
 
@@ -121,7 +120,6 @@ class FileStorage extends \yii\base\Component
 
     public function deleteFiles($paths)
     {
-        $fullPaths = [];
         foreach ($paths as $path) {
             $path = self::validatePath($path);
             $this->getFileSystem()->delete($path);

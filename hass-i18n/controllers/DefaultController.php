@@ -16,7 +16,7 @@ use Yii;
 use hass\i18n\models\SourceMessageSearch;
 use hass\i18n\models\SourceMessage;
 use hass\i18n\Module;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
  *

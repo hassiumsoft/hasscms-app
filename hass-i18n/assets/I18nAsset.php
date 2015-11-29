@@ -24,6 +24,6 @@ class I18nAsset extends \yii\web\AssetBundle
         'js/i18n.js',
     ];
     public $depends = [
-        '\hass\admin\assets\AdminAsset'
+        '\hass\backend\assets\AdminAsset'
     ];
 }

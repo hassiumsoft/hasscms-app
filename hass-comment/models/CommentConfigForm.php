@@ -9,8 +9,8 @@
 namespace hass\comment\models;
 
 
-use hass\backend\enums\BooleanEnum;
-use hass\backend\traits\ModelTrait;
+use hass\base\enums\BooleanEnum;
+use hass\base\traits\ModelTrait;
 use hass\config\models\BaseConfig;
 /**
  *

@@ -9,11 +9,12 @@
  */
 namespace hass\menu;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use yii\base\BootstrapInterface;
 use hass\helpers\Hook;
 use hass\menu\hooks\MenuCreateHook;
 use hass\helpers\Util;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -33,15 +34,16 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function behaviors()
-    {
-        return [
-            '\hass\system\behaviors\MainNavBehavior'
-        ];
-    }
 
-    public function bootstrap($backend)
+
+    public function bootstrap($app)
     {
+
+        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+            $this,
+            "onSetGroupNav"
+        ]);
+        
         Hook::on(\hass\menu\Module::EVENT_MENU_MODULE_LINKS, [
             $this,
             "onMenuConfig"
@@ -49,6 +51,22 @@ class Module extends BaseModule implements BootstrapInterface
         Hook::on(new MenuCreateHook());
     }
 
+    /**
+     * @param \hass\helpers\Event $event
+     */
+    public function onSetGroupNav($event)
+    {
+        $item = [
+            'label' => "菜单",
+            'icon' =>  "fa-circle-o" ,
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+    
+        $event->parameters->set(ModuleGroupEnmu::STRUCTURE,[$item]);
+    }
+    
     /**
      *
      * @param \hass\helpers\Event $event

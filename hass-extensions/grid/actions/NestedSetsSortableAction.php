@@ -9,7 +9,7 @@
 namespace hass\extensions\grid\actions;
 
 use yii\web\NotFoundHttpException;
-use hass\backend\enums\DirectionEnum;
+use hass\base\enums\DirectionEnum;
 
 /**
  *

@@ -12,7 +12,8 @@ namespace hass\migration;
 use yii\base\BootstrapInterface;
 use hass\helpers\Hook;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -29,7 +30,7 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
@@ -43,20 +44,16 @@ class Module extends BaseModule implements BootstrapInterface
      */
     public function onSetGroupNav($event)
     {
-        $model = \Yii::$app->get("moduleManager")->getModuleModel($this->id);
 
-
-        $event->parameters->set($model->group, [
-      
-                [
-                    'label' => $model->title,
-                    'icon' => $model->icon == "" ? "fa-circle-o" : $model->icon,
-                    'url' => [
-                        "/$model->name/default/index"
-                    ]
-                ]
- 
-        ]);
+        $item = [
+            'label' => "迁移",
+            'icon' =>  "fa-circle-o" ,
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+        
+        $event->parameters->set(ModuleGroupEnmu::SYSTEM,[$item]);
     }
 }
 

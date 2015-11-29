@@ -9,13 +9,12 @@
  */
 namespace hass\comment;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use hass\helpers\Hook;
 
 use hass\user\models\User;
 use yii\base\BootstrapInterface;
 use Yii;
-use hass\user\helpers\AvatarHelper;
 use hass\system\enums\ModuleGroupEnmu;
 /**
  *
@@ -32,13 +31,8 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
 
     }
-    public function behaviors()
-    {
-        return [
-            '\hass\system\behaviors\MainNavBehavior'
-        ];
-    }
-    public function bootstrap($backend)
+
+    public function bootstrap($app)
     {
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
@@ -51,7 +45,14 @@ class Module extends BaseModule implements BootstrapInterface
      */
     public function onSetGroupNav($event)
     {
-
+        $item = [
+            'label' => "评论",
+            'icon' =>  "fa-circle-o" ,
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+        $event->parameters->set(ModuleGroupEnmu::STRUCTURE,[$item]);
         $event->parameters->set(ModuleGroupEnmu::CONFIG, [
             [
                 'url' => [

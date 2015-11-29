@@ -12,7 +12,7 @@ namespace hass\rbac\models;
 use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
-use hass\backend\traits\ModelTrait;
+use hass\base\traits\ModelTrait;
 
 /**
  *

@@ -12,7 +12,7 @@ namespace hass\tag\controllers;
 use Yii;
 use yii\base\Response;
 use hass\tag\models\Tag;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
 *
@@ -27,11 +27,11 @@ class DefaultController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\tag\models\Tag'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\tag\models\Tag',
                 "query"=>[
                     "orderBy"=>['frequency' => SORT_DESC]
@@ -40,7 +40,7 @@ class DefaultController extends BaseController
                 "filters"=>["%name"]
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\tag\models\Tag'
             ]
         ];

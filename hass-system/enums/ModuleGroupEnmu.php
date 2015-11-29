@@ -22,7 +22,7 @@ class ModuleGroupEnmu extends Enmu
     const APPEARANCE="appearance";
     const PEOPLE="people";
     const SYSTEM="system";
-    const PLUGIN="plugin";
+    const MODULE="module";
     const CONFIG="config";
 
     public static $list = [
@@ -30,7 +30,7 @@ class ModuleGroupEnmu extends Enmu
         self::CONTENT => '内容',
         self::STRUCTURE => '结构',
         self::CONFIG => '配置',
-        self::PLUGIN => '插件',
+        self::MODULE => '模块',
         self::APPEARANCE => '外观',
         self::PEOPLE => '用户',
     ];

@@ -10,7 +10,7 @@
 namespace hass\theme\controllers;
 
 use Yii;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use yii\web\UploadedFile;
 use hass\theme\models\ThemezipForm;
 use Distill\Distill;
@@ -151,7 +151,7 @@ class DefaultController extends BaseController
     {
         return [
             "custom" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\theme\models\CustomForm',
                 "template" => "custom-css"
             ]

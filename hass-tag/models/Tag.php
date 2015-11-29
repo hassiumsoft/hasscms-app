@@ -11,7 +11,7 @@ namespace hass\tag\models;
 
 
 use hass\meta\behaviors\MetaBehavior;
-use hass\backend\ActiveRecord;
+use hass\base\ActiveRecord;
 /**
 *
 * @package hass\package_name

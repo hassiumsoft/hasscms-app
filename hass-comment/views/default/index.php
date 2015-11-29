@@ -11,7 +11,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use hass\helpers\ArrayHelper;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 /**
 *
 * @package hass\package_name
@@ -22,7 +22,7 @@ use hass\backend\enums\StatusEnum;
  * @var $this \yii\web\View
  */
 /**
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider

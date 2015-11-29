@@ -8,7 +8,7 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\frontend\models;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\behaviors\TimestampFormatter;
 use hass\helpers\ArrayHelper;
 
 /**

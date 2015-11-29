@@ -9,7 +9,7 @@
  */
 namespace hass\post\controllers;
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
  *
@@ -27,11 +27,11 @@ class DefaultController extends BaseController
                 'modelClass' => 'hass\post\models\Post'
             ],
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\post\models\Post'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\post\models\Post',
                 "query"=>[
                     "orderBy"=>['created_at' => SORT_DESC]
@@ -39,11 +39,11 @@ class DefaultController extends BaseController
                 "filters"=>["%title","status","id"],
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\post\models\Post'
             ],
             "create" => [
-                "class" => '\hass\backend\actions\CreateAction',
+                "class" => '\hass\base\actions\CreateAction',
                 'modelClass' => 'hass\post\models\Post'
             ]
         ];

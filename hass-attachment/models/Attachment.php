@@ -12,7 +12,7 @@ namespace hass\attachment\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\behaviors\TimestampFormatter;
 use Distill\Exception\InvalidArgumentException;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
@@ -37,7 +37,7 @@ use yii\imagine\Image;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Attachment extends \hass\backend\ActiveRecord
+class Attachment extends \hass\base\ActiveRecord
 {
 
     /**
@@ -185,7 +185,7 @@ class Attachment extends \hass\backend\ActiveRecord
 
     public function getTempDirectory()
     {
-        $folder = Util::getConfig()->get("attachment.temp.foler", "temps");
+        $folder = \Yii::$app->get("config")->get("attachment.temp.foler", "temps");
         \Yii::$app->session->open();
         // 不使用ID,避免同账号多人登录
         $userTempPath = $folder . DIRECTORY_SEPARATOR . \Yii::$app->session->id;
@@ -195,7 +195,7 @@ class Attachment extends \hass\backend\ActiveRecord
 
     public function getUserDirectory($uid)
     {
-        $folder = Util::getConfig()->get("attachment.user.foler", "users");
+        $folder = \Yii::$app->get("config")->get("attachment.user.foler", "users");
 
         return $folder . DIRECTORY_SEPARATOR . $uid;
     }
@@ -213,7 +213,7 @@ class Attachment extends \hass\backend\ActiveRecord
     public function getStorageDirectory()
     {
         if ($this->uploadsFolder == null) {
-            $this->setStorageDirectory(Util::getConfig()->get('attachment.uploads.folder', "media"));
+            $this->setStorageDirectory(\Yii::$app->get("config")->get('attachment.uploads.folder', "media"));
         }
         return $this->uploadsFolder;
     }
@@ -225,12 +225,12 @@ class Attachment extends \hass\backend\ActiveRecord
 
     public function getUrl()
     {
-        return Util::getFileStorage()->getPathUrl($this->getPath());
+        return \Yii::$app->get("fileStorage")->getPathUrl($this->getPath());
     }
 
     public function getFile()
     {
-        return Util::getFileStorage()->get($this->getPath());
+        return \Yii::$app->get("fileStorage")->get($this->getPath());
     }
 
     public function getPath()
@@ -240,7 +240,7 @@ class Attachment extends \hass\backend\ActiveRecord
 
     public function getAbsolutePath()
     {
-        return Util::getFileStorage()->getPath($this->getPath());
+        return \Yii::$app->get("fileStorage")->getPath($this->getPath());
     }
 
     /**
@@ -268,14 +268,14 @@ class Attachment extends \hass\backend\ActiveRecord
         if ($filePath === null)
             return;
 
-        $filePath = Util::getFileStorage()->get(Util::getFileStorage()->getRelativePath($filePath));
+        $filePath = \Yii::$app->get("fileStorage")->get(\Yii::$app->get("fileStorage")->getRelativePath($filePath));
 
         $this->name = ltrim(pathinfo(' ' .$filePath->getPath(), PATHINFO_FILENAME));
         $this->extension = pathinfo($filePath->getPath(), PATHINFO_EXTENSION);
         $this->size = $filePath->getSize();
         $this->type = $filePath->getMimetype();
         $this->hash = $this->getHashName();
-        $this->uploadFile(Util::getFileStorage()->getPath($filePath->getPath()), $this->hash . "." . $this->extension);
+        $this->uploadFile(\Yii::$app->get("fileStorage")->getPath($filePath->getPath()), $this->hash . "." . $this->extension);
         return $this;
     }
 
@@ -293,7 +293,7 @@ class Attachment extends \hass\backend\ActiveRecord
             $destinationFileName = $this->hash;
         }
         $destinationPath = $this->getStorageDirectory() . DIRECTORY_SEPARATOR . $this->getPartitionDirectory();
-        return Util::getFileStorage()->upload($sourceUrl, $destinationPath . DIRECTORY_SEPARATOR . $destinationFileName);
+        return \Yii::$app->get("fileStorage")->upload($sourceUrl, $destinationPath . DIRECTORY_SEPARATOR . $destinationFileName);
     }
 
     protected function deleteFile($fileName = null)
@@ -304,23 +304,23 @@ class Attachment extends \hass\backend\ActiveRecord
         $directory = $this->getStorageDirectory() . DIRECTORY_SEPARATOR . $this->getPartitionDirectory();
         $filePath = $directory . DIRECTORY_SEPARATOR . $fileName;
 
-        Util::getFileStorage()->delete($filePath);
+        \Yii::$app->get("fileStorage")->delete($filePath);
         $this->deleteEmptyDirectory($directory);
     }
 
     protected function deleteEmptyDirectory($dir = null)
     {
-        if (Util::getFileStorage()->deleteEmptyDirectory($dir) == false) {
+        if (\Yii::$app->get("fileStorage")->deleteEmptyDirectory($dir) == false) {
             return;
         }
 
         $dir = dirname($dir);
-        if (Util::getFileStorage()->deleteEmptyDirectory($dir) == false) {
+        if (\Yii::$app->get("fileStorage")->deleteEmptyDirectory($dir) == false) {
             return;
         }
 
         $dir = dirname($dir);
-        if (Util::getFileStorage()->deleteEmptyDirectory($dir) == false) {
+        if (\Yii::$app->get("fileStorage")->deleteEmptyDirectory($dir) == false) {
             return;
         }
     }
@@ -338,10 +338,10 @@ class Attachment extends \hass\backend\ActiveRecord
         $thumbFile = $this->getThumbFilename($width, $height, $options);
         $thumbPath = $this->getStorageDirectory() . DIRECTORY_SEPARATOR . $this->getPartitionDirectory() . DIRECTORY_SEPARATOR . $thumbFile;
 
-        if (! Util::getFileStorage()->has($thumbPath)) {
+        if (! \Yii::$app->get("fileStorage")->has($thumbPath)) {
             $this->makeThumbStorage($thumbFile, $thumbPath, $width, $height, $options);
         }
-        return Util::getFileStorage()->getPathUrl($thumbPath);
+        return \Yii::$app->get("fileStorage")->getPathUrl($thumbPath);
     }
 
     /**
@@ -402,23 +402,23 @@ class Attachment extends \hass\backend\ActiveRecord
          */
 
 
-        if(!Util::getFileStorage()->has($this->getPath()))
+        if(!\Yii::$app->get("fileStorage")->has($this->getPath()))
         {
             return ;
         }
 
-         Util::getFileStorage()->getFileSystem()->copy($this->getPath(), $tempThumb);
+         \Yii::$app->get("fileStorage")->getFileSystem()->copy($this->getPath(), $tempThumb);
 
-         Image::thumbnail(Util::getFileStorage()->getPath($tempThumb), $width, $height)->save(Util::getFileStorage()->getPath($thumbPath));
+         Image::thumbnail(\Yii::$app->get("fileStorage")->getPath($tempThumb), $width, $height)->save(\Yii::$app->get("fileStorage")->getPath($thumbPath));
 
-         Util::getFileStorage()->delete($tempThumb);
+         \Yii::$app->get("fileStorage")->delete($tempThumb);
     }
 
     public function deleteThumbs()
     {
         $collection = $this->getThumbs();
         if (! empty($collection)) {
-            Util::getFileStorage()->deleteFiles($collection);
+            \Yii::$app->get("fileStorage")->deleteFiles($collection);
         }
     }
 
@@ -427,7 +427,7 @@ class Attachment extends \hass\backend\ActiveRecord
         $pattern = 'thumb_' . $this->primaryKey . '_';
 
         $directory = $this->getStorageDirectory() . DIRECTORY_SEPARATOR . $this->getPartitionDirectory();
-        $allFiles = Util::getFileStorage()->listFolderContents($directory);
+        $allFiles = \Yii::$app->get("fileStorage")->listFolderContents($directory);
 
         $collection = [];
         foreach ($allFiles as $file) {

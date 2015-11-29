@@ -10,7 +10,7 @@
 namespace hass\attachment\controllers;
 
 use yii\filters\VerbFilter;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\attachment\actions\UploadAction;
 
 /**

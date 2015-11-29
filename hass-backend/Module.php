@@ -8,10 +8,12 @@
  */
 namespace hass\backend;
 
-use yii\base\BootstrapInterface;
-use yii\i18n\PhpMessageSource;
+use hass\base\ApplicationModule;
+use hass\module\components\ModuleManager;
 use hass\helpers\Util;
-
+use hass\helpers\Hook;
+use hass\system\enums\ModuleGroupEnmu;
+use Yii;
 /**
  *
  * @package hass\backend
@@ -19,179 +21,100 @@ use hass\helpers\Util;
  * @since 0.1.0
  *       
  */
-class Module extends \yii\base\Module implements BootstrapInterface
+class Module extends ApplicationModule
 {
 
     const HASS_CMS_NAME = "HASSIUM";
 
     const HASS_CMS_VERSION = "0.1.0";
+    
+    const EVENT_ADMIN_NAVBAR = "event_admin_navbar";
+    
+    const EVENT_ADMIN_LEFTNAV = "event_admin_nav";
+    
+    const EVENT_ADMIN_THEME = "event_admin_theme";
+    
+    public $theme = "skin-purple";
 
-    public $state;
+    public $layout = "@hass/backend/views/layouts/main";
 
-    const STATE_BEGIN = 0;
-
-    const STATE_INIT = 1;
-
-    const STATE_BEFORE_BOOTSTRAP = 2;
-
-    const STATE_AFTER_BOOTSTRAP = 3;
-
-    const STATE_END = 4;
-
-    private $_modules = [];
-
-    public $layout = "@hass/admin/views/layouts/main";
-
-    public $adminDefaultRoute = "/system/default/index";
-
-    public function __construct($id, $parent = null, $config = [])
-    {
-        $this->state = self::STATE_BEGIN;
-        $this->preInit($config);
-        parent::__construct($id, $parent, $config);
-    }
-
-    public function preInit(&$config)
-    {
-        \Yii::$app->layout = $this->layout;
-        \Yii::$app->defaultRoute = $this->adminDefaultRoute;
-        
-        foreach ($this->coreComponents() as $name => $component) {
-            Util::setComponent($name, $component);
-        }
-        
-        // merge core modules with custom modules
-        foreach ($this->coreModules() as $id => $module) {
-            if (! isset($config['modules'][$id])) {
-                $config['modules'][$id] = $module;
-            } elseif (is_array($config['modules'][$id]) && ! isset($config['modules'][$id]['class'])) {
-                
-                $config['modules'][$id]['class'] = $module['class'];
-                
-                if (isset($config['modules'][$id]['settings'])) {
-                    $config['modules'][$id]['settings'] = array_merge($module['settings'], $config['modules'][$id]['settings']);
-                } else {
-                    $config['modules'][$id]['settings'] = $module['settings'];
-                }
-            }
-        }
-    }
-
-    public function setModules($modules)
-    {
-        \Yii::$app->setModules($modules);
-        foreach ($modules as $id => $module) {
-            $this->_modules[$id] = $module;
-        }
-    }
+    public $defaultRoute = "/system/default/index";
 
     public function init()
     {
         parent::init();
-        $this->state = self::STATE_INIT;
+        \Yii::$app->layout = $this->layout;
+        \Yii::$app->defaultRoute = $this->defaultRoute;
     }
 
-    /**
-     * !CodeTemplates.overridecomment.nonjd!
-     *
-     * @param \yii\web\Application $app            
-     */
-    public function bootstrap($app)
+    public function beforeBootstrap()
     {
-        $this->state = self::STATE_BEFORE_BOOTSTRAP;
-        
+        parent::beforeBootstrap();
+        Util::setComponent("appUrlManager", [
+            "class" => '\yii\web\UrlManager',
+            "scriptUrl" => \Yii::$app->getRequest()->getBaseUrl() . '/index.php'
+        ]);
+    }
+
+    public function loadModules()
+    {
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $moduleManager->loadBootstrapModules(ModuleManager::BOOTSTRAP_BACKEND);
+    }
+    
+    
+    public function getNavbar()
+    {
+        return Hook::trigger(static::EVENT_ADMIN_NAVBAR)->parameters->toArray();
+    }
+    
+    public function getLeftNav()
+    {
+        return Hook::trigger(\hass\backend\Module::EVENT_ADMIN_LEFTNAV)->parameters->toArray();
+    }
+    
+    public function getTheme()
+    {
         /**
-         * 后台实例化所有开启的模块,并进行引导
+         *
+         * @var $parameters \hass\helpers\Parameters
          */
-        foreach ($this->_modules as $id => $config) {
-            /**
-             *
-             * @var $module \hass\backend\BaseModule
-             */
-            $module = null;
-            if ($app->hasModule($id)) {
-                $module = $app->getModule($id);
-            } elseif (strpos($id, '\\') === false) {
-                throw new \InvalidArgumentException("Unknown bootstrapping component ID: $id");
-            }
-            
-            // 为所有模块附加行为--添加钩子
-            $module->ensureBehaviors();
-            
-            if ($module instanceof BootstrapInterface) {
-                \Yii::trace("Bootstrap with " . get_class($module) . '::bootstrap()', __METHOD__);
-                $module->bootstrap($this);
-            } else {
-                \Yii::trace("Bootstrap with " . get_class($module), __METHOD__);
-            }
-        }
-        $this->state = self::STATE_AFTER_BOOTSTRAP;
+        $parameters = Hook::trigger(static::EVENT_ADMIN_THEME)->parameters;
+        return $parameters->get(static::EVENT_ADMIN_THEME, $this->theme);
     }
-
-    public function coreModules()
+    
+    public function getUserAvator()
     {
-        $modules = [];
-        
-        foreach (\Yii::$app->get("moduleManager")->getActiveModules() as $name => $module) {
-            $modules[$name]['class'] = $module->class;
-        }
-        
-        $modules = array_merge([
-            "admin" => [
-                'class' => '\hass\admin\Module'
-            ],
-            "system" => [
-                'class' => '\hass\system\Module'
-            ],
-            "user" => [
-                'class' => '\hass\user\Module',
-                'as backend' => 'dektrium\user\filters\BackendFilter'
-            ],
-            "rbac" => [
-                'class' => '\hass\rbac\Module'
-            ],
-            "install" => [
-                "class" => 'hass\install\Module'
-            ],
-            "search" => [
-                "class" => 'hass\search\Module'
-            ],
-            "i18n" => [
-                "class" => 'hass\i18n\Module'
-            ]
-        ], $modules);
-        
-        return $modules;
+        return Yii::$app->getUser()
+        ->getIdentity()
+        ->getAvatar();
     }
-
-    public function coreComponents()
+    
+    public function getUserName()
     {
-        return [
-            'moduleManager' => [
-                "class" => 'hass\backend\components\ModuleManager'
-            ],
-            'appUrlManager' => [
-                "class" => '\yii\web\UrlManager',
-                "scriptUrl" => \Yii::$app->getRequest()->getBaseUrl() . '/index.php'
-            ],
-            'user' => [
-                'identityClass' => 'hass\user\models\User',
-                'enableAutoLogin' => true,
-                'identityCookie' => [
-                    'name' => '_backendIdentity',
-                    'httpOnly' => true
-                ]
-            ],
-            'request' => [ // 避免前台的csrf和后台的冲突
-                'csrfParam' => "_backendCsrf"
-            ],
-            'session' => [
-                'class' => 'yii\web\DbSession',
-                'name' => 'BACKENDSESSID'
-            ],
-            "composerConfigurationReader" => [
-                'class' => 'hass\helpers\ComposerConfigurationReader'
-            ]
-        ];
+        return Yii::$app->getUser()->getIdentity()->username;
+    }
+    
+    public function getUserRole()
+    {
+        return Yii::$app->getUser()->getIdentity()->role;
+    }
+    
+    public function getUserProfileUrl()
+    {
+        return  ['/user/admin/update',"id"=>Yii::$app->getUser()->getId(),"menu-group"=>ModuleGroupEnmu::PEOPLE];
+    }
+    
+    public function getUserCreatedDate()
+    {
+        return Yii::$app->getUser()
+        ->getIdentity()
+        ->getCreatedDate();
+    }
+    
+    public function getWebUrl()
+    {
+        return Yii::$app->get("appUrlManager")->getScriptUrl();
     }
 }

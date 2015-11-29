@@ -10,7 +10,7 @@
 namespace hass\urlrule\models;
 
 use Yii;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 
 /**
  * This is the model class for table "{{%url_rule}}".
@@ -30,7 +30,7 @@ use hass\backend\enums\StatusEnum;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class UrlRule extends \hass\backend\ActiveRecord
+class UrlRule extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc

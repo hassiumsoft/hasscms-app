@@ -2,7 +2,7 @@
 
 
 /* @var $this yii\web\View */
-/* @var $model hass\modules\taxonomy\models\Taxonomy */
+/* @var $model hass\bases\taxonomy\models\Taxonomy */
 
 $this->title = 'Update Rule';
 $this->params['breadcrumbs'][] = ['label' => 'rules', 'url' => ['index']];

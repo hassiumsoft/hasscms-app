@@ -61,7 +61,7 @@ class NestedSetsSwitcherAction extends \yii\base\Action
      *
      * @param unknown $id
      * @throws NotFoundHttpException
-     * @return \hass\backend\ActiveRecord
+     * @return \hass\base\ActiveRecord
      */
     protected function findModel($id)
     {

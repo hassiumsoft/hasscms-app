@@ -3,7 +3,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use hass\helpers\ArrayHelper;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 
 
 /* @var $this yii\web\View */

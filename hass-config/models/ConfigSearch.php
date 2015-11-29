@@ -9,7 +9,7 @@
 */
 namespace hass\config\models;
 
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 
 
 /**
