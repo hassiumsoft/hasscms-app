@@ -54,6 +54,11 @@ class ModuleInfo extends Package
         return  $this->_model;
     }
     
+    public function isCoreModule()
+    {
+        return $this->configuration->type() == static::MODULE_TYPE_CORE;
+    }
+    
     /**
      * 
      * @param \hass\module\models\Module $model
@@ -73,12 +78,11 @@ class ModuleInfo extends Package
         return $this->getModel()->installed;
     }
     
-    
     public function canUninstall()
     {
         return $this->getModel()->installed == BooleanEnum::TRUE &&
         $this->getModel()->status == StatusEnum::STATUS_OFF &&
-        $this->configuration->type()!=static::MODULE_TYPE_CORE;
+        $this->isCoreModule() == false;
     }
     
     public function canInstall()
@@ -88,6 +92,6 @@ class ModuleInfo extends Package
     
     public function canDelete()
     {
-        return $this->getModel()->installed == BooleanEnum::FLASE &&  $this->configuration->type()!=static::MODULE_TYPE_CORE;
+        return $this->getModel()->installed == BooleanEnum::FLASE &&  $this->isCoreModule() == false;
     }
 }

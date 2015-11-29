@@ -530,6 +530,38 @@
       ),
     ),
   ),
+  'module' => 
+  array (
+    'module' => 'module',
+    'permissions' => 
+    array (
+      'module/default/index' => 
+      array (
+        'type' => 2,
+        'description' => 'Index',
+      ),
+      'module/default/switcher' => 
+      array (
+        'type' => 2,
+        'description' => 'Switcher',
+      ),
+      'module/default/delete' => 
+      array (
+        'type' => 2,
+        'description' => 'Delete',
+      ),
+      'module/default/install' => 
+      array (
+        'type' => 2,
+        'description' => 'Install',
+      ),
+      'module/default/uninstall' => 
+      array (
+        'type' => 2,
+        'description' => 'Uninstall',
+      ),
+    ),
+  ),
   'page' => 
   array (
     'module' => 'page',
@@ -569,38 +601,6 @@
       array (
         'type' => 2,
         'description' => 'Create',
-      ),
-    ),
-  ),
-  'plugin' => 
-  array (
-    'module' => 'plugin',
-    'permissions' => 
-    array (
-      'plugin/default/index' => 
-      array (
-        'type' => 2,
-        'description' => 'Index',
-      ),
-      'plugin/default/switcher' => 
-      array (
-        'type' => 2,
-        'description' => 'Switcher',
-      ),
-      'plugin/default/delete' => 
-      array (
-        'type' => 2,
-        'description' => 'Delete',
-      ),
-      'plugin/default/install' => 
-      array (
-        'type' => 2,
-        'description' => 'Install',
-      ),
-      'plugin/default/uninstall' => 
-      array (
-        'type' => 2,
-        'description' => 'Uninstall',
       ),
     ),
   ),
@@ -702,36 +702,6 @@
       array (
         'type' => 2,
         'description' => 'Controlpanel',
-      ),
-      'system/modules/switcher' => 
-      array (
-        'type' => 2,
-        'description' => 'Switcher',
-      ),
-      'system/modules/up' => 
-      array (
-        'type' => 2,
-        'description' => 'Up',
-      ),
-      'system/modules/down' => 
-      array (
-        'type' => 2,
-        'description' => 'Down',
-      ),
-      'system/modules/delete' => 
-      array (
-        'type' => 2,
-        'description' => 'Delete',
-      ),
-      'system/modules/index' => 
-      array (
-        'type' => 2,
-        'description' => 'Index',
-      ),
-      'system/modules/update' => 
-      array (
-        'type' => 2,
-        'description' => 'Update',
       ),
     ),
   ),

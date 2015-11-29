@@ -20,14 +20,14 @@ class BaseController extends  \yii\web\Controller
 {
     use BaseControllerTrait;
     
-//     public function behaviors()
-//     {
-//         return [
-//             'rbac' => [
-//                 'class' => AccessControl::className()
-//             ]
-//         ];
-//     }
+    public function behaviors()
+    {
+        return [
+            'rbac' => [
+                'class' => AccessControl::className()
+            ]
+        ];
+    }
 
     /**
      * 检查用户是否登录,未登录则跳转到登录页面

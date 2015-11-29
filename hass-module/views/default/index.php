@@ -9,8 +9,6 @@
  */
 use yii\grid\GridView;
 use yii\helpers\Html;
-use hass\base\enums\StatusEnum;
-use hass\base\enums\BooleanEnum;
 /**
  *
  * @package hass\package_name
@@ -59,13 +57,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'hass\extensions\grid\SwitcherColumn',
                     'label' => "开启",
                     "value" => function ($model, $key, $index, $column) {
-                        return $model->enabled();
-                    },
-                    "cellVisible" => function ($model, $key, $index, $column) {
-                        if ($model->installed()) {
-                            return true;
+               
+                        if($model->isCoreModule())
+                        {
+                            return "系统模块";
                         }
-                        return "先安装模块";
+                        
+                        if($model->installed() == false)
+                        {
+                            return "请先安装模块";
+                        }
+                        return $model->enabled();
                     }
                 ],
                 [

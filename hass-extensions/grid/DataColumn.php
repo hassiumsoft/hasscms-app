@@ -9,8 +9,6 @@
 */
 namespace hass\extensions\grid;
 
-use Closure;
-use yii\helpers\Html;
 
 /**
 *
@@ -20,27 +18,6 @@ use yii\helpers\Html;
  */
 class DataColumn extends  \yii\grid\DataColumn
 {
-    public $cellVisible = true;
-    /**
-     * Renders a data cell.
-     * @param mixed $model the data model being rendered
-     * @param mixed $key the key associated with the data model
-     * @param integer $index the zero-based index of the data item among the item array returned by [[GridView::dataProvider]].
-     * @return string the rendering result
-     */
-    public function renderDataCell($model, $key, $index)
-    {
-        
-        if($this->cellVisible instanceof  Closure)
-        {
-            $this->cellVisible = call_user_func($this->cellVisible,$model, $key, $index, $this);
-        }
-        
-        if($this->cellVisible === true)
-        {
-            return parent::renderDataCell($model, $key, $index);
-        }
-        return Html::tag('td',$this->cellVisible);
-    }
+
    
 }

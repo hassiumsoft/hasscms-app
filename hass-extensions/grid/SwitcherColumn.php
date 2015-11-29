@@ -28,8 +28,6 @@ class SwitcherColumn extends  \hass\extensions\grid\DataColumn
     public function registerClientScript()
     {
         SwitcherAsset::register($this->grid->view);
-
-
         $js = <<<'EOT'
 			var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 			elems.forEach(function(html) {
@@ -65,17 +63,25 @@ EOT;
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-        $this->registerClientScript();
-
         $params = is_array($key) ? $key : ['id' => (string) $key];
         $params[0]='switcher';
         $params["attribute"] =$this->attribute;
 
-        $result =  Html::checkbox('', $this->getDataCellValue($model, $key, $index) == StatusEnum::STATUS_ON, [
-            'class' => 'js-switch',
-            'data-url' => Url::to($params),
-            'data-reload' => $this->reload
-        ]);
+        $value = $this->getDataCellValue($model, $key, $index) ;
+        
+        if(is_bool($value))
+        {
+            $this->registerClientScript();
+            $result =  Html::checkbox('', $value == StatusEnum::STATUS_ON, [
+                'class' => 'js-switch',
+                'data-url' => Url::to($params),
+                'data-reload' => $this->reload
+            ]);
+        }
+        else 
+        {
+            $result =  $value;
+        }
 
         return $result;
     }
