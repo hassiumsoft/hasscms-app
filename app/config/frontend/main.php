@@ -14,7 +14,7 @@ return [
     ],
     'components' => [
         "urlManager"=>[
-            "class" => '\hass\backend\components\UrlManager',//主题预览中会用到
+            "class" => '\hass\base\components\UrlManager',//主题预览中会用到
         ],
         'view'=>[
             'class' => '\hass\frontend\components\View',

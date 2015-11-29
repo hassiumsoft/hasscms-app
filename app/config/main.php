@@ -1,12 +1,13 @@
 <?php
 $basePath = dirname(__DIR__);
-$webroot = dirname($basePath);
+$root = dirname($basePath);
+Yii::setAlias("@root", $root);
 $config = [
     'language' => 'zh-CN',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
-    'runtimePath' => $webroot . '/runtime',
-    'vendorPath' => $webroot . '/vendor',
+    'runtimePath' =>'@root/runtime',
+    'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log'
     ],
@@ -49,6 +50,12 @@ $config = [
                     ]
                 ]
             ]
+        ],
+        'moduleManager' => [
+            "class" => 'hass\module\components\ModuleManager'
+        ],
+        "composerConfigurationReader" => [
+            'class' => 'hass\helpers\ComposerConfigurationReader'
         ]
     ]
 ];
