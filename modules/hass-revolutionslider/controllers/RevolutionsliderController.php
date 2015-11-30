@@ -9,7 +9,7 @@
  */
 namespace hass\revolutionslider\controllers;
 use Yii;
-use hass\module\BaseController;
+use hass\base\BaseController;
 use hass\revolutionslider\models\Revolutionslider;
 use hass\revolutionslider\models\CaptionForm;
 use yii\data\ActiveDataProvider;

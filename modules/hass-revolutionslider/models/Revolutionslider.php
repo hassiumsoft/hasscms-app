@@ -10,7 +10,7 @@
 namespace hass\revolutionslider\models;
 
 use Yii;
-use hass\module\behaviors\SetMaxSortableModel;
+use hass\base\behaviors\SetMaxSortableModel;
 
 /**
  * This is the model class for table "{{%revolutionslider}}".
@@ -23,7 +23,7 @@ use hass\module\behaviors\SetMaxSortableModel;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Revolutionslider extends \hass\module\ActiveRecord
+class Revolutionslider extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc
