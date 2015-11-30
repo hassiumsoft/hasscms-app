@@ -1,15 +1,20 @@
 <?php
 $basePath = dirname(__DIR__);
 $root = dirname($basePath);
+
 Yii::setAlias("@root", $root);
+Yii::setAlias("@core", '@root/core');
+Yii::setAlias("@storage", '@root/storage');
+
 $config = [
     'language' => 'zh-CN',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
-    'runtimePath' =>'@root/storage/runtime',
+    'runtimePath' =>'@storage/runtime',
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
-        'log'
+        'log',
+        'packageAlias'
     ],
     'components' => [
         'assetManager' => [
@@ -56,8 +61,11 @@ $config = [
         'moduleManager' => [
             "class" => 'hass\module\components\ModuleManager'
         ],
+        'packageAlias'=>[
+            "class"=>'hass\base\components\PackageAlias'
+        ],
         "composerConfigurationReader" => [
-            'class' => 'hass\helpers\ComposerConfigurationReader'
+            'class' => 'hass\base\components\ComposerConfigurationReader'
         ],
         "i18n"=>[
             "translations" => [
