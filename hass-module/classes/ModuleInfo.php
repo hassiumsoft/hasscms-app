@@ -12,6 +12,7 @@ use hass\base\classes\Package;
 use hass\module\models\Module as Model;
 use hass\base\enums\BooleanEnum;
 use hass\base\enums\StatusEnum;
+use hass\module\components\ModuleManager;
 
 /**
  *
@@ -26,10 +27,10 @@ class ModuleInfo extends Package
     const MODULE_TYPE_CORE = "hass-core";
 
     public $id;
-
-    public $moduleClass;
-
+    
     public $bootstrap;
+    
+    protected $moduleClass;
 
     /**
      *
@@ -50,7 +51,8 @@ class ModuleInfo extends Package
                 $model->loadDefaultValues();
                 $model->package = $this->getPackage();
                 $model->id = $this->id;
-                $model->class = $this->moduleClass;
+                $model->bootstrap = $this->bootstrap?:ModuleManager::BOOTSTRAP_BACKEND;
+                $model->class = $this->getModuleClass();
             }
             $this->_model = $model;
         }
@@ -86,6 +88,11 @@ class ModuleInfo extends Package
         }
         
         return $this->moduleClass;
+    }
+    
+    public function setModuleClass($class)
+    {
+        $this->moduleClass = $class;
     }
 
     public function isCoreModule()

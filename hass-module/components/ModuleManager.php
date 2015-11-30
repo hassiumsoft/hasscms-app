@@ -14,6 +14,8 @@ use hass\base\classes\PackageLoader;
 use yii\base\BootstrapInterface;
 use hass\module\BaseModule;
 use hass\base\helpers\Util;
+use hass\base\enums\BooleanEnum;
+use Distill\Exception\Method\Exception;
 
 /**
  *
@@ -72,37 +74,56 @@ class ModuleManager extends PackageLoader
             }
         }
     }
+
     /**
-     * 
-     * @param \hass\module\BaseModule $module
+     *
+     * @param \hass\module\BaseModule $module            
      */
     public function deleteModule($module)
     {
-        $module->uninstall();
-        $model = $module->getModuleInfo()->getModel();
-        $model->delete();
-        $this->deletePackage($module->getModuleInfo());
+        try {
+            $model = $module->getModuleInfo()->getModel();
+            $model->delete();
+            $this->deletePackage($module->getModuleInfo());
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
-    
-    
+
     /**
      *
-     * @param \hass\module\BaseModule $module
+     * @param \hass\module\BaseModule $module            
      */
     public function installModule($module)
     {
-
+        try {
+            $module->install();
+            $model = $module->getModuleInfo()->getModel();
+            $model->setAttribute("installed", BooleanEnum::TRUE);
+            $model->save();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
-    
+
     /**
      *
-     * @param \hass\module\BaseModule $module
+     * @param \hass\module\BaseModule $module            
      */
     public function uninstallModule($module)
     {
-
+        try {
+            $module->uninstall();           
+            $model = $module->getModuleInfo()->getModel();
+            $model->delete();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
-    
+
     public function findModule($id)
     {
         /** @var \hass\module\classes\ModuleInfo $moduleInfo */

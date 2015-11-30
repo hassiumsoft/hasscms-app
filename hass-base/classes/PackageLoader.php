@@ -121,15 +121,15 @@ class PackageLoader extends Component
          * @todo-hass 从composer 中卸载 ..速度太慢需要更改方式
          */
         $name = $package->getPackage();
-        $appDir = \Yii::getAlias("@app");
+        $rootDir = \Yii::getAlias("@root");
         $reader = \Yii::$app->get("composerConfigurationReader");
         /**
          *
          * @var $configuration \Eloquent\Composer\Configuration\Element\Configuration
          */
-        $configuration = $reader->read($appDir . DIRECTORY_SEPARATOR . 'composer.json');
+        $configuration = $reader->read($rootDir . DIRECTORY_SEPARATOR . 'composer.json');
         if (array_key_exists($name, $configuration->dependencies())) {
-            chdir($appDir);
+            chdir($rootDir);
             exec("composer remove $name");
         }
     }

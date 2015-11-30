@@ -68,8 +68,13 @@ EOT;
         $params["attribute"] =$this->attribute;
 
         $value = $this->getDataCellValue($model, $key, $index) ;
+
         
-        if(is_bool($value))
+        if(is_string($value))
+        {
+            $result =  $value;
+        }
+        else
         {
             $this->registerClientScript();
             $result =  Html::checkbox('', $value == StatusEnum::STATUS_ON, [
@@ -78,10 +83,7 @@ EOT;
                 'data-reload' => $this->reload
             ]);
         }
-        else 
-        {
-            $result =  $value;
-        }
+        
 
         return $result;
     }

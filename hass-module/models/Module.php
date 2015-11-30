@@ -41,4 +41,11 @@ class Module extends \hass\base\ActiveRecord
             "status" => StatusEnum::STATUS_ON
         ])->all();
     }
+    
+    public function loadDefaultValues($skipIfSet = true)
+    {
+        $this->status = 0;
+        $this->installed = 0;
+        return $this;
+    }
 }
