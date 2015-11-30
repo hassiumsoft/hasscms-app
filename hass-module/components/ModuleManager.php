@@ -30,7 +30,7 @@ class ModuleManager extends PackageLoader
 
     public $paths = [
         "@root/modules",
-        "@root/core"
+        "@core"
     ];
 
     public $infoClass = "\\hass\\module\\classes\\ModuleInfo";
