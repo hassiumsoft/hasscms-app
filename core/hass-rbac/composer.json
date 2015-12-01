@@ -1,0 +1,30 @@
+{
+	"name" : "hassium/hass-rbac",
+	"description" : "hass-rbac",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"require" : {
+		"mdmsoft/yii2-admin" : "dev-3.master"
+	},
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "rbac",
+			"name" : "Rbac",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\rbac\\" : ""
+		}
+	}
+}

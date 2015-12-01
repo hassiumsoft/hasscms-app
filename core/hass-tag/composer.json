@@ -1,0 +1,30 @@
+{
+	"name" : "hassium/hass-tag",
+	"description" : "hass-tag",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"require" : {
+		"kartik-v/yii2-widget-select2" : "*"
+	},
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "tag",
+			"name" : "Tag",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\tag\\" : ""
+		}
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name" : "hassium/hass-frontend",
+	"description" : "hass-frontend",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "frontend",
+			"name" : "Frontend",
+			"bootstrap" : "1"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\frontend\\" : ""
+		}
+	}
+}

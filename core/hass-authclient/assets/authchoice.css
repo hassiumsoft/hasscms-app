@@ -1,0 +1,63 @@
+.clients {
+    overflow:auto;
+}
+
+.auth-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url(icons_0_32.png) no-repeat;
+}
+
+
+.auth-icon.qq {
+    background-position: 0 -2652px;
+}
+.auth-icon.weibo {
+    background-position: 0 -104px;
+}
+
+.auth-icon.weixin {
+    background-position: 0 -1612px;
+}
+.auth-icon.renren {
+    background-position:0 -208px;
+}
+.auth-icon.douban {
+    background-position:0 -468px;
+}
+
+.auth-link:hover .auth-icon i,
+.auth-link:focus .auth-icon i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background: url(icons_0_32.png) 0 0 no-repeat;
+}
+
+.auth-clients {
+    margin: 0 0 1em;
+    list-style: none;
+    overflow: auto;
+}
+
+.auth-client {
+    float: left;
+    margin: 0 1em 0 0;
+}
+
+.auth-clients .auth-client .auth-link {
+    display: block;
+    width: 58px;
+}
+
+.auth-client .auth-link .auth-icon {
+    margin: 0 auto;
+}
+
+.auth-client .auth-link .auth-title {
+    display: block;
+    margin-top: 0.4em;
+    text-align: center;
+}

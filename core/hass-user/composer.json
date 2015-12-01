@@ -1,0 +1,28 @@
+{
+	"name" : "hassium/hass-user",
+	"description" : "hasscms",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension",
+		"hass"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "user",
+			"name" : "User",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\user\\" : ""
+		}
+	}
+}
