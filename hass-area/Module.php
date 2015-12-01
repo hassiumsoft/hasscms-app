@@ -33,7 +33,7 @@ class Module extends BaseModule implements BootstrapInterface
     }
 
     public function bootstrap($app)
-    {
+    {        
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"

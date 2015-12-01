@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HassCMS (http://www.hassium.org/)
  *
@@ -6,7 +7,10 @@
  * @copyright Copyright (c) 2016-2099 Hassium Software LLC.
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
-namespace hass\module;
+namespace hass\theme;
+
+use yii\base\Component;
+
 /**
  *
  * @package hass\package_name
@@ -14,7 +18,14 @@ namespace hass\module;
  * @since 0.1.0
  *       
  */
-class BaseModule extends \yii\base\Module
+class BaseTheme extends Component
 {
-    use \hass\module\traits\BaseModuleTrait;
+    use \hass\base\classes\PackageEntity;
+
+    public function init()
+    {
+        parent::init();
+    }
+    
+
 }

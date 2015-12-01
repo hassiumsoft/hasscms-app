@@ -105,4 +105,12 @@
   array (
     0 => '@core/hass-user',
   ),
+  'app\\themes\\basic\\' => 
+  array (
+    0 => '@root/themes/basic',
+  ),
+  'app\\themes\\candidate\\' => 
+  array (
+    0 => '@root/themes/candidate',
+  ),
 );

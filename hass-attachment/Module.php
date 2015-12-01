@@ -11,7 +11,6 @@ namespace hass\attachment;
 
 use hass\module\BaseModule;
 use yii\base\BootstrapInterface;
-use hass\base\helpers\Util;
 use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 
@@ -32,15 +31,7 @@ class Module extends BaseModule implements BootstrapInterface
 
     public function bootstrap($app)
     {
-        Util::setComponent("fileStorage", [
-            'class' => '\hass\attachment\components\FileStorage',
-            'filesystem' => [
-                'class' => 'creocoder\flysystem\LocalFilesystem',
-                'path' => '@webroot/storage/uploads'
-            ],
-            'baseUrl' => '@web/storage/uploads'
-        ]);
-        
+ 
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"

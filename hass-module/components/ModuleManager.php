@@ -10,12 +10,12 @@
  */
 namespace hass\module\components;
 
-use hass\base\classes\PackageLoader;
 use yii\base\BootstrapInterface;
 use hass\module\BaseModule;
 use hass\base\helpers\Util;
 use hass\base\enums\BooleanEnum;
 use Distill\Exception\Method\Exception;
+use hass\base\classes\PackageManager;
 
 /**
  *
@@ -23,9 +23,12 @@ use Distill\Exception\Method\Exception;
  *        
  * @since 0.1.0
  */
-class ModuleManager extends PackageLoader
+class ModuleManager extends PackageManager
 {
-
+    const HASS_PACKAGE_CORE = "hass-core";
+    
+    const HASS_PACKAGE_MODULE = "hass-module";
+    
     const BOOTSTRAP_FRONTEND = 1;
 
     const BOOTSTRAP_BACKEND = 2;
@@ -40,6 +43,16 @@ class ModuleManager extends PackageLoader
     public function init()
     {
         parent::init();
+    }
+    
+    public function getModulePath()
+    {
+        return $this->paths[0];
+    }
+    
+    public function getCorePath()
+    {
+        return $this->paths[1];
     }
 
     public function loadBootstrapModules($bootstrapType)
@@ -74,17 +87,14 @@ class ModuleManager extends PackageLoader
             }
         }
     }
+    
 
-    /**
-     *
-     * @param \hass\module\BaseModule $module            
-     */
-    public function deleteModule($module)
+    public function enabled($module, $value)
     {
         try {
-            $model = $module->getModuleInfo()->getModel();
-            $model->delete();
-            $this->deletePackage($module->getModuleInfo());
+            $model = $module->getPackageInfo()->getModel();
+            $model->setAttribute("status", $value);
+            $model->save();
             return true;
         } catch (\Exception $e) {
             return false;
@@ -95,11 +105,27 @@ class ModuleManager extends PackageLoader
      *
      * @param \hass\module\BaseModule $module            
      */
-    public function installModule($module)
+    public function delete($module)
+    {
+        try {
+            $model = $module->getPackageInfo()->getModel();
+            $model->delete();
+            $this->deletePackage($module->getPackageInfo());
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param \hass\module\BaseModule $module            
+     */
+    public function install($module)
     {
         try {
             $module->install();
-            $model = $module->getModuleInfo()->getModel();
+            $model = $module->getPackageInfo()->getModel();
             $model->setAttribute("installed", BooleanEnum::TRUE);
             $model->save();
             return true;
@@ -112,11 +138,11 @@ class ModuleManager extends PackageLoader
      *
      * @param \hass\module\BaseModule $module            
      */
-    public function uninstallModule($module)
+    public function uninstall($module)
     {
         try {
-            $module->uninstall();           
-            $model = $module->getModuleInfo()->getModel();
+            $module->uninstall();
+            $model = $module->getPackageInfo()->getModel();
             $model->delete();
             return true;
         } catch (\Exception $e) {
@@ -128,6 +154,6 @@ class ModuleManager extends PackageLoader
     {
         /** @var \hass\module\classes\ModuleInfo $moduleInfo */
         $moduleInfo = $this->findOne($id);
-        return $moduleInfo->getModule();
+        return $moduleInfo->createEntity();
     }
 }

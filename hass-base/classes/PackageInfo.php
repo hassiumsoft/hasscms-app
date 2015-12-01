@@ -19,35 +19,55 @@ use yii\helpers\Html;
  * @since 0.1.0
  *       
  */
-class Package extends Object
+class PackageInfo extends Object
 {
-
-    /**
-     * The path to this package
-     *
-     * @var string
-     */
-    protected $path;
-
-    /**
-     *
-     * @var \Eloquent\Composer\Configuration\Element\Configuration
-     */
-    protected $configuration;
-
     public $name;
     public $version;
 
+    protected $path;
 
+    protected $configuration;
+
+    protected  $entityClass;
+
+    
+    public function createEntity()
+    {
+        $class = $this->getEntityClass();
+        $entity = \Yii::createObject([
+            "class" => $class,
+            "packageInfo" => $this
+        ]);
+        return $entity;
+    }
+    
+    public function getEntityClass()
+    {
+        return $this->entityClass;
+    }
+    
+    public function setEntityClass($class)
+    {
+        $this->entityClass = $class;
+    }
+    
     public function getNamespace()
     {
        $prs4 = $this->configuration->autoloadPsr4();
        $result = "";
-       foreach ($prs4 as $namespce =>$dir)
+       foreach ($prs4 as $namespce =>$paths)
        {
-           if(empty($dir[0]))
+           foreach ($paths as $path)
            {
-               $result = $namespce;
+               if(empty($path))
+               {
+                   $result = $namespce;
+                   break;
+               }
+           }
+           
+           if(!empty($result))
+           {
                break;
            }
        }

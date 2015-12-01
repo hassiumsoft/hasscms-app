@@ -36,16 +36,7 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
             "onSetGroupNav"
         ]);
 
-        Util::setComponent("config", [
-            'class' => '\hass\config\components\Config', // Class (Required)
-            'db' => 'db', // Database Connection ID (Optional)
-            'tableName' => '{{%config}}', // Table Name (Optioanl)
-            'cacheId' => 'cache', // Cache Id. Defaults to NULL (Optional)
-            'cacheKey' => 'hass.config', // Key identifying the cache value (Required only if cacheId is set)
-            'cacheDuration' => 100
-        ]);
-
-        // 数据库里定义的.大于配置文件里定义的
+        // 用户后台定义的.大于配置文件里定义的
         Util::setComponent("cache", [
             'class' => \Yii::$app->get("config")->get("cache.class")
         ], true);

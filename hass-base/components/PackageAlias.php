@@ -13,6 +13,8 @@ use yii\base\Component;
 use yii\base\BootstrapInterface;
 use yii\web\Application;
 use creocoder\flysystem\LocalFilesystem;
+use hass\module\components\ModuleManager;
+use hass\theme\components\ThemeManager;
 
 /**
  *
@@ -41,41 +43,50 @@ class PackageAlias extends Component implements BootstrapInterface
         if (LOAD_PACKAGE == true) {
             return;
         }
-        
         $this->generatePackageClassmaps();
-        
         \Yii::$app->getResponse()->refresh();
         \Yii::$app->end();
     }
 
     public function generatePackageClassmaps()
     {
+        /** @var \hass\module\components\ModuleManager $moduleManager */
         $moduleManager = \Yii::$app->get("moduleManager");
         
-        $packages = $moduleManager->findAll();
+        /** @var \hass\theme\components\ThemeManager $themeManager */
+        $themeManager = \Yii::$app->get("themeManager");
         
+        $corePath = $moduleManager->getCorePath();
+        $modulePath = $moduleManager->getModulePath();
+        $themePath = $themeManager->getThemePath();
+        
+        $packages = $moduleManager->findAll();
+        $packages = array_merge($packages, $themeManager->findAll());
         $classMaps = [];
         
         /** @var \hass\module\classes\ModuleInfo $package */
         foreach ($packages as $package) {
-            $classMap = $package->configuration->autoloadPsr4();            
+            $classMap = $package->configuration->autoloadPsr4();
             foreach ($classMap as $namespace => $paths) {
                 foreach ($paths as $path) {
                     $path = str_replace("\\", "/", rtrim($package->getPath() . DIRECTORY_SEPARATOR . $path, "/\\"));
-                    if($package->isCoreModule())
-                    {
-                        $path = "@core".str_replace( str_replace("\\", "/",\Yii::getAlias("@core")), "", $path);
-                    }
-                    else 
-                    {
-                        $path = "@root/modules".str_replace( str_replace("\\", "/",\Yii::getAlias("@root/modules")), "", $path);
+                    
+                    switch ($package->configuration->type()) {
+                        case ModuleManager::HASS_PACKAGE_CORE:
+                            $path = $corePath . str_replace(str_replace("\\", "/", \Yii::getAlias($corePath)), "", $path);
+                            break;
+                        case ModuleManager::HASS_PACKAGE_MODULE:
+                            $path = $modulePath . str_replace(str_replace("\\", "/", \Yii::getAlias($modulePath)), "", $path);
+                            break;
+                        case ThemeManager::HASS_PACKAGE_THEME:
+                            $path = $themePath . str_replace(str_replace("\\", "/", \Yii::getAlias($themePath)), "", $path);
+                            break;
                     }
                     
                     $classMaps[$namespace][] = $path;
                 }
             }
         }
-        
         $this->writeFile($classMaps);
     }
 

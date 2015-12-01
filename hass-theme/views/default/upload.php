@@ -27,8 +27,7 @@ ThemeAsset::register($this);
 <div class="upload-theme row">
 	<p class="install-help">如果您有.zip格式的主题，可以在这里通过上传的方式安装。</p>
 
-    <?php $form = ActiveForm::begin(["options"=>["class"=>"wp-upload-form clearfix","enctype"=>"multipart/form-data"]])?>
-
+<?php $form = ActiveForm::begin(["options"=>["class"=>"wp-upload-form clearfix","enctype"=>"multipart/form-data"]])?>
 
 <?php echo $form->field($model, "themezip",["options"=>["class"=>"pull-left"]])->fileInput()->label(false);?>
 

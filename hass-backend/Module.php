@@ -58,11 +58,9 @@ class Module extends ApplicationModule
 
     public function loadModules()
     {
- 
         /** @var \hass\module\components\ModuleManager $moduleManager */
         $moduleManager = \Yii::$app->get("moduleManager");
         $moduleManager->loadBootstrapModules(ModuleManager::BOOTSTRAP_BACKEND);
-
     }
     
     

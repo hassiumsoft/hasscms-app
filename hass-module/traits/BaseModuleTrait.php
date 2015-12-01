@@ -8,7 +8,7 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\module\traits;
-use hass\module\classes\ModuleInfo;
+use hass\base\classes\PackageEntity;
 /**
 * 因为有一些模块需要继承从composer拉下来的Module
 * @package hass\package_name
@@ -19,33 +19,7 @@ use hass\module\classes\ModuleInfo;
 
 trait BaseModuleTrait
 {
-    /** @var \hass\module\classes\ModuleInfo $moduleInfo */
-    protected  $moduleInfo;
-    
-    public function getModuleInfo()
-    {
-        return $this->moduleInfo;
-    }
-    
-    public function setModuleInfo($moduleInfo)
-    {
-        $this->moduleInfo = $moduleInfo;
-    }
-    
-    public function install()
-    {
-        return true;
-    }
-    
-    public function uninstall()
-    {
-        return true;
-    }
-    
-    public function upgrade()
-    {
-        return true;
-    }
+    use PackageEntity;   
 }
 
 ?>

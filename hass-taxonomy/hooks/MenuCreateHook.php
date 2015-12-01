@@ -34,8 +34,7 @@ class MenuCreateHook implements ListenerProviderInterface
 
     public function onCreateLink($event)
     {
-        $event->parameters->set(\Yii::$app->get("moduleManager")
-            ->getModuleModelByClass('hass\taxonomy\Module')->name, [
+        $event->parameters->set("taxonomy", [
             $this,
             "createLink"
         ]);

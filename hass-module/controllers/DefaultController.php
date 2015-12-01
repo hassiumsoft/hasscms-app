@@ -52,11 +52,16 @@ class DefaultController extends BaseController
      */
     public function actionSwitcher($id, $value)
     {
-        $module = $this->findModule($id);
-        $model = $module->getModuleInfo()->getModel();
-        $model->setAttribute("status", $value);
-        $model->save();
-        return $this->renderJsonMessage(true, \Yii::t("hass", "更新成功"));
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $module = $moduleManager->findModule($id);
+        if ($module != null) {
+            if ($moduleManager->enabled($module, $value) == true) {
+                return $this->renderJsonMessage(true, \Yii::t("hass", "更新成功"));
+            } else {
+                return $this->renderJsonMessage(false, \Yii::t("hass", "更新失败"));
+            }
+        }
     }
 
     /**
@@ -66,12 +71,11 @@ class DefaultController extends BaseController
      */
     public function actionDelete($id)
     {
-        $module = $this->findModule($id);
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $module = $moduleManager->findModule($id);
         if ($module != null) {
-            /** @var \hass\module\components\ModuleManager $moduleManager */
-            $moduleManager = \Yii::$app->get("moduleManager");
-            
-            if ($moduleManager->deleteModule($module) == true) {
+            if ($moduleManager->delete($module) == true) {
                 $this->flash("success", "删除模块成功");
             } else {
                 $this->flash("error", "删除模块失败");
@@ -90,18 +94,16 @@ class DefaultController extends BaseController
      */
     public function actionInstall($id)
     {
-        $module = $this->findModule($id);
-        
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $module = $moduleManager->findModule($id);
         if ($module != null) {
-            /** @var \hass\module\components\ModuleManager $moduleManager */
-            $moduleManager = \Yii::$app->get("moduleManager");
-            if ($moduleManager->installModule($module) == true) {
+            if ($moduleManager->install($module) == true) {
                 $this->flash("success", "安装成功");
             } else {
                 $this->flash("error", "安装失败");
             }
         }
-        
         return $this->redirect([
             "index"
         ]);
@@ -114,11 +116,11 @@ class DefaultController extends BaseController
      */
     public function actionUninstall($id)
     {
-        $module = $this->findModule($id);
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $module = $moduleManager->findModule($id);
         if ($module != null) {
-            /** @var \hass\module\components\ModuleManager $moduleManager */
-            $moduleManager = \Yii::$app->get("moduleManager");
-            if ($moduleManager->uninstallModule($module) == true) {
+            if ($moduleManager->uninstall($module) == true) {
                 $this->flash("success", "卸载成功");
             } else {
                 $this->flash("error", "卸载失败");
@@ -128,17 +130,5 @@ class DefaultController extends BaseController
         return $this->redirect([
             "index"
         ]);
-    }
-
-    /**
-     *
-     * @param unknown $id            
-     * @return \hass\module\BaseModule
-     */
-    protected function findModule($id)
-    {
-        /** @var \hass\module\components\ModuleManager $moduleManager */
-        $moduleManager = \Yii::$app->get("moduleManager");
-        return $moduleManager->findModule($id);
     }
 }

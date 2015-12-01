@@ -82,8 +82,7 @@ class Module extends BaseModule implements BootstrapInterface
 
     public static function isCurrentModule($name)
     {
-        $model = Util::getModuleManager()->getModuleModelByClass(static::className());
-        return $model->name == $name;
+        return "menu" == $name;
     }
 
 }

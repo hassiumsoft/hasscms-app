@@ -11,6 +11,7 @@ namespace hass\base\helpers;
 
 use Yii;
 use yii\helpers\StringHelper;
+use hass\base\classes\Hook;
 
 /**
  * @author zhepama <zhepama@gmail.com>

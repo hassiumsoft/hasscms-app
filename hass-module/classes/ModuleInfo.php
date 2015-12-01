@@ -8,11 +8,11 @@
  */
 namespace hass\module\classes;
 
-use hass\base\classes\Package;
 use hass\module\models\Module as Model;
 use hass\base\enums\BooleanEnum;
 use hass\base\enums\StatusEnum;
 use hass\module\components\ModuleManager;
+use hass\base\classes\PackageInfo;
 
 /**
  *
@@ -21,16 +21,12 @@ use hass\module\components\ModuleManager;
  * @since 0.1.0
  *       
  */
-class ModuleInfo extends Package
+class ModuleInfo extends PackageInfo
 {
 
-    const MODULE_TYPE_CORE = "hass-core";
-
     public $id;
-    
+
     public $bootstrap;
-    
-    protected $moduleClass;
 
     /**
      *
@@ -51,8 +47,8 @@ class ModuleInfo extends Package
                 $model->loadDefaultValues();
                 $model->package = $this->getPackage();
                 $model->id = $this->id;
-                $model->bootstrap = $this->bootstrap?:ModuleManager::BOOTSTRAP_BACKEND;
-                $model->class = $this->getModuleClass();
+                $model->bootstrap = $this->bootstrap ?  : ModuleManager::BOOTSTRAP_BACKEND;
+                $model->class = $this->getEntityClass();
             }
             $this->_model = $model;
         }
@@ -69,35 +65,32 @@ class ModuleInfo extends Package
     }
 
     /**
+     *
      * @return \yii\base\Module
      */
-    public function getModule()
+    public function createEntity()
     {
-        $class = $this->getModuleClass();
-        $module =  \Yii::createObject($class, [
+        $class = $this->getEntityClass();
+        $module = \Yii::createObject([
+            "class" => $class,
+            "packageInfo" => $this
+        ], [
             $this->id
         ]);
-        $module->moduleInfo = $this;
         return $module;
     }
 
-    public function getModuleClass()
+    public function getEntityClass()
     {
-        if ($this->moduleClass == null) {
-            $this->moduleClass = $this->getNamespace() . "Module";
+        if ($this->entityClass == null) {
+            $this->entityClass = $this->getNamespace() . "Module";
         }
-        
-        return $this->moduleClass;
-    }
-    
-    public function setModuleClass($class)
-    {
-        $this->moduleClass = $class;
+        return $this->entityClass;
     }
 
     public function isCoreModule()
     {
-        return $this->configuration->type() == static::MODULE_TYPE_CORE;
+        return $this->configuration->type() == ModuleManager::HASS_PACKAGE_CORE;
     }
 
     public function enabled()

@@ -20,7 +20,7 @@ use yii\helpers\FileHelper;
  * @since 0.1.0
  *       
  */
-class PackageLoader extends Component
+class PackageManager extends Component
 {
 
     public $paths;
@@ -31,6 +31,7 @@ class PackageLoader extends Component
 
     public $packages;
     
+    public $packgeConfigName = "hass-package-config";
     
     /**
      * Looks for packages in the specified directories and creates the objects
@@ -56,9 +57,10 @@ class PackageLoader extends Component
                         continue;
                     }
                     
-                    if ($package instanceof Package) {
+                    if ($package instanceof PackageInfo) {
                         $this->packages[$package->getPackage()] = $package;
                     } else {
+                  
                         $this->packages[$package['configuration']->name()] = $package;
                     }
                 }
@@ -92,10 +94,11 @@ class PackageLoader extends Component
         // 从扩展中获得包的文件名...
         $extra = $configuration->extra();
         
-        if (! $extra || ! property_exists($extra, "hass-package-config")) {
+        if (! $extra || ! property_exists($extra, $this->packgeConfigName)) {
             return null;
         }
-        $config = (array) $extra->{"hass-package-config"};
+        
+        $config = (array) $extra->{$this->packgeConfigName};
         $config["path"] = $path;
         $config['configuration'] = $configuration;
         

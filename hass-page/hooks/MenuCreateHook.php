@@ -33,8 +33,7 @@ class MenuCreateHook implements ListenerProviderInterface
 
     public function onCreateLink($event)
     {
-        $event->parameters->set(\Yii::$app->get("moduleManager")
-            ->getModuleModelByClass('hass\page\Module')->name, [
+        $event->parameters->set("page", [
             $this,
             "createLink"
         ]);
@@ -51,7 +50,7 @@ class MenuCreateHook implements ListenerProviderInterface
                 $name = $appDefaultPage["title"];
             }
             
-            $urlManager = defined("ISFRONTEND") == false ? \Yii::$app->get("appUrlManager") : \Yii::$app->getUrlManager();
+            $urlManager = HASS_APP_BACKEND == true ? \Yii::$app->get("appUrlManager") : \Yii::$app->getUrlManager();
             
             if ($urlManager->showScriptName) {
                 $url = $urlManager->getScriptUrl();

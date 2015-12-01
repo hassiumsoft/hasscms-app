@@ -9,7 +9,6 @@
 namespace hass\theme;
 
 use yii\base\BootstrapInterface;
-use hass\base\helpers\Util;
 use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 
@@ -30,9 +29,6 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
 
     public function bootstrap($app)
     {
-        Util::setComponent("themeLoader", [
-            "class" => 'hass\theme\components\ThemeLoader'
-        ]);
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"
