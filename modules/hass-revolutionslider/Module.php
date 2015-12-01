@@ -11,7 +11,7 @@ namespace hass\revolutionslider;
 
 use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use hass\revolutionslider\models\Revolutionslider;
 use yii\base\BootstrapInterface;
 

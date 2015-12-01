@@ -31,7 +31,7 @@ phpunit.phar
 /phpunit.xml
 
 
-/app/modules
+/core
 
 /admin.php
 /index.php

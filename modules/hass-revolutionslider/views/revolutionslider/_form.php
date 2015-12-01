@@ -11,7 +11,7 @@
 
 use yii\helpers\Html;
 
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 use hass\attachment\widgets\SingleMediaWidget;
 use hass\revolutionslider\assets\RevolutionsliderAsset;
 use yii\helpers\Url;

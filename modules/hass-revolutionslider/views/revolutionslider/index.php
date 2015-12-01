@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     'template' => '{up} {down} {update} {delete}'
                 ]
             ]
