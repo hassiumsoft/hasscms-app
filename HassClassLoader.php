@@ -20,6 +20,11 @@ class HassClassLoader
 {
     public static function registerAlias()
     {
+        $root = dirname(__DIR__);
+        Yii::setAlias("@root", $root);
+        Yii::setAlias("@core", '@root/core');
+        Yii::setAlias("@storage", '@root/storage');
+        
         $packageClassMaps = __DIR__ . DIRECTORY_SEPARATOR . "autoload_psr4.php";
         if (file_exists($packageClassMaps) == false) {
             $coreClassmaps = static::getHassCoreFile();
