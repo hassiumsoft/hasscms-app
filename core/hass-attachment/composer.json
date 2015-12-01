@@ -1,0 +1,30 @@
+{
+	"name" : "hassium/hass-attachment",
+	"description" : "hass-attachment",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"require" : {
+		"creocoder/yii2-flysystem" : "*"
+	},
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "attachment",
+			"name" : "Attachment",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\attachment\\" : ""
+		}
+	}
+}

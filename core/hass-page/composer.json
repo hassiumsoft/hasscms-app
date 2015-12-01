@@ -1,0 +1,27 @@
+{
+	"name" : "hassium/hass-page",
+	"description" : "hass-page",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "page",
+			"name" : "Page",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\page\\" : ""
+		}
+	}
+}

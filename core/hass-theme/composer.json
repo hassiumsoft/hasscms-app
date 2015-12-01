@@ -1,0 +1,27 @@
+{
+	"name" : "hassium/hass-theme",
+	"description" : "hass-theme",
+	"type" : "hass-core",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "theme",
+			"name" : "Theme",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\theme\\" : ""
+		}
+	}
+}
