@@ -1,0 +1,50 @@
+<div class="inner clr">
+	<div class="left">
+		<div class="pageList index-pageList">
+			<!-- 今日更新数量 -->
+			<div class="tip">
+				<h2>
+				<span class="gra">关键词:</span>	<span class="yel">{{ app.request.get("q") }}</span>
+				</h2>
+			</div>
+			<!-- 今日更新数量END -->
+			<div class="wrap">
+				<ul>
+					{% for post in models %}
+					<li class="pbox clr">
+						<div class="word" style="padding-left:0">
+							<a href="{{  entityToUrl(post) }}" target="_blank">
+								<div class="tit">{{ post.title }}</div>
+							</a>
+							<div class="desc">
+								{{ post.content|slice(0, 250)|raw }}
+							</div>
+							<div class="info">
+				
+								<div class="time">
+									<i></i> <span>{{ post.getPublishedDate() }}</span> <span>{{
+										post.getPublishedTime() }}</span>
+								</div>
+
+							</div>
+						</div>
+					</li> {% endfor %}
+				</ul>
+			</div>
+			{% set currentPage = pagination.getPage() %} {% set pageCount =
+			pagination.getPageCount() %} {% set prev = 0 %} {% if currentPage - 1
+			>= 0 %} {% set prev = currentPage - 1 %} {% endif %} {% set next =
+			pageCount-1 %} {% if currentPage + 1 < pageCount-1 %} {% set next =
+			currentPage + 1 %} {% endif %}
+			<!-- 分页开始-->
+			<div class="pagination clr">
+				<a href="{{pagination.createUrl(prev)}}"
+					class="pr {{ (currentPage<= 0) ?"disabled":"" }}">上一页</a><a
+					href="{{pagination.createUrl(next)}}"
+					class="nt {{  (currentPage >= pageCount - 1) ?"disabled":"" }}">下一页</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="right">{{ this.render('/_sidebar')|raw }}</div>
+</div>

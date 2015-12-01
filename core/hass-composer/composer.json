@@ -1,0 +1,28 @@
+{
+	"name" : "hassium/hass-composer",
+	"description" : "The composer plugin for hass plugin/theme installer",
+	"type" : "composer-plugin",
+	"keywords" : [
+		"yii2",
+		"composer",
+		"extension installer"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"require" : {
+		"composer-plugin-api" : "^1.0",
+		"composer/installers" : "~1.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\composer\\" : ""
+		}
+	},
+	"extra" : {
+		"class" : "hass\\composer\\Plugin"
+	}
+}
