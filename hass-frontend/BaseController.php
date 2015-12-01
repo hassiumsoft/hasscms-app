@@ -8,8 +8,8 @@
  */
 namespace hass\frontend;
 
-use hass\backend\traits\BaseControllerTrait;
-use hass\helpers\Util;
+use hass\base\traits\BaseControllerTrait;
+use hass\base\helpers\Util;
 
 
 /**

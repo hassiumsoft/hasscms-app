@@ -1,7 +1,7 @@
 <?php
 use yii\grid\GridView;
 use yii\helpers\Html;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 
 /**
  *
@@ -9,7 +9,7 @@ use hass\helpers\ArrayHelper;
  */
 /**
  *
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  *
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'defaults',
 
             [
-                'class' => 'hass\extensions\grid\ActionColumn',
+                'class' => 'hass\base\misc\grid\ActionColumn',
                 "urlCreator" => function ($action, $model, $key, $index) {
                     if ($action != "view") {
                         return null;

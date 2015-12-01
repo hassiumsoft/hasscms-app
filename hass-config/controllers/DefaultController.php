@@ -11,7 +11,7 @@ namespace hass\config\controllers;
 
 
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
  *

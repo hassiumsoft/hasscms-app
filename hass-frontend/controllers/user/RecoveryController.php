@@ -14,7 +14,7 @@ use dektrium\user\models\RecoveryForm;
 use Yii;
 
 use yii\web\NotFoundHttpException;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
 *

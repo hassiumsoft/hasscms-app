@@ -8,7 +8,7 @@ use yii\grid\GridView;
  * @var $this \yii\web\View
  */
 /**
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'name',
                 'frequency',
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     'urlCreator'=>function($action, $model, $key, $index,$column)
                     {
                         if($action =="view")

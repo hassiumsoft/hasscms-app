@@ -10,7 +10,7 @@
 namespace hass\theme\assets;
 
 /**
-* @package hass\admin
+* @package hass\backend
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
@@ -21,6 +21,6 @@ class ThemeAsset extends \yii\web\AssetBundle
         'theme.css',
     ];
     public $depends = [
-        '\hass\admin\assets\AdminAsset'
+        '\hass\backend\assets\AdminAsset'
     ];
 }

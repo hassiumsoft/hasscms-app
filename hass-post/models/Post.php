@@ -16,12 +16,12 @@ use hass\tag\behaviors\Taggable;
 use yii\helpers\StringHelper;
 use hass\taxonomy\behaviors\TaxonomyBehavior;
 use yii\behaviors\TimestampBehavior;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 use yii\behaviors\BlameableBehavior;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
-use hass\backend\behaviors\StrToTimeBehavior;
+use hass\base\behaviors\StrToTimeBehavior;
 
 /**
  * This is the model class for table "post".
@@ -43,7 +43,7 @@ use hass\backend\behaviors\StrToTimeBehavior;
  *
  * @since 0.1.0
  */
-class Post extends \hass\backend\ActiveRecord
+class Post extends \hass\base\ActiveRecord
 {
     public static function tableName()
     {
@@ -148,7 +148,7 @@ class Post extends \hass\backend\ActiveRecord
             'class' => TaxonomyBehavior::className()
         ];
         $behaviors['textEditor'] = [
-            'class' => \hass\extensions\editor\EditorBehavior::className(),
+            'class' => \hass\base\misc\editor\EditorBehavior::className(),
             'attribute' => 'content',
         ];
         $behaviors['TimestampFormatter'] = TimestampFormatter::className();

@@ -11,7 +11,8 @@ namespace hass\frontend\controllers;
 
 
 use hass\frontend\BaseController;
-use hass\frontend\models\Post;
+use hass\search\actions\SearchAction;
+
 
 /**
 *
@@ -22,15 +23,13 @@ use hass\frontend\models\Post;
 
 class SearchController extends BaseController
 {
-
-
-    public function actionRead($id)
+    public function actions()
     {
-
-
-        $model = Post::findByIdOrSlug($id);
-
-        return $this->render('view',["model"=>$model]);
+        return [
+          "index"=>[
+              "class"=>SearchAction::className(),
+              "template"=>"index"
+          ]
+        ];
     }
-
 }

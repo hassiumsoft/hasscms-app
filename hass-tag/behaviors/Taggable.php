@@ -23,7 +23,7 @@ use hass\tag\models\TagIndex;
 
 class Taggable extends Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
     private $_tags;
 
     public static $formName = "tagItems";
@@ -65,14 +65,11 @@ class Taggable extends Behavior
         }
 
         $data = \Yii::$app->request->post($this->owner->formName());
-
-
+        
         if(isset($data[static::$formName]) && !empty($data[static::$formName])) {
-
             $tags = $data[static::$formName];
-            $tagRelationshipss = [];
-            $modelClass = $this->getEntityClass();
-
+            $tagIndexs = [];
+            
             foreach ($tags as $name) {
                 if (!($tag = Tag::findOne(['name' => $name]))) {
                     $tag = new Tag(['name' => $name]);
@@ -80,12 +77,12 @@ class Taggable extends Behavior
                 $tag->frequency++;
                 if ($tag->save()) {
                     $updatedTags[] = $tag;
-                    $tagRelationshipss[] = [$modelClass, $this->getEntityId(), $tag->tag_id];
+                    $tagIndexs[] = [$this->getEntityClass(), $this->getEntityId(), $tag->tag_id];
                 }
             }
 
-            if(count($tagRelationshipss)) {
-                \Yii::$app->db->createCommand()->batchInsert(TagIndex::tableName(), ['entity', 'entity_id', 'tag_id'], $tagRelationshipss)->execute();
+            if(count($tagIndexs)) {
+                \Yii::$app->db->createCommand()->batchInsert(TagIndex::tableName(), ['entity', 'entity_id', 'tag_id'], $tagIndexs)->execute();
                 $this->owner->populateRelation('tags', $updatedTags);
             }
         }

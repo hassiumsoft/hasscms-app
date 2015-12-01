@@ -13,8 +13,12 @@
 			"email" : "zhepama@gmail.com"
 		}
 	],
-	"require" : {
-		"dektrium/yii2-user" : "dev-master"
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "user",
+			"name" : "User",
+			"bootstrap" : "2"
+		}
 	},
 	"autoload" : {
 		"psr-4" : {

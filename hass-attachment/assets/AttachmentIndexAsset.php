@@ -27,7 +27,7 @@ class AttachmentIndexAsset extends AssetBundle
         'attachment-index.js',
     ];
     public $depends = [
-        'hass\admin\assets\AdminAsset'
+        'hass\backend\assets\AdminAsset'
     ];
 }
 

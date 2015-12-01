@@ -11,7 +11,7 @@ namespace hass\attachment\behaviors;
 
 use yii\db\ActiveRecord;
 use hass\attachment\models\AttachmentIndex;
-use hass\backend\behaviors\BaseAttachAttribute;
+use hass\base\behaviors\BaseAttachAttribute;
 use hass\attachment\models\Attachment;
 
 /**

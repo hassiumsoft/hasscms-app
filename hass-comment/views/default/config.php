@@ -9,7 +9,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use hass\backend\enums\BooleanEnum;
+use hass\base\enums\BooleanEnum;
 
 
 

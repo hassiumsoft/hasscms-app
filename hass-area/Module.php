@@ -9,10 +9,10 @@
  */
 namespace hass\area;
 
-use hass\backend\BaseModule;
-use hass\helpers\Hook;
+use hass\module\BaseModule;
+use hass\base\classes\Hook;
 use yii\base\BootstrapInterface;
-use Yii;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -32,8 +32,8 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function bootstrap($backend)
-    {
+    public function bootstrap($app)
+    {        
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"
@@ -59,12 +59,12 @@ class Module extends BaseModule implements BootstrapInterface
 
     /**
      *
-     * @param \hass\helpers\Event $event            
+     * @param \hass\base\helpers\Event $event            
      */
     public function onSetGroupNav($event)
     {
-        $model = \Yii::$app->get("moduleManager")->getModuleModel($this->id);
-        $event->parameters->set($model->group, [
+    
+        $event->parameters->set(ModuleGroupEnmu::APPEARANCE, [
             [
                 'label' => "区域",
                 'icon' => "fa-circle-o",

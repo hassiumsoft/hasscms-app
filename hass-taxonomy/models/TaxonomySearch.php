@@ -10,7 +10,7 @@
 namespace hass\taxonomy\models;
 
 use Yii;
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 
 /**
  * This is the model class for table "{{%taxonomy}}".

@@ -11,7 +11,7 @@ namespace hass\attachment\models;
 
 
 use hass\attachment\models\Attachment;
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 
 /**
 *

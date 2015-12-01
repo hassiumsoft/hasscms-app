@@ -11,7 +11,7 @@ namespace hass\comment\widgets;
 
 use hass\comment\models\Comment;
 use yii\data\ActiveDataProvider;
-use hass\backend\enums\EntityStatusEnum;
+use hass\base\enums\EntityStatusEnum;
 use yii\web\View;
 use yii\helpers\Url;
 /**

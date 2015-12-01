@@ -19,7 +19,7 @@ use hass\attachment\models\Attachment;
  */
 trait UploadBehaviorTrait
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
     /**
      * 里面三段代码的顺序不能错..
      */
@@ -109,7 +109,7 @@ trait UploadBehaviorTrait
         ])
         ->all();
 
-        return \hass\helpers\ArrayHelper::getColumn($attachments, 'attachment_id');
+        return \hass\base\helpers\ArrayHelper::getColumn($attachments, 'attachment_id');
     }
 
     public function saveIndex($id)

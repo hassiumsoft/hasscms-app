@@ -11,8 +11,8 @@ namespace hass\comment\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use hass\backend\behaviors\TimestampFormatter;
-use hass\backend\ActiveQuery;
+use hass\base\behaviors\TimestampFormatter;
+use hass\base\ActiveQuery;
 use yii\behaviors\BlameableBehavior;
 
 /**
@@ -33,7 +33,7 @@ use yii\behaviors\BlameableBehavior;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Comment extends \hass\backend\ActiveRecord
+class Comment extends \hass\base\ActiveRecord
 {
 
     const SCENARIO_GUEST = 'guest';

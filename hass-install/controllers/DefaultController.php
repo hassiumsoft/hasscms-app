@@ -10,7 +10,7 @@
 namespace hass\install\controllers;
 
 use yii\web\Controller;
-use hass\backend\traits\BaseControllerTrait;
+use hass\base\traits\BaseControllerTrait;
 use hass\install\helpers\EnvCheck;
 use hass\install\models\DatabaseForm;
 use Yii;

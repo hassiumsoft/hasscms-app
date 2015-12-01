@@ -1,116 +1,116 @@
 <?php
 
  return array (
-  'hass\\admin\\' => 
+  'hass\\revolutionslider\\' => 
   array (
-    __DIR__ .'/hass-admin',
+    0 => '@root/modules/hass-revolutionslider',
   ),
   'hass\\area\\' => 
   array (
-    __DIR__ .'/hass-area',
+    0 => '@core/hass-area',
   ),
   'hass\\attachment\\' => 
   array (
-    __DIR__ .'/hass-attachment',
+    0 => '@core/hass-attachment',
   ),
   'hass\\authclient\\' => 
   array (
-    __DIR__ .'/hass-authclient',
+    0 => '@core/hass-authclient',
   ),
   'hass\\backend\\' => 
   array (
-    __DIR__ .'/hass-backend',
+    0 => '@core/hass-backend',
+  ),
+  'hass\\base\\' => 
+  array (
+    0 => '@core/hass-base',
   ),
   'hass\\comment\\' => 
   array (
-    __DIR__ .'/hass-comment',
-  ),
-  'hass\\composer\\' => 
-  array (
-    __DIR__ .'/hass-composer',
+    0 => '@core/hass-comment',
   ),
   'hass\\config\\' => 
   array (
-    __DIR__ .'/hass-config',
-  ),
-  'hass\\extensions\\' => 
-  array (
-    __DIR__ .'/hass-extensions',
+    0 => '@core/hass-config',
   ),
   'hass\\frontend\\' => 
   array (
-    __DIR__ .'/hass-frontend',
+    0 => '@core/hass-frontend',
   ),
   'hass\\gii\\' => 
   array (
-    __DIR__ .'/hass-gii',
-  ),
-  'hass\\helpers\\' => 
-  array (
-    __DIR__ .'/hass-helpers',
+    0 => '@core/hass-gii',
   ),
   'hass\\i18n\\' => 
   array (
-    __DIR__ .'/hass-i18n',
+    0 => '@core/hass-i18n',
   ),
   'hass\\install\\' => 
   array (
-    __DIR__ .'/hass-install',
+    0 => '@core/hass-install',
   ),
   'hass\\menu\\' => 
   array (
-    __DIR__ .'/hass-menu',
+    0 => '@core/hass-menu',
   ),
   'hass\\meta\\' => 
   array (
-    __DIR__ .'/hass-meta',
+    0 => '@core/hass-meta',
   ),
   'hass\\migration\\' => 
   array (
-    __DIR__ .'/hass-migration',
+    0 => '@core/hass-migration',
+  ),
+  'hass\\module\\' => 
+  array (
+    0 => '@core/hass-module',
   ),
   'hass\\page\\' => 
   array (
-    __DIR__ .'/hass-page',
-  ),
-  'hass\\plugin\\' => 
-  array (
-    __DIR__ .'/hass-plugin',
+    0 => '@core/hass-page',
   ),
   'hass\\post\\' => 
   array (
-    __DIR__ .'/hass-post',
+    0 => '@core/hass-post',
   ),
   'hass\\rbac\\' => 
   array (
-    __DIR__ .'/hass-rbac',
+    0 => '@core/hass-rbac',
+  ),
+  'hass\\search\\' => 
+  array (
+    0 => '@core/hass-search',
   ),
   'hass\\system\\' => 
   array (
-    __DIR__ .'/hass-system',
+    0 => '@core/hass-system',
   ),
   'hass\\tag\\' => 
   array (
-    __DIR__ .'/hass-tag',
+    0 => '@core/hass-tag',
   ),
   'hass\\taxonomy\\' => 
   array (
-    __DIR__ .'/hass-taxonomy',
-  ),
-  'hass\\template\\' => 
-  array (
-    __DIR__ .'/hass-template',
+    0 => '@core/hass-taxonomy',
   ),
   'hass\\theme\\' => 
   array (
-    __DIR__ .'/hass-theme',
+    0 => '@core/hass-theme',
   ),
   'hass\\urlrule\\' => 
   array (
-    __DIR__ .'/hass-url-rule',
+    0 => '@core/hass-url-rule',
   ),
   'hass\\user\\' => 
   array (
-    __DIR__ .'/hass-user',
+    0 => '@core/hass-user',
+  ),
+  'app\\themes\\basic\\' => 
+  array (
+    0 => '@root/themes/basic',
+  ),
+  'app\\themes\\candidate\\' => 
+  array (
+    0 => '@root/themes/candidate',
   ),
 );

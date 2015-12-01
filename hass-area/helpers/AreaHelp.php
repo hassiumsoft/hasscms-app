@@ -10,7 +10,7 @@ namespace hass\area\helpers;
 
 
 use yii\helpers\Url;
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 /**
 *
 * @package hass\package_name

@@ -10,13 +10,12 @@
 namespace hass\theme\controllers;
 
 use Yii;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use yii\web\UploadedFile;
 use hass\theme\models\ThemezipForm;
 use Distill\Distill;
 use yii\helpers\FileHelper;
 use yii\data\ArrayDataProvider;
-use hass\helpers\Util;
 
 /**
  *
@@ -27,6 +26,17 @@ use hass\helpers\Util;
 class DefaultController extends BaseController
 {
 
+    public function actions()
+    {
+        return [
+            "custom" => [
+                "class" => '\hass\base\actions\UpdateAction',
+                'modelClass' => 'hass\theme\models\CustomForm',
+                "template" => "custom-css"
+            ]
+        ];
+    }
+
     /**
      * Lists all Module models.
      *
@@ -34,7 +44,7 @@ class DefaultController extends BaseController
      */
     public function actionIndex()
     {
-        $packages = Util::getThemeLoader()->findAll();
+        $packages = \Yii::$app->get("themeManager")->findAll();
         $dataProvider = new ArrayDataProvider([
             "allModels" => $packages,
             "key" => function ($model) {
@@ -48,13 +58,58 @@ class DefaultController extends BaseController
 
     public function actionEnabled($id)
     {
-        Util::getThemeLoader()->setDefaultTheme($id);
-
-        $this->flash("success", "设置主题成功,当前主题为" . $id);
-
+        /** @var \hass\theme\components\ThemeManager $themeManager */
+        $themeManager = \Yii::$app->get("themeManager");
+        $theme = $themeManager->findTheme($id);
+        if ($theme != null) {
+            if ($themeManager->setDefaultTheme($theme) == true) {
+                $this->flash("success", "设置主题成功,当前主题为" . $id);
+            } else {
+                $this->flash("error", "设置主题失败");
+            }
+        }
+        
         return $this->redirect([
             "index"
         ]);
+    }
+
+    public function actionView($id)
+    {
+        $theme = \Yii::$app->get("themeManager")->findOne($id);
+        return $this->render("view", [
+            "model" => $theme
+        ]);
+    }
+
+
+
+    public function actionDelete($id)
+    {
+        /** @var \hass\theme\components\ThemeManager $themeManager */
+        $themeManager = \Yii::$app->get("themeManager");
+        $theme = $themeManager->findTheme($id);
+        
+        if ($theme != null) {
+            if ($themeManager->delete($theme) == true) {
+                $this->flash("success", "删除主题成功");
+            } else {
+                $this->flash("error", "删除主题失败");
+            }
+        }
+        return $this->redirect([
+            "index"
+        ]);
+    }
+    
+    
+    public function actionDemo($id)
+    {
+        $url = Yii::$app->get("appUrlManager")->createUrl([
+            "",
+            "theme" => $id
+        ]);
+        return $this->redirect($url);
     }
 
     /**
@@ -65,24 +120,24 @@ class DefaultController extends BaseController
     public function actionUpload()
     {
         $model = new ThemezipForm();
-
+        
         if (\Yii::$app->getRequest()->getIsPost() == true && ($uploaded = UploadedFile::getInstance($model, "themezip")) != null) {
-
+            
             $distill = new Distill();
-
+            
             $extractFileName = dirname($uploaded->tempName) . DIRECTORY_SEPARATOR . $uploaded->name;
-
+            
             if (move_uploaded_file($uploaded->tempName, $extractFileName) == true) {
                 $target = dirname($uploaded->tempName) . DIRECTORY_SEPARATOR . md5($extractFileName . time());
                 mkdir($target);
-
+                
                 if ($distill->extract($extractFileName, $target)) {
-                    $newTheme = Util::getThemeLoader()->findByPath($target);
-
+                    $newTheme = \Yii::$app->get("themeManager")->findByPath($target.DIRECTORY_SEPARATOR.$uploaded->getBaseName());
+                    
                     if (count($newTheme) === 1) {
-                        $theme = Util::getThemeLoader()->findOne($newTheme->getPackage());
+                        $theme = \Yii::$app->get("themeManager")->findOne($newTheme->getPackage());
                         if ($theme == null) {
-                            $themePath = Yii::getAlias(Util::getThemeLoader()->getThemePath());
+                            $themePath = Yii::getAlias(\Yii::$app->get("themeManager")->getThemePath());
                             if ($distill->extract($extractFileName, $themePath)) {
                                 $this->flash("success", "上传主题文件成功");
                             }
@@ -98,63 +153,21 @@ class DefaultController extends BaseController
             } else {
                 $this->flash("error", "移动文件失败,请确定你的临时目录是可写的");
             }
-
+            
             if (file_exists($uploaded->tempName)) {
                 unlink($uploaded->tempName);
             }
-
+            
             if (file_exists($extractFileName)) {
                 unlink($extractFileName);
             }
-
+            
             FileHelper::removeDirectory($target);
             return $this->refresh();
         }
-
+        
         return $this->render('upload', [
             "model" => $model
         ]);
-    }
-
-    public function actionView($id)
-    {
-        $theme = Util::getThemeLoader()->findOne($id);
-        return $this->render("view", [
-            "model" => $theme
-        ]);
-    }
-
-    public function actionDemo($id)
-    {
-        $url = Yii::$app->get("appUrlManager")->createUrl([
-            "",
-            "theme" => $id
-        ]);
-        return $this->redirect($url);
-    }
-
-    public function actionDelete($id)
-    {
-        $theme = Util::getThemeLoader()->findOne($id);
-        if($theme != null)
-        {
-            Util::getThemeLoader()->setCustomCss($id, null);
-            $theme->deletePackage();
-        }
-        $this->flash("success", "删除主题成功");
-        return $this->redirect([
-            "index"
-        ]);
-    }
-
-    public function actions()
-    {
-        return [
-            "custom" => [
-                "class" => '\hass\backend\actions\UpdateAction',
-                'modelClass' => 'hass\theme\models\CustomForm',
-                "template" => "custom-css"
-            ]
-        ];
     }
 }

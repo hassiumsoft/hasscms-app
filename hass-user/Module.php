@@ -8,7 +8,7 @@
  */
 namespace hass\user;
 
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use yii\base\BootstrapInterface;
 use hass\system\enums\ModuleGroupEnmu;
 
@@ -17,10 +17,12 @@ use hass\system\enums\ModuleGroupEnmu;
  * @package hass\user
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 class Module extends \dektrium\user\Module implements BootstrapInterface
 {
+    use \hass\module\traits\BaseModuleTrait;
+
     public $modelMap = [
         'User' => 'hass\user\models\User'
     ];
@@ -45,26 +47,29 @@ class Module extends \dektrium\user\Module implements BootstrapInterface
          */
         $boot = \Yii::createObject('\dektrium\user\Bootstrap');
         $boot->bootstrap(\Yii::$app);
-
+        
         Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
             $this,
             "onSetGroupNav"
         ]);
-
-        Hook::on(new  \hass\user\hooks\EntityUrlPrefix());
+        
+        Hook::on(new \hass\user\hooks\EntityUrlPrefix());
     }
+
     /**
      *
-     * @param \hass\helpers\Event $event
+     * @param \hass\base\helpers\Event $event            
      */
     public function onSetGroupNav($event)
     {
-        $event->parameters->set(ModuleGroupEnmu::PEOPLE,[[
-            'label' => "用户",
-            'icon' => "fa-users",
-            'url' => [
-                "/user/admin/index"
+        $event->parameters->set(ModuleGroupEnmu::PEOPLE, [
+            [
+                'label' => "用户",
+                'icon' => "fa-user",
+                'url' => [
+                    "/user/admin/index"
+                ]
             ]
-        ]]);
+        ]);
     }
 }

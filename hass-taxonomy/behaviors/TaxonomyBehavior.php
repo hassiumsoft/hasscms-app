@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 use hass\taxonomy\models\TaxonomyIndex;
 use yii\helpers\ArrayHelper;
 use yii\base\Behavior;
-use hass\helpers\NestedSetsTree;
+use hass\base\helpers\NestedSetsTree;
 use yii\base\InvalidConfigException;
 
 /**
@@ -25,7 +25,7 @@ use yii\base\InvalidConfigException;
  */
 class TaxonomyBehavior extends Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
 
     public static $formName = "taxonomytree";
 

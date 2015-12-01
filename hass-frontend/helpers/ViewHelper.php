@@ -10,7 +10,7 @@
 namespace hass\frontend\helpers;
 
 use hass\frontend\widgets\MenuRenderWidget;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use yii\helpers\Url;
 use hass\area\widgets\Area;
 use hass\area\widgets\Block;
@@ -34,7 +34,7 @@ class ViewHelper
 
     public static function config($name, $default = null)
     {
-        return Util::getConfig()->get($name, $default);
+        return \Yii::$app->get("config")->get($name, $default);
     }
 
     public static function area($slug, $config = [])

@@ -9,7 +9,7 @@
 */
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use hass\backend\enums\EntityStatusEnum;
+use hass\base\enums\EntityStatusEnum;
 use hass\comment\Module;
 
 

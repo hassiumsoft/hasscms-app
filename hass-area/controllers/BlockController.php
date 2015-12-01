@@ -10,12 +10,12 @@
 namespace hass\area\controllers;
 
 use Yii;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\area\Module;
 use hass\area\models\Block;
 
 use yii\web\NotFoundHttpException;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use hass\area\helpers\AreaHelp;
 
 /**
@@ -30,11 +30,11 @@ class BlockController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\area\models\Block'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\area\models\Block',
                 "query"=>[
                     "orderBy"=>['block_id' => SORT_DESC]

@@ -12,6 +12,7 @@ namespace hass\frontend\components;
 use yii\base\InvalidParamException;
 use yii\helpers\FileHelper;
 use Yii;
+use yii\helpers\Html;
 
 /**
  *
@@ -127,11 +128,29 @@ class View extends \yii\web\View
         return $output;
     }
 
-
-    
-    
     public function getViewFile()
     {
         return end($this->_viewFiles);
+    }
+
+    /**
+     *
+     * @param string $title            
+     * @param string $keywords            
+     * @param string $description            
+     */
+    public function setMetaData($title = "",  $description = "",$keywords = "")
+    {
+        $this->registerMetaTag([
+            'name' => 'description',
+            'content' => Html::encode($description)
+        ]);
+        
+        $this->registerMetaTag([
+            'name' => 'keywords',
+            'content' => Html::encode($keywords)
+        ]);
+        
+        $this->title = ! empty($title) ? $title . ' - ' . Yii::$app->name : Yii::$app->name;
     }
 }

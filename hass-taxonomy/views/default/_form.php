@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use hass\taxonomy\models\Taxonomy;
 use hass\meta\widgets\MetaForm;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin([
     'enableAjaxValidation' => true,

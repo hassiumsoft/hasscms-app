@@ -30,7 +30,7 @@ class InstallAsset extends \yii\web\AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        'hass\admin\assets\FontAwesomeAsset',
+        'hass\backend\assets\FontAwesomeAsset',
     ];
 
 }

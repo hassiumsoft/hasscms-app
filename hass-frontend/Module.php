@@ -9,14 +9,13 @@
 namespace hass\frontend;
 
 use yii\base\BootstrapInterface;
-use hass\helpers\ArrayHelper;
-use hass\helpers\Hook;
-use hass\urlrule\components\UrlRule;
-use yii\i18n\PhpMessageSource;
-use hass\helpers\Util;
-use hass\backend\components\UrlManager;
+use hass\base\helpers\ArrayHelper;
+use hass\base\classes\Hook;
+use hass\base\helpers\Util;
+use hass\base\components\UrlManager;
 use yii\helpers\Html;
-define('ISFRONTEND', true);
+use hass\base\ApplicationModule;
+use hass\module\components\ModuleManager;
 
 /**
  * 该模块主要为前台提供基本服务使用
@@ -26,86 +25,51 @@ define('ISFRONTEND', true);
  * @since 0.1.0
  *       
  */
-class Module extends \yii\base\Module implements BootstrapInterface
+class Module extends ApplicationModule
 {
 
-    private $_modules = [];
-
-    public function __construct($id, $parent = null, $config = [])
+    public function loadModules()
     {
-        $this->preInit($config);
-        parent::__construct($id, $parent, $config);
+        /** @var \hass\module\components\ModuleManager $moduleManager */
+        $moduleManager = \Yii::$app->get("moduleManager");
+        $moduleManager->loadBootstrapModules(ModuleManager::BOOTSTRAP_FRONTEND);
     }
 
-    public function preInit(&$config)
+    public function afterBootstrap()
     {
-        foreach ($this->coreComponents() as $name => $component) {
-            Util::setComponent($name, $component);
-        }
+        parent::beforeBootstrap();
         
-        // merge core modules with custom modules
-        foreach ($this->coreModules() as $id => $module) {
-            if (! isset($config['modules'][$id])) {
-                $config['modules'][$id] = $module;
-            } elseif (is_array($config['modules'][$id]) && ! isset($config['modules'][$id]['class'])) {
-                
-                $config['modules'][$id]['class'] = $module['class'];
-                
-                if (isset($config['modules'][$id]['settings'])) {
-                    $config['modules'][$id]['settings'] = array_merge($module['settings'], $config['modules'][$id]['settings']);
-                } else {
-                    $config['modules'][$id]['settings'] = $module['settings'];
-                }
-            }
-        }
-    }
-
-    public function setModules($modules)
-    {
-        \Yii::$app->setModules($modules);
-        foreach ($modules as $id => $module) {
-            $this->_modules[$id] = $module;
-        }
-    }
-
-    /**
-     * 1.在这里加载配置等..通过配置对应用做一些修改
-     * 2.在这里注册常用的组件
-     *
-     * @param \yii\web\Application $app            
-     * @see \yii\base\BootstrapInterface::bootstrap()
-     */
-    public function bootstrap($app)
-    {
-        foreach ($this->_modules as $id => $config) {
-            
-     
-            if (method_exists($config["class"], "bootstrap")) {
-  
-                $module = $app->getModule($id);
-                
-    
-                $module->bootstrap($app);
-            }
-        }
+        \Yii::$app->setTimeZone(\Yii::$app->get("config")
+            ->get("app.timezone"));
+        \Yii::$app->language = \Yii::$app->get("config")->get("app.language");
+        \Yii::$app->name = \Yii::$app->get("config")->get("app.name");
         
-        $app->setTimeZone(Util::getConfig()->get("app.timezone"));
-        $app->language = Util::getConfig()->get("app.language");
-        $app->name = Util::getConfig()->get("app.name");
         $this->initCoreHooks();
-        $this->initControllerMap($app);
-        $this->initTheme($app);
-        $this->initPlugin($app);
-        $this->initUserModule($app);
+        $this->initControllerMap();
+        $this->initTheme();
+        $this->initUserModule();
+    }
+
+    public function initCoreHooks()
+    {
+        Hook::on(new \hass\menu\hooks\MenuCreateHook());
+        Hook::on(new \hass\page\hooks\MenuCreateHook());
+        Hook::on(new \hass\taxonomy\hooks\MenuCreateHook());
+        
+        Hook::on(new \hass\taxonomy\hooks\EntityUrlPrefix());
+        Hook::on(new \hass\user\hooks\EntityUrlPrefix());
+        
+        Hook::on(new \hass\post\hooks\SearchModel());
+        Hook::on(new \hass\page\hooks\SearchModel());
     }
 
     /**
      *
      * @param \yii\web\Application $app            
      */
-    public function initControllerMap($app)
+    public function initControllerMap()
     {
-        $app->controllerMap = ArrayHelper::merge([
+        \Yii::$app->controllerMap = ArrayHelper::merge([
             "site" => 'hass\frontend\controllers\SiteController',
             "attachment" => 'hass\frontend\controllers\AttachmentController',
             "comment" => 'hass\frontend\controllers\CommentController',
@@ -115,15 +79,57 @@ class Module extends \yii\base\Module implements BootstrapInterface
             "search" => 'hass\frontend\controllers\SearchController',
             "tag" => 'hass\frontend\controllers\TagController',
             "cat" => 'hass\frontend\controllers\TaxonomyController'
-        ], $app->controllerMap);
+        ], \Yii::$app->controllerMap);
     }
 
-    public function initUserModule($app)
+    /**
+     *
+     * @param \yii\web\Application $app            
+     * @see \yii\base\BootstrapInterface::bootstrap()
+     */
+    public function initTheme()
+    {
+        if (($themeId = \Yii::$app->getRequest()->get("theme", null)) != null) {
+            \Yii::$app->getUrlManager()->on(UrlManager::EVENT_CREATE_PARAMS, function ($event) use($themeId) {
+                $event->urlParams = array_merge([
+                    "theme" => $themeId
+                ], (array) $event->urlParams);
+            });
+        } else {
+            $themeId = \Yii::$app->get("themeManager")->getDefaultThemeId();
+        }
+        
+        /** @var \hass\theme\classes\ThemeInfo $themeInfo */
+        $themeInfo = \Yii::$app->get("themeManager")->findOne($themeId);
+        $package = $themeInfo->getPackage();
+        
+        $config = [];
+        if (! empty($css = \Yii::$app->get("themeManager")->getCustomCss($package))) {
+            $config["css"] = [
+                md5($css) => Html::style($css)
+            ];
+        }
+        $config["theme"] = [
+            'package' => $package,
+            'class' => '\hass\frontend\components\Theme',
+            'assetClass' => $themeInfo->getAssetClass(),
+            'pathMap' => $themeInfo->getPathMap()
+        ];
+        Util::setComponent("view", $config, true);
+        
+        $theme = $themeInfo->createEntity();
+        
+        if ($theme instanceof BootstrapInterface) {
+            $theme->bootstrap(\Yii::$app);
+        }
+    }
+
+    public function initUserModule()
     {
         $boot = \Yii::createObject('\dektrium\user\Bootstrap');
         $boot->bootstrap(\Yii::$app);
         
-        $definitions = $app->getComponents();
+        $definitions = \Yii::$app->getComponents();
         $themePath = $definitions["view"]["theme"]["pathMap"][\Yii::$app->getViewPath()][0];
         Util::setComponent("view", [
             'theme' => [
@@ -136,189 +142,5 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 ]
             ]
         ], true);
-    }
-
-    public function initCoreHooks()
-    {
-        Hook::on(new \hass\menu\hooks\MenuCreateHook());
-        Hook::on(new \hass\page\hooks\MenuCreateHook());
-        Hook::on(new \hass\taxonomy\hooks\MenuCreateHook());
-        
-        Hook::on(new \hass\taxonomy\hooks\EntityUrlPrefix());
-        Hook::on(new \hass\user\hooks\EntityUrlPrefix());
-    }
-
-    /**
-     *
-     * @param \yii\web\Application $app            
-     * @see \yii\base\BootstrapInterface::bootstrap()
-     */
-    public function initTheme($app)
-    {
-        /**
-         *
-         * @var $theme \hass\theme\helpers\Theme
-         */
-        if (($param = $app->getRequest()->get("theme", null)) != null) {
-            $theme = Util::getThemeLoader()->findOne($param);
-            
-            \Yii::$app->getUrlManager()->on(UrlManager::EVENT_CREATE_PARAMS, function ($event) use($param) {
-                $event->urlParams = array_merge([
-                    "theme" => $param
-                ], (array) $event->urlParams);
-            });
-        } else {
-            $theme = Util::getThemeLoader()->getDefaultTheme();
-        }
-        
-        $package = $theme->getPackage();
-        
-        $config = [];
-        if (! empty($css = Util::getThemeLoader()->getCustomCss($package))) {
-            $config["css"] = [
-                md5($css) => Html::style($css)
-            ];
-        }
-        $config["theme"] = [
-            'package' => $package,
-            'class' => '\hass\frontend\components\Theme',
-            'assetClass' => $theme->getAssetClass(),
-            'pathMap' => $theme->getPathMap()
-        ];
-        Util::setComponent("view", $config, true);
-        
-        if ($theme instanceof BootstrapInterface) {
-            $theme->bootstrap($app);
-        }
-    }
-
-    public function initPlugin($app)
-    {
-        $plugins = Util::getPluginLoader()->findEnabledPlugins();
-        foreach ($plugins as $plugin) {
-            if ($plugin instanceof BootstrapInterface) {
-                $plugin->bootstrap($app);
-            }
-        }
-    }
-
-    public function coreModules()
-    {
-        return [
-            "user" => [
-                'class' => 'dektrium\user\Module',
-                'enableUnconfirmedLogin' => true,
-                'confirmWithin' => 21600,
-                'cost' => 12,
-                'as frontend' => 'dektrium\user\filters\FrontendFilter',
-                'modelMap' => [
-                    'User' => 'hass\user\models\User'
-                ],
-                'controllerMap' => [
-                    'recovery' => 'hass\frontend\controllers\user\RecoveryController',
-                    'profile' => 'hass\frontend\controllers\user\ProfileController',
-                    'registration' => 'hass\frontend\controllers\user\RegistrationController',
-                    'settings' => 'hass\frontend\controllers\user\SettingsController',
-                    "security" => 'hass\frontend\controllers\user\SecurityController'
-                ]
-            ],
-            "install" => [
-                "class" => '\hass\install\Module'
-            ]
-        ];
-    }
-
-    public function coreComponents()
-    {
-        return [
-            'config' => [
-                'class' => '\hass\config\components\Config', // Class (Required)
-                'db' => 'db', // Database Connection ID (Optional)
-                'tableName' => '{{%config}}', // Table Name (Optioanl)
-                'cacheId' => 'cache', // Cache Id. Defaults to NULL (Optional)
-                'cacheKey' => 'hass.config', // Key identifying the cache value (Required only if cacheId is set)
-                'cacheDuration' => 100
-            ],
-            'i18n' => [
-                'translations' => [
-                    'hass*' => [
-                        'class' => PhpMessageSource::className(),
-                        'basePath' => '@hass/backend/messages'
-                    ]
-                ]
-            ],
-            'user' => [
-                'identityClass' => 'hass\user\models\User',
-                'enableAutoLogin' => true,
-                'identityCookie' => [
-                    'name' => '_frontendIdentity',
-                    'httpOnly' => true
-                ]
-            ],
-            'authClientCollection' => [
-                'class' => \yii\authclient\Collection::className(),
-                'clients' => [
-                    'qq' => [
-                        'class' => 'hass\authclient\clients\QqOAuth',
-                        'clientId' => 'CLIENT_ID',
-                        'clientSecret' => 'CLIENT_SECRET'
-                    ],
-                    'weibo' => [
-                        'class' => 'hass\authclient\clients\WeiboAuth',
-                        'clientId' => 'CLIENT_ID',
-                        'clientSecret' => 'CLIENT_SECRET'
-                    ],
-                    'weixin' => [
-                        'class' => 'hass\authclient\clients\WeixinAuth',
-                        'clientId' => 'CLIENT_ID',
-                        'clientSecret' => 'CLIENT_SECRET'
-                    ],
-                    'renren' => [
-                        'class' => 'hass\authclient\clients\RenrenAuth',
-                        'clientId' => 'CLIENT_ID',
-                        'clientSecret' => 'CLIENT_SECRET'
-                    ],
-                    'douban' => [
-                        'class' => 'hass\authclient\clients\DoubanAuth',
-                        'clientId' => 'CLIENT_ID',
-                        'clientSecret' => 'CLIENT_SECRET'
-                    ]
-                ]
-            ],
-            'session' => [
-                'name' => 'FRONTENDSESSID'
-            ],
-            'moduleManager' => [
-                "class" => 'hass\backend\components\ModuleManager'
-            ],
-            'urlManager' => [
-                'enablePrettyUrl' => true,
-                'showScriptName' => true,
-                'rules' => [
-                    '<controller:(post|page|cat|tag)>/<id>' => '<controller>/read',
-                    '<controller:(post|page|cat|tag)>s' => '<controller>/list',
-                    [
-                        "class" => UrlRule::className()
-                    ]
-                ]
-            ],
-            "fileStorage" => [
-                'class' => '\hass\attachment\components\FileStorage',
-                'filesystem' => [
-                    'class' => 'creocoder\flysystem\LocalFilesystem',
-                    'path' => '@webroot/uploads'
-                ],
-                'baseUrl' => '@web/uploads'
-            ],
-            "composerConfigurationReader" => [
-                'class' => 'hass\helpers\ComposerConfigurationReader'
-            ],
-            "pluginLoader" => [
-                "class" => 'hass\plugin\components\PluginLoader'
-            ],
-            "themeLoader" => [
-                "class" => 'hass\theme\components\ThemeLoader'
-            ]
-        ];
     }
 }

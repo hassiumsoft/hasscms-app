@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin([
     'enableAjaxValidation' => true

@@ -8,7 +8,7 @@
  */
 namespace hass\taxonomy\hooks;
 
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
 
@@ -34,8 +34,7 @@ class MenuCreateHook implements ListenerProviderInterface
 
     public function onCreateLink($event)
     {
-        $event->parameters->set(\Yii::$app->get("moduleManager")
-            ->getModuleModelByClass('hass\taxonomy\Module')->name, [
+        $event->parameters->set("taxonomy", [
             $this,
             "createLink"
         ]);

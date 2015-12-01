@@ -9,7 +9,6 @@
 */
 namespace hass\meta\widgets;
 
-use Yii;
 use yii\widgets\InputWidget;
 
 /**
@@ -27,7 +26,7 @@ class MetaForm extends InputWidget
 
         if ($this->hasModel()) {
             // 这里不使用. Html::getAttributeValue($model, $attribute)因为返回的是model,使用只能返回主键
-            $this->value = $this->model->{$this->attribute};
+            $this->value = $this->model->getMetaModel();
         }
     }
 

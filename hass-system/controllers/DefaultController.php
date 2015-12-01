@@ -16,7 +16,7 @@ namespace hass\system\controllers;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class DefaultController extends \hass\backend\BaseController
+class DefaultController extends \hass\base\BaseController
 {
 
     public function actions()
@@ -30,9 +30,9 @@ class DefaultController extends \hass\backend\BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('controlpanel');
     }
-
+    
     public function actionControlpanel()
     {
         return $this->render('controlpanel');

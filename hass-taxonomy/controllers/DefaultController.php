@@ -11,9 +11,9 @@ namespace hass\taxonomy\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use hass\backend\BaseController;
+use hass\base\BaseController;
 use hass\taxonomy\models\Taxonomy;
-use hass\backend\enums\DirectionEnum;
+use hass\base\enums\DirectionEnum;
 use yii\data\ActiveDataProvider;
 use hass\taxonomy\models\TaxonomySearch;
 
@@ -30,21 +30,21 @@ class DefaultController extends BaseController
     {
         return [
             "switcher" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsSwitcherAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsSwitcherAction',
                 'modelClass' => 'hass\taxonomy\models\Taxonomy'
             ],
             "up" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsSortableAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsSortableAction',
                 'modelClass' => 'hass\taxonomy\models\Taxonomy',
                 'direction' => DirectionEnum::DIRECTION_UP
             ],
             "down" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsSortableAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsSortableAction',
                 'modelClass' => 'hass\taxonomy\models\Taxonomy',
                 'direction' => DirectionEnum::DIRECTION_DOWN
             ],
             "delete" => [
-                "class" => '\hass\extensions\grid\actions\NestedSetsDeleteAction',
+                "class" => '\hass\base\misc\grid\actions\NestedSetsDeleteAction',
                 'modelClass' => 'hass\taxonomy\models\Taxonomy'
             ]
         ];

@@ -12,7 +12,7 @@ namespace hass\config\enums;
 
 /**
  *
- * @package hass\backend
+ * @package hass\base
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  *

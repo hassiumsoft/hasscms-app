@@ -11,7 +11,7 @@ namespace hass\menu\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 
 /**
 * This is the model class for table "{{%menu}}".
@@ -31,7 +31,7 @@ use hass\backend\enums\StatusEnum;
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
-class Menu extends \hass\backend\ActiveRecord
+class Menu extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc

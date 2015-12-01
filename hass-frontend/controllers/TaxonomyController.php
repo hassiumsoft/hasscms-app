@@ -10,10 +10,10 @@
 namespace hass\frontend\controllers;
 
 use hass\frontend\BaseController;
-use hass\helpers\ArrayHelper;
-use hass\taxonomy\models\Taxonomy;
+use hass\base\helpers\ArrayHelper;
 use hass\taxonomy\models\TaxonomyIndex;
 use yii\data\ActiveDataProvider;
+use hass\frontend\models\Taxonomy;
 
 /**
  *
@@ -47,6 +47,9 @@ class TaxonomyController extends BaseController
                 'pageSize' => 15
             ]
         ]);
+        
+        list($title,$desc,$keys) = $taxonomy->getMetaData();
+        $this->getView()->setMetaData($title,$desc,$keys);
         
         return $this->render('view', [
             'taxonomyIndexs' => $dataProvider->getModels(),

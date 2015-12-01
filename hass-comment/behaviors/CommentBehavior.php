@@ -12,7 +12,7 @@ namespace hass\comment\behaviors;
 use hass\comment\models\Comment;
 use yii\base\Behavior;
 use hass\comment\models\CommentInfo;
-use hass\backend\ActiveRecord;
+use hass\base\ActiveRecord;
 
 /**
  * Comments Behavior.
@@ -26,7 +26,7 @@ use hass\backend\ActiveRecord;
  */
 class CommentBehavior extends Behavior
 {
-    use \hass\helpers\traits\EntityRelevance;
+    use \hass\base\traits\EntityRelevance;
 
     public $defaultStatus;
 

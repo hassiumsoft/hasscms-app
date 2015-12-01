@@ -12,8 +12,12 @@
 			"email" : "zhepama@gmail.com"
 		}
 	],
-	"require" : {
-		
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "i18n",
+			"name" : "I18n",
+			"bootstrap" : "2"
+		}
 	},
 	"autoload" : {
 		"psr-4" : {

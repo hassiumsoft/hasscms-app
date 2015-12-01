@@ -1,6 +1,6 @@
-base
-====
-base
+hass-backend
+============
+hass-backend
 
 Installation
 ------------
@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist hassium/hass-base "*"
+php composer.phar require --prefer-dist hassium/hass-backend "*"
 ```
 
 or add
 
 ```
-"hassium/hass-base": "*"
+"hassium/hass-backend": "*"
 ```
 
 to the require section of your `composer.json` file.

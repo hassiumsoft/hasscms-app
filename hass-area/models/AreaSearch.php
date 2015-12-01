@@ -9,7 +9,7 @@
  */
 namespace hass\area\models;
 
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 use hass\area\models\Area;
 
 /**

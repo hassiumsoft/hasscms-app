@@ -13,7 +13,7 @@ use dektrium\user\models\ResendForm;
 use Yii;
 
 use yii\web\NotFoundHttpException;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 /**
 *
 * @package hass\package_name

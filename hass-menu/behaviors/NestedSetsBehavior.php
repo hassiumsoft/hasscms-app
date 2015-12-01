@@ -9,7 +9,7 @@
  */
 namespace hass\menu\behaviors;
 
-use hass\backend\ActiveRecord;
+use hass\base\ActiveRecord;
 use yii\db\Exception;
 /**
  *

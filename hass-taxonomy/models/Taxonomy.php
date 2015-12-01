@@ -13,7 +13,7 @@ use Yii;
 use hass\meta\behaviors\MetaBehavior;
 use yii\behaviors\SluggableBehavior;
 use creocoder\nestedsets\NestedSetsBehavior;
-use hass\backend\enums\StatusEnum;
+use hass\base\enums\StatusEnum;
 
 /**
  * This is the model class for table "{{%taxonomy}}".
@@ -32,7 +32,7 @@ use hass\backend\enums\StatusEnum;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Taxonomy extends \hass\backend\ActiveRecord
+class Taxonomy extends \hass\base\ActiveRecord
 {
 
     /**

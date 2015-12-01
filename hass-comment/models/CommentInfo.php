@@ -9,7 +9,7 @@
 */
 namespace hass\comment\models;
 
-use hass\backend\traits\GetEntityObject;
+use hass\base\traits\GetEntityObject;
 use Yii;
 /**
 * This is the model class for table "{{%comment_status}}".

@@ -10,7 +10,7 @@
 namespace  hass\comment\models;
 
 use hass\comment\models\Comment;
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 
 /**
 *

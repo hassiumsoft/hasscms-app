@@ -11,7 +11,7 @@ namespace hass\frontend\controllers\user;
 
 
 use Yii;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use yii\imagine\Image;
 
 /**
@@ -46,7 +46,7 @@ class SettingsController extends \dektrium\user\controllers\SettingsController
             $w = \Yii::$app->getRequest()->post("w");
             $h = \Yii::$app->getRequest()->post("h");
 
-            $original = Util::getFileStorage()->getPath($avatar);
+            $original = \Yii::$app->get("fileStorage")->getPath($avatar);
             Image::crop($original, $w, $h, [
                 $x,
                 $y
@@ -55,7 +55,7 @@ class SettingsController extends \dektrium\user\controllers\SettingsController
             $user->saveAvatar($avatar);
 
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            $message = Yii::createObject('\hass\helpers\JSONMessage', [
+            $message = Yii::createObject('\hass\base\classes\JSONMessage', [
                 true,
                 "保存成功"
             ]);

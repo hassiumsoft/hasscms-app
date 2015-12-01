@@ -9,8 +9,8 @@
 */
 namespace hass\tag\models;
 
-use hass\backend\ActiveRecord;
-use hass\backend\traits\GetEntityObject;
+use hass\base\ActiveRecord;
+use hass\base\traits\GetEntityObject;
 /**
 *
 * @package hass\package_name

@@ -10,7 +10,7 @@
 namespace hass\area\models;
 
 use Yii;
-use hass\helpers\Serializer;
+use hass\base\helpers\Serializer;
 
 /**
  * This is the model class for table "{{%area}}".
@@ -24,7 +24,7 @@ use hass\helpers\Serializer;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Area extends \hass\backend\ActiveRecord
+class Area extends \hass\base\ActiveRecord
 {
     /**
      * @inheritdoc

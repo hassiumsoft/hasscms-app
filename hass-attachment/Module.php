@@ -9,9 +9,10 @@
  */
 namespace hass\attachment;
 
-use hass\backend\BaseModule;
+use hass\module\BaseModule;
 use yii\base\BootstrapInterface;
-use hass\helpers\Util;
+use hass\base\classes\Hook;
+use hass\system\enums\ModuleGroupEnmu;
 
 /**
  *
@@ -27,22 +28,28 @@ class Module extends BaseModule implements BootstrapInterface
         parent::init();
     }
 
-    public function behaviors()
-    {
-        return [
-            '\hass\system\behaviors\MainNavBehavior'
-        ];
-    }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
-        Util::setComponent("fileStorage", [
-            'class' => '\hass\attachment\components\FileStorage',
-            'filesystem' => [
-                'class' => 'creocoder\flysystem\LocalFilesystem',
-                'path' => '@webroot/uploads'
-            ],
-            'baseUrl' => '@web/uploads'
+ 
+        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+            $this,
+            "onSetGroupNav"
         ]);
+    }
+    /**
+     * @param \hass\base\helpers\Event $event
+     */
+    public function onSetGroupNav($event)
+    {
+        $item = [
+            'label' => "文件",
+            'icon' =>  "fa-circle-o" ,
+            'url' => [
+                "/$this->id/default/index"
+            ]
+        ];
+    
+        $event->parameters->set(ModuleGroupEnmu::STRUCTURE,[$item]);
     }
 }

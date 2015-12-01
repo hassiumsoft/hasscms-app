@@ -8,7 +8,7 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\urlrule\models;
-use hass\backend\traits\SearchModelTrait;
+use hass\base\traits\SearchModelTrait;
 /**
 *
 * @package hass\package_name

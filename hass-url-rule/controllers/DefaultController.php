@@ -10,10 +10,10 @@
 namespace hass\urlrule\controllers;
 
 use Yii;
-use hass\backend\BaseController;
-use hass\helpers\ArrayHelper;
+use hass\base\BaseController;
+use hass\base\helpers\ArrayHelper;
 use hass\urlrule\components\UrlRule;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 
 /**
 *
@@ -43,11 +43,11 @@ class DefaultController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\urlrule\models\UrlRule'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\urlrule\models\UrlRule',
                 "query"=>[
                     "orderBy"=>['id' => SORT_DESC]
@@ -56,7 +56,7 @@ class DefaultController extends BaseController
                 "filters"=>["%name"]
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\urlrule\models\UrlRule'
             ]
         ];

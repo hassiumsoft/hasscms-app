@@ -1,7 +1,7 @@
 <?php
 
 use hass\theme\assets\ThemeAsset;
-use hass\extensions\adminlte\ActiveForm;
+use hass\base\misc\adminlte\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

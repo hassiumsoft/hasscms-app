@@ -2,7 +2,7 @@
 
 namespace hass\taxonomy\models;
 
-use hass\backend\traits\GetEntityObject;
+use hass\base\traits\GetEntityObject;
 use Yii;
 
 /**

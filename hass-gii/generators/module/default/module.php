@@ -24,12 +24,12 @@ namespace <?= $ns ?>;
 use yii\base\BootstrapInterface;
 
 /**
-* @package hass\admin
+* @package hass\backend
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
 
-class <?= $className ?> extends \hass\backend\BaseModule implements BootstrapInterface
+class <?= $className ?> extends \hass\module\BaseModule implements BootstrapInterface
 {
     public $controllerNamespace = '<?= $generator->getControllerNamespace() ?>';
 
@@ -47,7 +47,7 @@ class <?= $className ?> extends \hass\backend\BaseModule implements BootstrapInt
         ];
     }
 
-    public function bootstrap($backend)
+    public function bootstrap($app)
     {
 
     }

@@ -9,7 +9,7 @@
 */
 namespace hass\theme\models;
 use yii\base\Model;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 /**
 *
 * @package hass\package_name
@@ -44,7 +44,7 @@ class CustomForm extends Model
 
         $model->id = $id;
 
-        $model->text = Util::getThemeLoader()->getCustomCss($id);
+        $model->text = \Yii::$app->get("themeManager")->getCustomCss($id);
 
         return $model;
     }
@@ -55,7 +55,7 @@ class CustomForm extends Model
 	    if ($runValidation && !$this->validate($attributeNames)) {
 	        return false;
 	    }
-	    Util::getThemeLoader()->setCustomCss($this->id, $this->text);
+	    \Yii::$app->get("themeManager")->setCustomCss($this->id, $this->text);
 	    return true;
 	}
 }

@@ -9,18 +9,19 @@
  */
 namespace hass\page\models;
 
-use hass\helpers\Node;
-use hass\helpers\Tree;
+
+use hass\base\classes\Tree;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use hass\meta\behaviors\MetaBehavior;
 use yii\behaviors\TimestampBehavior;
-use hass\backend\enums\StatusEnum;
-use hass\backend\behaviors\TimestampFormatter;
+use hass\base\enums\StatusEnum;
+use hass\base\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
-use hass\backend\behaviors\SetMaxSortableModel;
-use hass\helpers\AdjacencyListTree;
+use hass\base\behaviors\SetMaxSortableModel;
+use hass\search\behaviors\RtSphinxBehavior;
+
 
 /**
  * This is the model class for table "{{%page}}".
@@ -39,7 +40,7 @@ use hass\helpers\AdjacencyListTree;
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
  */
-class Page extends \hass\backend\ActiveRecord
+class Page extends \hass\base\ActiveRecord
 {
 
     /**
@@ -128,13 +129,13 @@ class Page extends \hass\backend\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
                 'ensureUnique' => true,
-                "immutable"=>true,
+                "immutable" => true
             ],
-            SetMaxSortableModel::className()
+            SetMaxSortableModel::className(),
         ];
         $behaviors['timestamp'] = TimestampBehavior::className();
         $behaviors['published_at'] = [
-            'class' => \hass\backend\behaviors\StrToTimeBehavior::className(),
+            'class' => \hass\base\behaviors\StrToTimeBehavior::className(),
             "attribute" => "published_at"
         ];
         $behaviors["meta"] = MetaBehavior::className();
@@ -143,7 +144,7 @@ class Page extends \hass\backend\ActiveRecord
             'attribute' => 'thumbnail'
         ];
         $behaviors["textEditor"] = [
-            'class' => \hass\extensions\editor\EditorBehavior::className(),
+            'class' => \hass\base\misc\editor\EditorBehavior::className(),
             'attribute' => 'content'
         ];
         $behaviors["TimestampFormatter"] = TimestampFormatter::className();
@@ -166,7 +167,7 @@ class Page extends \hass\backend\ActiveRecord
             return false;
         }
     }
-
+    
     // 还需要卸载掉当前节点和子节点
     public function getCanParentNodes()
     {
@@ -177,32 +178,32 @@ class Page extends \hass\backend\ActiveRecord
         ])
             ->asArray()
             ->all();
-
-        $tree =  new Tree($models);
+        
+        $tree = new Tree($models);
         $nodes = $tree->getNodes();
-        //去处当前节点和子节点
-        if($this->primaryKey)
-        {
+        // 去处当前节点和子节点
+        if ($this->primaryKey) {
             $node = $tree->getNodeById($this->primaryKey);
-            $ancestors =  $node->getDescendantsAndSelf();
-            $nodes =  array_diff($nodes,$ancestors);
+            $ancestors = $node->getDescendantsAndSelf();
+            $nodes = array_diff($nodes, $ancestors);
         }
         $result = [];
-        foreach($nodes as $node)
-        {
-            $result[$node->get("id")] = str_repeat("--",$node->getLevel()-1).$node->get("title");
+        foreach ($nodes as $node) {
+            $result[$node->get("id")] = str_repeat("--", $node->getLevel() - 1) . $node->get("title");
         }
         return $result;
     }
 
     public function getParents($includeSelf = false)
     {
-        $ancestors = $includeSelf ? array($this) : array();
+        $ancestors = $includeSelf ? array(
+            $this
+        ) : array();
         if ($this->parent == 0) {
             return $ancestors;
         }
         $parent = static::findOne($this->parent);
-        return array_merge($parent->getParents(true),$ancestors);
+        return array_merge($parent->getParents(true), $ancestors);
     }
 
     public function getParentsAndSelf()
@@ -213,11 +214,11 @@ class Page extends \hass\backend\ActiveRecord
     public static function getAppDefaultPage()
     {
         return [
-                "id" => -1,
-                "parent" => 0,
-                "title" => "首页",
-                "depth" => 0,
-                "children" => []
-            ];
+            "id" => - 1,
+            "parent" => 0,
+            "title" => "首页",
+            "depth" => 0,
+            "children" => []
+        ];
     }
 }

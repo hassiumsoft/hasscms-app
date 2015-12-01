@@ -24,6 +24,6 @@ class MigrationAssets extends  \yii\web\AssetBundle
         'migration.js'
     ];
     public $depends = [
-        '\hass\admin\assets\AdminAsset',
+        '\hass\backend\assets\AdminAsset',
     ];
 }

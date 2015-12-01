@@ -3,14 +3,14 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 
 
 /**
  * @var $this \yii\web\View
  */
 /**
- * @var $model \hass\backend\ActiveRecord
+ * @var $model \hass\base\ActiveRecord
  */
 /**
  * @var $dataProvider \yii\data\ActiveDataProvider
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     "headerOptions"=>["width"=>"600px"]
                 ],
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn',
+                    'class' => 'hass\base\misc\grid\ActionColumn',
                     'template'=>"{update} {delete}"
                 ]
             ]

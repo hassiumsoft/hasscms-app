@@ -2,8 +2,8 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
-use hass\helpers\ArrayHelper;
-use hass\backend\enums\StatusEnum;
+use hass\base\helpers\ArrayHelper;
+use hass\base\enums\StatusEnum;
 
 /* @var $this yii\web\View */
 /* @var $model hass\menu\models\Menu */
@@ -46,12 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'slug',
                 'depth',
                 [
-                    'class' => 'hass\extensions\grid\SwitcherColumn',
+                    'class' => 'hass\base\misc\grid\SwitcherColumn',
                     'attribute' => 'status',
                     'filter'=>StatusEnum::listData()
                 ],
                 [
-                    'class' => 'hass\extensions\grid\ActionColumn'
+                    'class' => 'hass\base\misc\grid\ActionColumn'
                 ]
             ]
 

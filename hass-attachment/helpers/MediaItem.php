@@ -9,7 +9,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 namespace hass\attachment\helpers;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use hass\attachment\models\Attachment;
 
 /**
@@ -115,9 +115,9 @@ class MediaItem
         }
 
         if (!self::$imageExtensions) {
-            self::$imageExtensions = Util::getConfig()->get('attachment.image_extensions', self::$defaultTypeExtensions['image']);
-            self::$videoExtensions = Util::getConfig()->get('attachment.video_extensions', self::$defaultTypeExtensions['video']);
-            self::$audioExtensions = Util::getConfig()->get('attachment.audio_extensions', self::$defaultTypeExtensions['audio']);
+            self::$imageExtensions = \Yii::$app->get("config")->get('attachment.image_extensions', self::$defaultTypeExtensions['image']);
+            self::$videoExtensions = \Yii::$app->get("config")->get('attachment.video_extensions', self::$defaultTypeExtensions['video']);
+            self::$audioExtensions = \Yii::$app->get("config")->get('attachment.audio_extensions', self::$defaultTypeExtensions['audio']);
         }
 
         $extension = pathinfo($this->path, PATHINFO_EXTENSION);

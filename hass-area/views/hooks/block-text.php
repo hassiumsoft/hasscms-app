@@ -8,8 +8,8 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 
-use hass\extensions\adminlte\ActiveForm;
-use hass\extensions\editor\EditorWidget;
+use hass\base\misc\adminlte\ActiveForm;
+use hass\base\misc\editor\EditorWidget;
 
 use yii\helpers\Html;
 use yii\helpers\Url;

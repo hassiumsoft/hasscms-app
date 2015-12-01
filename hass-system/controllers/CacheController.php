@@ -18,9 +18,9 @@ use Yii;
 * @since 0.1.0
  */
 
-class CacheController extends \hass\backend\BaseController
+class CacheController extends \hass\base\BaseController
 {
-    public $rootActions = ['*'];
+
 
     public function actionIndex()
     {
@@ -34,33 +34,17 @@ class CacheController extends \hass\backend\BaseController
         return $this->goReferrer();
     }
 
+
     public function actionClearAssets()
     {
-        foreach(glob(Yii::$app->assetManager->basePath . DIRECTORY_SEPARATOR . '*') as $asset){
-            if(is_link($asset)){
-                unlink($asset);
-            } elseif(is_dir($asset)){
-                $this->deleteDir($asset);
-            } else {
-                unlink($asset);
+        if(Yii::$app->assetManager->linkAssets == false)
+        {
+            foreach(glob(Yii::$app->assetManager->basePath . DIRECTORY_SEPARATOR . '*') as $asset){
+                \yii\helpers\FileHelper::removeDirectory($asset);
             }
         }
+        
         $this->flash('success', Yii::t('hass', 'Assets cleared'));
         return $this->goReferrer();
-    }
-
-
-    private function deleteDir($directory)
-    {
-        $iterator = new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::SKIP_DOTS);
-        $files = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($files as $file) {
-            if ($file->isDir()){
-                rmdir($file->getRealPath());
-            } else {
-                unlink($file->getRealPath());
-            }
-        }
-        return rmdir($directory);
     }
 }

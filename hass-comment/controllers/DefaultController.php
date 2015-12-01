@@ -9,7 +9,7 @@
 */
 namespace hass\comment\controllers;
 
-use hass\backend\BaseController;
+use hass\base\BaseController;
 
 /**
 *
@@ -23,11 +23,11 @@ class DefaultController extends BaseController
     {
         return [
             "delete" => [
-                "class" => '\hass\backend\actions\DeleteAction',
+                "class" => '\hass\base\actions\DeleteAction',
                 'modelClass' => 'hass\comment\models\Comment'
             ],
             "index" => [
-                "class" => '\hass\backend\actions\IndexAction',
+                "class" => '\hass\base\actions\IndexAction',
                 'modelClass' => 'hass\comment\models\Comment',
                 "query"=>[
                     "orderBy"=>['created_at' => SORT_DESC]
@@ -35,11 +35,11 @@ class DefaultController extends BaseController
                 "filters"=>["%username","author_id"]
             ],
             "update" => [
-                "class" => '\hass\backend\actions\UpdateAction',
+                "class" => '\hass\base\actions\UpdateAction',
                 'modelClass' => 'hass\comment\models\Comment'
             ],
             "create" => [
-                "class" => '\hass\backend\actions\CreateAction',
+                "class" => '\hass\base\actions\CreateAction',
                 'modelClass' => 'hass\comment\models\Comment'
             ],
             "config" => [
