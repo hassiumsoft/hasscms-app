@@ -24,7 +24,7 @@ phpunit.phar
 /phpunit.xml
 
 # composer vendor dir
-composer.json
-composer.lock
+/composer.json
+/composer.lock
 /vendor
-InitHassCoreModule.php
+/InitHassCoreModule.php
