@@ -115,4 +115,8 @@ $config = [
 ];
 
 
+if (YII_ENV_DEV) {
+    require __DIR__ . DIRECTORY_SEPARATOR . 'dev.php';
+}
+
 return $config;
