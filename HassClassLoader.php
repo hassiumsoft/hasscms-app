@@ -18,14 +18,16 @@ use Eloquent\Composer\Configuration\ConfigurationReader;
  */
 class HassClassLoader
 {
-    public static function registerAlias()
+
+    public static function registerPackageAlias()
     {
         $root = dirname(__DIR__);
         Yii::setAlias("@root", $root);
         Yii::setAlias("@core", '@root/core');
         Yii::setAlias("@storage", '@root/storage');
         
-        $packageClassMaps = __DIR__ . DIRECTORY_SEPARATOR . "autoload_psr4.php";
+        $packageClassMaps = Yii::getAlias("@core/autoload_psr4.php");
+        
         if (file_exists($packageClassMaps) == false) {
             $coreClassmaps = static::getHassCoreFile();
             
@@ -33,25 +35,24 @@ class HassClassLoader
                 \Yii::setAlias(rtrim(str_replace('\\', '/', $namespace), "/"), $path);
             }
             
-            define("LOAD_PACKAGE", false);            
+            define("LOAD_PACKAGE", false);
             return;
         }
         
         $classMaps = require $packageClassMaps;
-        
+        static::registerAlias($classMaps);
+        define("LOAD_PACKAGE", true);
+    }
+
+    public static function registerAlias($classMaps)
+    {
         foreach ($classMaps as $namespace => $paths) {
             foreach ($paths as $path) {
                 \Yii::setAlias(rtrim(str_replace('\\', '/', $namespace), "/"), $path);
             }
         }
-        
-        define("LOAD_PACKAGE", true);
     }
 
-    /**
-     * 1.启用的模块
-     * 2.当前的前台主题
-     */
     public static function getHassCoreFile()
     {
         $filesystem = \Yii::createObject([
@@ -81,4 +82,4 @@ class HassClassLoader
         return $classMaps;
     }
 }
-HassClassLoader::registerAlias();
+HassClassLoader::registerPackageAlias();
