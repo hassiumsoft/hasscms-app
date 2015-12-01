@@ -19,7 +19,7 @@ use yii\helpers\Url;
 <section class="section full-width-bg">
 	<div class="artle-nowsite">
 		<div class="inner">
-            <?php $breads = \hass\helpers\Util::getBreadcrumbs($post);?>
+            <?php $breads = \hass\base\helpers\Util::getBreadcrumbs($post);?>
             <?php foreach($breads as $name=>$url):?>
                 <a href="<?php echo Url::to($url);?>"><?=$name?></a>&gt;
             <?php endforeach;?>
@@ -40,13 +40,13 @@ use yii\helpers\Url;
 					<div class="pi-author">
 						<span><?= $post->getPublishedDate() ?></span> <span><?= $post->getPublishedTime() ?></span>
 						<a
-							href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($post->author)); ?>"
+							href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($post->author)); ?>"
 							target="_blank"><?= $post->author->profile->name; ?></a>
 					</div>
 					<!-- pi-author END -->
 					<div class="pi-comment">
 						<a
-							href="<?= \yii\helpers\Url::to(array_merge(["#" => "comments"], \hass\helpers\Util::getEntityUrl($post))); ?>"><span><?php echo $post->getCommentTotal(); ?></span><span>条评论</span></a>
+							href="<?= \yii\helpers\Url::to(array_merge(["#" => "comments"], \hass\base\helpers\Util::getEntityUrl($post))); ?>"><span><?php echo $post->getCommentTotal(); ?></span><span>条评论</span></a>
 					</div>
 					<!-- pi-comment END -->
 				</div>
@@ -85,7 +85,7 @@ use yii\helpers\Url;
 
                                 <?php foreach ($post->tags as $tag): ?>
                                     <a
-								href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($tag)) ?>"><?= $tag->name ?></a>,
+								href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($tag)) ?>"><?= $tag->name ?></a>,
                                 <?php endforeach; ?>
                             </td>
 						</tr>
@@ -116,7 +116,7 @@ use yii\helpers\Url;
 					<div class="aboutAur-mes clr">
 						<div class="au-face">
 							<a rel="nofollow"
-								href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($post->author)); ?>"
+								href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($post->author)); ?>"
 								target="_blank"> <img
 								src="<?= $post->author->getAvatar(100, 100) ?>"
 								alt="<?= $post->author->profile->name; ?>">
@@ -152,7 +152,7 @@ use yii\helpers\Url;
                                 <?php foreach($posts as $post):?>
                                 <li
 									class="<?php echo  $i==1 ?"first":"";?>"><a
-									href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($post)); ?>"
+									href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($post)); ?>"
 									title="<?=$post->title?>" target="_blank"><?=$post->title?></a>
                                     <?php $i = 0;?>
                                 </li>

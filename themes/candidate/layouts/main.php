@@ -4,7 +4,7 @@
 /* @var $content string */
 use yii\helpers\Html;
 use yii\helpers\Url;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use hass\frontend\widgets\MenuRenderWidget;
 
 $this->theme->publicBundle($this);
@@ -37,7 +37,7 @@ $this->theme->publicBundle($this);
 						<div id="logo" class="col-lg-3 col-md-3 col-sm-3">
 
 							<a href="<?= Yii::$app->getHomeUrl()?>"><img
-								src="<?php echo Util::getConfig()->get("app.logo",$this->theme->getUrl("img/logo.png"))?>"
+								src="<?php echo \Yii::$app->get("config")->get("app.logo",$this->theme->getUrl("img/logo.png"))?>"
 								alt="Logo"></a>
 
 						</div>
@@ -48,7 +48,7 @@ $this->theme->publicBundle($this);
 						<!-- Main Quote -->
 						<div class="col-lg-5 col-md-4 col-sm-4">
 
-							<blockquote><?php echo Util::getConfig()->get("app.description")?></blockquote>
+							<blockquote><?php echo \Yii::$app->get("config")->get("app.description")?></blockquote>
 
 						</div>
 						<!-- /Main Quote -->
