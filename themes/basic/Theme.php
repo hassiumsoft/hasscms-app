@@ -10,6 +10,7 @@
 namespace app\themes\basic;
 use yii\base\BootstrapInterface;
 use hass\helpers\Util;
+use hass\theme\BaseTheme;
 /**
  *
  * @package hass\package_name
@@ -17,9 +18,8 @@ use hass\helpers\Util;
  * @since 0.1.0
  *
  */
-class Theme extends \hass\theme\helpers\Theme  implements BootstrapInterface
+class Theme extends BaseTheme  implements BootstrapInterface
 {
-
     public function bootstrap($app)
     {
         Util::setComponent("view", ["defaultExtension"=>"twig"]);

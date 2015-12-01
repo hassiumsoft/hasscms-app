@@ -61,6 +61,9 @@ $config = [
         'moduleManager' => [
             "class" => 'hass\module\components\ModuleManager'
         ],
+        'themeManager' => [
+            "class" => 'hass\theme\components\ThemeManager'
+        ],
         'packageAlias'=>[
             "class"=>'hass\base\components\PackageAlias'
         ],

@@ -10,6 +10,7 @@
 namespace app\themes\candidate;
 
 use yii\base\BootstrapInterface;
+use hass\theme\BaseTheme;
 
 /**
  *
@@ -18,7 +19,7 @@ use yii\base\BootstrapInterface;
  * @since 0.1.0
  *       
  */
-class Theme extends \hass\theme\helpers\Theme implements BootstrapInterface
+class Theme extends BaseTheme implements BootstrapInterface
 {
 
     public function bootstrap($app)
