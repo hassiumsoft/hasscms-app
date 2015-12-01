@@ -245,9 +245,9 @@ class Comment extends \hass\base\ActiveRecord
     public function isReplied()
     {
         return Comment::find()->where([
-            'parent_id' => $this->comment_id
+            'parent_id' => $this->comment_id,
+            "status"=>1
         ])
-            ->active()
             ->count();
     }
 
@@ -262,9 +262,9 @@ class Comment extends \hass\base\ActiveRecord
     {
         return Comment::find()->where([
             'entity' => $entity,
-            'entity_id' => $entity_id
+            'entity_id' => $entity_id,
+            "status"=>1
         ])
-            ->active()
             ->count();
     }
 }
