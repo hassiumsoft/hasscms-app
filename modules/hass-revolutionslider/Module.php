@@ -9,7 +9,7 @@
  */
 namespace hass\revolutionslider;
 
-use hass\helpers\Hook;
+use hass\base\classes\Hook;
 use hass\system\enums\ModuleGroupEnmu;
 use hass\helpers\ArrayHelper;
 use hass\revolutionslider\models\Revolutionslider;
@@ -27,21 +27,26 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
 
     public function bootstrap($app)
     {
-        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, function ($event) {
-            $item = [
+        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+            $this,
+            "onSetGroupNav"
+        ]);
+        
+        \Yii::$app->controllerMap = ArrayHelper::merge(\Yii::$app->controllerMap, [
+            "revolutionslider" => 'hass\revolutionslider\controllers\RevolutionsliderController'
+        ]);
+    }
+    
+    public function onSetGroupNav($event)
+    {
+        $event->parameters->set(ModuleGroupEnmu::MODULE, [
+            [
                 'label' => "幻灯片",
                 'icon' => "fa-cog",
                 'url' => [
                     "/revolutionslider/index"
                 ]
-            ];
-            $event->parameters->set(ModuleGroupEnmu::PLUGIN, [
-                $item
-            ]);
-        });
-        
-        \Yii::$app->controllerMap = ArrayHelper::merge(\Yii::$app->controllerMap, [
-            "revolutionslider" => 'hass\revolutionslider\controllers\RevolutionsliderController'
+            ]
         ]);
     }
 

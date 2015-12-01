@@ -110,8 +110,6 @@ class Module extends \hass\backend\BaseModule implements BootstrapInterface
             ]);
         }
     }
-    
-   
 
     /**
      *

@@ -15,7 +15,8 @@
 	"extra" : {
 		"hass-package-config" : {
 			"id" : "revolutionslider",
-			"name" : "幻灯片"
+			"name" : "幻灯片",
+			"bootstrap" : "2"
 		}
 	},
 	"autoload" : {

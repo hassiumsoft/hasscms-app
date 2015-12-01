@@ -24,11 +24,15 @@ use yii\web\NotFoundHttpException;
 class RevolutionsliderController extends BaseController
 {
 
+    public function behaviors()
+    {
+        return [
+        ];
+    }
+    
     public function init()
     {
         parent::init();
-
-
     }
 
     public function actions()

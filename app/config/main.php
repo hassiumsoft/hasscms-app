@@ -94,7 +94,23 @@ $config = [
                     ]
                 ]
             ]
-        ]
+        ],
+        'config' => [
+            'class' => '\hass\config\components\Config', // Class (Required)
+            'db' => 'db', // Database Connection ID (Optional)
+            'tableName' => '{{%config}}', // Table Name (Optioanl)
+            'cacheId' => 'cache', // Cache Id. Defaults to NULL (Optional)
+            'cacheKey' => 'hass.config', // Key identifying the cache value (Required only if cacheId is set)
+            'cacheDuration' => 100
+        ],
+        "fileStorage" => [
+            'class' => '\hass\attachment\components\FileStorage',
+            'filesystem' => [
+                'class' => 'creocoder\flysystem\LocalFilesystem',
+                'path' => '@webroot/storage/uploads'
+            ],
+            'baseUrl' => '@web/storage/uploads'
+        ],
     ]
 ];
 
