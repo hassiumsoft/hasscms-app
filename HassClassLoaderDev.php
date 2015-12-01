@@ -27,20 +27,14 @@ class HassClassLoaderDev
             foreach ($coreClassmaps as $namespace => $path) {
                 \Yii::setAlias(rtrim(str_replace('\\', '/', $namespace), "/"), $path);
             }
-            
-            define("LOAD_PACKAGE", false);            
             return;
         }
-        
         $classMaps = require $packageClassMaps;
-        
         foreach ($classMaps as $namespace => $paths) {
             foreach ($paths as $path) {
                 \Yii::setAlias(rtrim(str_replace('\\', '/', $namespace), "/"), $path);
             }
         }
-        
-        define("LOAD_PACKAGE", true);
     }
 
     /**
