@@ -16,7 +16,7 @@ namespace hass\theme\assets;
  */
 class ThemeAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/theme/media';
+    public $sourcePath = '@hass/theme/misc';
     public $css = [
         'theme.css',
     ];

@@ -16,7 +16,7 @@ use yii\web\AssetBundle;
 */
 class ActionAsset extends AssetBundle
 {
-    public $sourcePath = "@hass/base/misc/grid/media";
+    public $sourcePath = "@hass/base/misc/grid/misc";
 
     public $js = [
         "actions.js"

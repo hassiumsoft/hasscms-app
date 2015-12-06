@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  */
 class AvatarUploadAsset extends AssetBundle
 {
-    public $sourcePath = '@hass/user/media';
+    public $sourcePath = '@hass/user/misc';
     public $css = [
         'avatar-upload.css',
     ];

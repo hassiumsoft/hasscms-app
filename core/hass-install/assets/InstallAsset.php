@@ -18,7 +18,7 @@ namespace hass\install\assets;
 
 class InstallAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/install/media';
+    public $sourcePath = '@hass/install/misc';
 
     public $js = [
         'install.js'

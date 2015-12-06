@@ -9,9 +9,6 @@
 */
 namespace hass\base\classes;
 use ReflectionClass;
-use Yii;
-use yii\web\BadRequestHttpException;
-use yii\helpers\ArrayHelper;
 
 /**
 *
@@ -20,221 +17,86 @@ use yii\helpers\ArrayHelper;
 * @since 0.1.0
  */
 abstract class Enmu
-{
-    /**
-     * The cached list of constants by name.
+{ /**
+     * Static cache of available values, shared with all subclasses.
      *
      * @var array
      */
-    private static $byName = [];
-    /**
-     * The cached list of constants by value.
-     *
-     * @var array
-    */
-    private static $byValue = [];
-    /**
-     * The value managed by this type instance.
-     *
-     * @var mixed
-    */
-    private $value;
-    /**
-     * @var array list of properties
-     */
-    private static $list;
-    /**
-     * Sets the value that will be managed by this type instance.
-     *
-     * @param mixed $value The value to be managed.
-     *
-     * @throws BadRequestHttpException If the value is not valid.
-     */
-    public function __construct($value)
+    protected static $values = [];
+    
+    public static $list;
+    private function __construct()
     {
-        if (!self::isValidValue($value)) {
-            throw new BadRequestHttpException;
-        }
-        $this->value = $value;
     }
     /**
-     * Creates a new type instance for a called name.
+     * Gets all available values.
      *
-     * @param string $name The name of the value.
-     * @param array $arguments An ignored list of arguments.
-     *
-     * @return $this The new type instance.
+     * @return array The available values, keyed by constant.
      */
-    public static function __callStatic($name, array $arguments = [])
-    {
-        return self::createByName($name);
-    }
-    /**
-     * Creates a new type instance using the name of a value.
-     *
-     * @param string $name The name of a value.
-     *
-     * @throws \yii\web\BadRequestHttpException
-     * @return $this The new type instance.
-     *
-     */
-    public static function createByName($name)
-    {
-        $constants = self::getConstantsByName();
-        if (!array_key_exists($name, $constants)) {
-            throw new BadRequestHttpException;
-        }
-        return new static($constants[$name]);
-    }
-    /**
-     * get constant key by value(label)
-     * @param $value
-     * @return mixed
-     */
-    public static function getValueByName($value)
-    {
-        $list = self::listData();
-        return array_search($value, $list);
-    }
-    /**
-     * Creates a new type instance using the value.
-     *
-     * @param mixed $value The value.
-     *
-     * @throws \yii\web\BadRequestHttpException
-     * @return $this The new type instance.
-     *
-     */
-    public static function createByValue($value)
-    {
-        $constants = self::getConstantsByValue();
-        if (!array_key_exists($value, $constants)) {
-            throw new BadRequestHttpException;
-        }
-        return new static($value);
-    }
-    /**
-     * Get list data
-     * @static
-     * @return mixed
-     */
-    public static function listData()
+    public static function getAll()
     {
         $class = get_called_class();
-        if (!isset(self::$list[$class])) {
-            $reflection = new ReflectionClass($class);
-            self::$list[$class] = $reflection->getStaticPropertyValue('list');
+        if (!isset(static::$values[$class])) {
+            $reflection = new \ReflectionClass($class);
+            static::$values[$class] = $reflection->getConstants();
         }
-        $result = ArrayHelper::getColumn(self::$list[$class], function ($value) {
-            return Yii::t('app', $value);
-        });
-        return $result;
+        return static::$values[$class];
     }
     /**
-     * Get label by value
-     * @var string value
-     * @return string label
-     */
-    public static function getLabel($value)
-    {
-        $list = self::listData();
-        if (isset($list[$value])) {
-            return Yii::t('enum', $list[$value]);
-        }
-        return null;
-    }
-    /**
-     * Returns the list of constants (by name) for this type.
-     *
-     * @return array The list of constants by name.
-     */
-    public static function getConstantsByName()
-    {
-        $class = get_called_class();
-        if (!isset(self::$byName[$class])) {
-            $reflection = new ReflectionClass($class);
-            self::$byName[$class] = $reflection->getConstants();
-            while (false !== ($reflection = $reflection->getParentClass())) {
-                if (__CLASS__ === $reflection->getName()) {
-                    break;
-                }
-                self::$byName[$class] = array_replace(
-                    $reflection->getConstants(),
-                    self::$byName[$class]
-                );
-            }
-        }
-        return self::$byName[$class];
-    }
-    /**
-     * Returns the list of constants (by value) for this type.
-     *
-     * @return array The list of constants by value.
-     */
-    public static function getConstantsByValue()
-    {
-        $class = get_called_class();
-        if (!isset(self::$byValue[$class])) {
-            self::getConstantsByName();
-            self::$byValue[$class] = [];
-            foreach (self::$byName[$class] as $name => $value) {
-                if (array_key_exists($value, self::$byValue[$class])) {
-                    if (!is_array(self::$byValue[$class][$value])) {
-                        self::$byValue[$class][$value] = [
-                            self::$byValue[$class][$value]
-                        ];
-                    }
-                    self::$byValue[$class][$value][] = $name;;
-                } else {
-                    self::$byValue[$class][$value] = $name;
-                }
-            }
-        }
-        return self::$byValue[$class];
-    }
-    /**
-     * Returns the name of the value.
-     *
-     * @return array|string The name, or names, of the value.
-     */
-    public function getName()
-    {
-        $constants = self::getConstantsByValue();
-        return $constants[$this->value];
-    }
-    /**
-     * Unwraps the type and returns the raw value.
-     *
-     * @return mixed The raw value managed by the type instance.
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-    /**
-     * Checks if a name is valid for this type.
-     *
-     * @param string $name The name of the value.
-     *
-     * @return boolean If the name is valid for this type, `true` is returned.
-     *                 Otherwise, the name is not valid and `false` is returned.
-     */
-    public static function isValidName($name)
-    {
-        $constants = self::getConstantsByName();
-        return array_key_exists($name, $constants);
-    }
-    /**
-     * Checks if a value is valid for this type.
+     * Gets the key of the provided value.
      *
      * @param string $value The value.
      *
-     * @return boolean If the value is valid for this type, `true` is returned.
-     *                 Otherwise, the value is not valid and `false` is returned.
+     * @return bool The key if found, false otherwise.
      */
-    public static function isValidValue($value)
+    public static function getKey($value)
     {
-        $constants = self::getConstantsByValue();
-        return array_key_exists($value, $constants);
+        return array_search($value, static::getAll(), true);
+    }
+    /**
+     * Checks whether the provided value is defined.
+     *
+     * @param string $value The value.
+     *
+     * @return bool True if the value is defined, false otherwise.
+     */
+    public static function exists($value)
+    {
+        return in_array($value, static::getAll(), true);
+    }
+    /**
+     * Asserts that the provided value is defined.
+     *
+     * @param string $value The value.
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function assertExists($value)
+    {
+        if (static::exists($value) == false) {
+            $class = substr(strrchr(get_called_class(), '\\'), 1);
+            throw new \InvalidArgumentException(sprintf('"%s" is not a valid %s value.', $value, $class));
+        }
+    }
+    /**
+     * Asserts that all provided valus are defined.
+     *
+     * @param array $values The values.
+     */
+    public static function assertAllExist(array $values)
+    {
+        foreach ($values as $value) {
+            static::assertExists($value);
+        }
+    }
+    
+    /**
+     * Asserts that all provided valus are defined.
+     *
+     * @param array $values The values.
+     */
+    public static function listdata()
+    {
+        return static::$list;
     }
 }

@@ -9,7 +9,6 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 namespace hass\attachment\helpers;
-use hass\base\helpers\Util;
 use hass\attachment\models\Attachment;
 
 /**
@@ -164,7 +163,7 @@ class MediaItem
      */
     public function lastModifiedAsString()
     {
-        if (!($date = $this->lastModified)) {
+        if (!$this->lastModified) {
             return null;
         }
 

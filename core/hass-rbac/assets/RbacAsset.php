@@ -18,7 +18,7 @@ namespace hass\rbac\assets;
 
 class RbacAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/rbac/media';
+    public $sourcePath = '@hass/rbac/misc';
 
     public $js = [
         'rbac.js'

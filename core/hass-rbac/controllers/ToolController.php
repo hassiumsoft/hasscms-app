@@ -25,12 +25,12 @@ class ToolController extends BaseController
 
     public function actionIndex()
     {
-        $namespaces = require dirname(dirname(__DIR__)) . '/autoload_psr4.php';
+        $namespaces = \HassClassLoader::getHassCoreFile();
         
         $result = [];
         
         foreach ($namespaces as $namespace => $dir) {
-            $controllerDir = $dir[0] . DIRECTORY_SEPARATOR . "controllers";
+            $controllerDir = $dir . DIRECTORY_SEPARATOR . "controllers";
             
             if (! is_dir($controllerDir)) {
                 continue;

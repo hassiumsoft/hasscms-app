@@ -14,9 +14,9 @@ namespace hass\migration\assets;
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
 */
-class MigrationAssets extends  \yii\web\AssetBundle
+class MigrationAsset extends  \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/migration/media';
+    public $sourcePath = '@hass/migration/misc';
     public $css = [
         'migration.css',
     ];

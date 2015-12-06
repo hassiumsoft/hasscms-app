@@ -16,9 +16,9 @@ use hass\base\behaviors\TimestampFormatter;
 use Distill\Exception\InvalidArgumentException;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
-use hass\base\helpers\Util;
 use yii\helpers\StringHelper;
 use yii\imagine\Image;
+use hass\attachment\helpers\MediaItem;
 /**
  * This is the model class for table "{{%attachment}}".
  *
@@ -134,7 +134,11 @@ class Attachment extends \hass\base\ActiveRecord
         ]);
 
         try {
-            $this->deleteThumbs();
+            $media = MediaItem::createFromAttachment($this);
+            if($media->isImage())
+            {
+                $this->deleteThumbs();
+            }            
             $this->deleteFile();
         } catch (Exception $ex) {}
     }
@@ -169,7 +173,7 @@ class Attachment extends \hass\base\ActiveRecord
             throw new InvalidArgumentException('Invalid code');
         }
 
-        list ($id, $hash) = $parts;
+        list ($id,$hash) = $parts;
 
         if (! $file = static::find((int) $id)) {
             throw new InvalidArgumentException('Unable to find file');
@@ -393,7 +397,6 @@ class Attachment extends \hass\base\ActiveRecord
      */
     protected function makeThumbStorage($thumbFile, $thumbPath, $width, $height, $options)
     {
-        $tempDir = $this->getTempDirectory();
         $tempThumb = $this->getTempDirectory().DIRECTORY_SEPARATOR.$thumbFile;
 
         /**

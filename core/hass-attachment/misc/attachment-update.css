@@ -2,11 +2,11 @@
     #更新页面
 \*------------------------------------*/
 
-.wp_attachment_image {
+.attachment_image {
     overflow: hidden;
 }
 
-.wp_attachment_image img{
+.attachment_image img{
 	max-width:100%;
 	max-height:700px;
 }

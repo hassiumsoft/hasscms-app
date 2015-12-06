@@ -20,7 +20,7 @@ use yii\web\AssetBundle;
 class JcropAsset extends AssetBundle
 {
    // public $sourcePath = '@bower/jcrop';
-    public $sourcePath = '@hass/base/misc/jcrop/media';
+    public $sourcePath = '@hass/base/misc/jcrop/misc';
     public $js = [
         'js/jquery.color.js',
         'js/Jcrop.js'
