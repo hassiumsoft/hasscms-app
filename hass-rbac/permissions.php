@@ -779,6 +779,11 @@
     'module' => 'theme',
     'permissions' => 
     array (
+      'theme/default/custom' => 
+      array (
+        'type' => 2,
+        'description' => 'Custom',
+      ),
       'theme/default/index' => 
       array (
         'type' => 2,
@@ -789,30 +794,25 @@
         'type' => 2,
         'description' => 'Enabled',
       ),
-      'theme/default/upload' => 
-      array (
-        'type' => 2,
-        'description' => 'Upload',
-      ),
       'theme/default/view' => 
       array (
         'type' => 2,
         'description' => 'View',
-      ),
-      'theme/default/demo' => 
-      array (
-        'type' => 2,
-        'description' => 'Demo',
       ),
       'theme/default/delete' => 
       array (
         'type' => 2,
         'description' => 'Delete',
       ),
-      'theme/default/custom' => 
+      'theme/default/demo' => 
       array (
         'type' => 2,
-        'description' => 'Custom',
+        'description' => 'Demo',
+      ),
+      'theme/default/upload' => 
+      array (
+        'type' => 2,
+        'description' => 'Upload',
       ),
     ),
   ),

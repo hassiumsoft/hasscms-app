@@ -1,14 +1,14 @@
 <?php
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use hass\migration\assets\MigrationAssets;
+use hass\migration\assets\MigrationAsset;
 
 /** @var $model hass\migration\models\MigrationUtility */
 /** @var $output String */
 /** @var $output_drop String */
 /** @var $tables Array */
 
-MigrationAssets::register($this);
+MigrationAsset::register($this);
 $array = ['CASCADE' => 'CASCADE', 'NO ACTION' => 'NO ACTION', 'RESTRICT' => 'RESTRICT', 'SET NULL' => 'SET NULL'];
 ?>
 

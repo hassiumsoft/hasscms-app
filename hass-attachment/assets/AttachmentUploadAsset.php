@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  */
 class AttachmentUploadAsset extends AssetBundle
 {
-    public $sourcePath = '@hass/attachment/media';
+    public $sourcePath = '@hass/attachment/misc';
     public $css = [
         'attachment-upload.css',
     ];

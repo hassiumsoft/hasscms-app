@@ -16,7 +16,7 @@ namespace hass\i18n\assets;
  */
 class I18nAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/i18n/media';
+    public $sourcePath = '@hass/i18n/misc';
     public $css = [
         'css/i18n.css',
     ];
