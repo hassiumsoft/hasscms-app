@@ -16,7 +16,7 @@ namespace hass\area\assets;
  */
 class AreaAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/area/media';
+    public $sourcePath = '@hass/area/misc';
     public $css = [
         'area.css',
     ];

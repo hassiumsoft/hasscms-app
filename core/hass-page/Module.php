@@ -93,6 +93,24 @@ class Module extends BaseModule implements BootstrapInterface
             "tree" => $data
         ]);
     }
+    
+    
+    public  function repalceKey($node)
+    {
+        $node["name"] = $node["title"];
+        unset($node["title"]);
+        if(count($node["children"])>0)
+        {
+            $children = [];
+            foreach($node["children"] as $child)
+            {
+                $children[] = call_user_func([$this,"repalceKey"],$child);
+            }
+            $node["children"] = [];
+        }
+        return $node;
+    }
+    
 }
 
 ?>

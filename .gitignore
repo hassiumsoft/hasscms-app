@@ -31,5 +31,5 @@ phpunit.phar
 /phpunit.xml
 
 
-/app/modules
+/core
 

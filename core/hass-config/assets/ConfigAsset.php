@@ -16,7 +16,7 @@ namespace hass\config\assets;
  */
 class ConfigAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/config/media';
+    public $sourcePath = '@hass/config/misc';
     public $js = [
         'config.js'
     ];

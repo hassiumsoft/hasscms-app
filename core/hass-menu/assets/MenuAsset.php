@@ -18,7 +18,7 @@ namespace hass\menu\assets;
 
 class MenuAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/menu/media';
+    public $sourcePath = '@hass/menu/misc';
 
     public $js = [
         'menu.js'

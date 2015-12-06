@@ -61,7 +61,7 @@ class ModuleManager extends PackageManager
         
         /** @var \hass\module\models\Module $model */
         foreach ($modules as $model) {
-            
+            $model = (object)$model;
             if (empty($model->class)) {
                 continue;
             }

@@ -91,7 +91,7 @@ class MultipleMediaWidget extends InputWidget
     {
         parent::init();
 
-        //@todo-hass  清除临时图片
+        //@hass-todo  清除临时图片
         //$this->getFileStorage()->clearUserTempPath();
 
         if ($this->hasModel()) {

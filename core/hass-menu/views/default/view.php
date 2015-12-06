@@ -92,7 +92,7 @@ MenuAsset::register($this);
 				<h3 class="box-title">菜单结构</h3>
 			</div>
 
-			<?php //@todo-hass 当删除其中一个,再添加一个的时候会出现bug..索引重复..所以不能用最大索引做索引 ?>
+			<?php //@hass-todo 当删除其中一个,再添加一个的时候会出现bug..索引重复..所以不能用最大索引做索引 ?>
 			<?php echo Html::beginForm(Url::to(["create"]),'post',["id"=>"save-menu-form"])?>
 			<div class="box-body">
 			<?= \hass\base\misc\nestedsortable\NestedSortable::widget(); ?>

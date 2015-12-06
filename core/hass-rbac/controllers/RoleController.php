@@ -87,7 +87,7 @@ class RoleController extends BaseController
 
             $parent = $authManager->getRole($id);
             
-            //@todo-hass 这里最好是用sql使用批量删除和添加..但是为了兼容phpmanager
+            //@hass-todo 这里最好是用sql使用批量删除和添加..但是为了兼容phpmanager
             
             foreach ($delChildren  as $name)
             {

@@ -15,7 +15,6 @@ use yii\web\NotFoundHttpException;
 use hass\base\BaseController;
 use hass\attachment\enums\CropType;
 use yii\imagine\Image;
-use hass\base\helpers\Util;
 
 /**
  *
@@ -39,8 +38,9 @@ class DefaultController extends BaseController
             ],
             "index" => [
                 "class" => '\hass\base\actions\IndexAction',
-                'modelClass' => 'hass\attachment\models\Attachment',
-                "pageSize" => 36
+                'modelClass' => '\hass\attachment\models\Attachment',
+                "pageSize" => 36,
+                "query"=>['orderBy'=>['attachment_id' => SORT_DESC]]
             ]
         ];
     }

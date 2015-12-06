@@ -18,7 +18,7 @@ use yii;
  */
 class NestedSortableAsset extends AssetBundle
 {
-    public $sourcePath = '@hass/base/misc/nestedsortable/media';
+    public $sourcePath = '@hass/base/misc/nestedsortable/misc';
     public $js = [
         'nested-sortable.js'
     ];

@@ -17,7 +17,7 @@ namespace hass\backend\assets;
 class AdminAsset extends \yii\web\AssetBundle
 {
 
-    public $sourcePath = '@hass/backend/media';
+    public $sourcePath = '@hass/backend/misc';
     public $css = [
         "AdminLTE.min.css",
         "_all-skins.min.css",

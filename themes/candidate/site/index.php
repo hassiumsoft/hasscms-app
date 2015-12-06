@@ -59,7 +59,7 @@ use hass\frontend\models\Post;
 
 
 								<a
-									href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($model)); ?>"
+									href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($model)); ?>"
 									class="cover">
 
                                         <?php echo $model->thumbnail ? Html::img($model->thumbnail->getThumb(180, 135)) : ""; ?>
@@ -68,7 +68,7 @@ use hass\frontend\models\Post;
                                     <?php $taxonomys = $model->taxonomys; ?>
                                     <?php foreach ($taxonomys as $taxonomy): ?>
                                         <a class="sort"
-									href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($taxonomy)) ?>"><?php echo $taxonomy->name ?></a>
+									href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($taxonomy)) ?>"><?php echo $taxonomy->name ?></a>
                                     <?php endforeach; ?>
                                 </div>
 
@@ -77,12 +77,12 @@ use hass\frontend\models\Post;
 							<div class="post-header">
 								<h2>
 									<a
-										href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($model)); ?>"><?php echo $model->title ?></a>
+										href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($model)); ?>"><?php echo $model->title ?></a>
 								</h2>
 							</div>
 							<div class="post-exceprt">
 								<p>
-                                        <?php echo \hass\helpers\Util::substr($model->short,0,50)."..."?>
+                                        <?php echo \hass\base\helpers\Util::substr($model->short,0,50)."..."?>
                                     </p>
 							</div>
 							<div class="post-meta">
@@ -90,7 +90,7 @@ use hass\frontend\models\Post;
 
                                     <div class="aut">
 									<a rel="nofollow"
-										href="<?php echo \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($author));?>"
+										href="<?php echo \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($author));?>"
 										target="_blank"> <img src="<?= $author->getAvatar(26,26); ?>"
 										width="26" height="26"> <span>
                                             <?=$author->profile->name?>
@@ -108,7 +108,7 @@ use hass\frontend\models\Post;
 
 
 								<a rel="nofollow"
-									href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($model)); ?>"
+									href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($model)); ?>"
 									target="_blank" class="cmt"><i></i><span><?=$model->getCommentTotal()?></span></a>
 
 							</div>

@@ -34,7 +34,7 @@ use hass\frontend\helpers\ViewHelper;
 		<?php $i = 1?>
 		<?php foreach ($items as $item) :?>
 			<a
-			href="<?php echo \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($item));?>"
+			href="<?php echo \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($item));?>"
 			target="_blank" title=""> <span><?php echo $i?></span><?php echo $item->title?></a>
 			<?php  $i++;?>
 		<?php endforeach;?>
@@ -50,7 +50,7 @@ use hass\frontend\helpers\ViewHelper;
 		<?php $i = 1?>
 		<?php foreach ($items as $item) :?>
 			<a
-			href="<?php echo \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($item));?>"
+			href="<?php echo \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($item));?>"
 			target="_blank" title=""> <span><?php echo $i?></span><?php echo $item->title?></a>
 			<?php  $i++;?>
 		<?php endforeach;?>
@@ -65,7 +65,7 @@ use hass\frontend\helpers\ViewHelper;
 		<?php $tags = ViewHelper::tags()?>
 		<?php foreach ($tags as $tag):?>
 			<a
-			href="<?= \yii\helpers\Url::to(\hass\helpers\Util::getEntityUrl($tag)); ?>"><?php echo $tag['name']?></a>
+			href="<?= \yii\helpers\Url::to(\hass\base\helpers\Util::getEntityUrl($tag)); ?>"><?php echo $tag['name']?></a>
 		<?php endforeach;?>
 	</div>
 </div>

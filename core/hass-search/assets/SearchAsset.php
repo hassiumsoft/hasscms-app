@@ -17,9 +17,9 @@ use yii\web\AssetBundle;
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
  */
-class SearchAssets extends AssetBundle
+class SearchAsset extends AssetBundle
 {
-    public $sourcePath = '@hass/search/media';
+    public $sourcePath = '@hass/search/misc';
 
     public $depends = [
         'yii\web\JqueryAsset'

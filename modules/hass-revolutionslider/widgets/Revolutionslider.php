@@ -9,7 +9,7 @@
 */
 namespace hass\revolutionslider\widgets;
 
-use hass\helpers\ArrayHelper;
+use hass\base\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**

@@ -50,28 +50,29 @@ class DefaultController extends BaseController
         $model = $this->findModel($id);
         $model->initMessages();
         
-        if (Model::loadMultiple($model->messages, Yii::$app->getRequest()->post()) && Model::validateMultiple($model->messages)) {
-            $model->saveMessages();
+        if (Model::loadMultiple($model->messages, Yii::$app->getRequest()->post())) {
             
-            if (\Yii::$app->getRequest()->isAjax) {
-                return $this->renderJsonMessage(true, "修改成功");
+            if (Model::validateMultiple($model->messages) && $model->saveMessages()) {
+                if (\Yii::$app->getRequest()->isAjax) {
+                    return $this->renderJsonMessage(true, "修改成功");
+                }
+                
+                $this->flash('success', Module::t('修改成功'));
+            } 
+
+            else {
+                if (\Yii::$app->getRequest()->isAjax) {
+                    return $this->renderJsonMessage(true, "修改失败");
+                }
+                $this->flash("error", "修改失败");
             }
             
-            $this->flash('success', Module::t('修改成功'));
-            return $this->redirect([
-                'update',
-                'id' => $model->id
-            ]);
-        } else {
-            if (\Yii::$app->getRequest()->isAjax) {
-                return $this->renderJsonMessage(true, "修改失败");
-            }
-            
-            $this->flash("error", "修改失败");
-            return $this->render('update', [
-                'model' => $model
-            ]);
+            return $this->refresh();
         }
+        
+        return $this->render('update', [
+            'model' => $model
+        ]);
     }
 
     /**

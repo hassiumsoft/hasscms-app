@@ -16,11 +16,11 @@ namespace hass\taxonomy\widgets;
  */
 class TaxonomySelectAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@hass/taxonomy/widgets';
+    public $sourcePath = '@hass/taxonomy/widgets/misc';
     public $css = [
-        'media/taxonomy-select.css',
+        'taxonomy-select.css',
     ];
     public $depends = [
-        '\hass\admin\assets\AdminAsset',
+        '\hass\backend\assets\AdminAsset',
     ];
 }

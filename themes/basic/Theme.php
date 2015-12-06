@@ -9,7 +9,7 @@
  */
 namespace app\themes\basic;
 use yii\base\BootstrapInterface;
-use hass\helpers\Util;
+use hass\base\helpers\Util;
 use hass\theme\BaseTheme;
 /**
  *

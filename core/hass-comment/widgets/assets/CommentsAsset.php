@@ -20,7 +20,7 @@ use yii\web\AssetBundle;
  */
 class CommentsAsset extends AssetBundle
 {
-    public $sourcePath = '@hass/comment/widgets/media';
+    public $sourcePath = '@hass/comment/widgets/misc';
     public $css = [
         'comments.css',
     ];

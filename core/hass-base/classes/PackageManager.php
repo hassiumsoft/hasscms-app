@@ -121,7 +121,7 @@ class PackageManager extends Component
         FileHelper::removeDirectory($package->getPath());
         /**
          *
-         * @todo-hass 从composer 中卸载 ..速度太慢需要更改方式
+         * @hass-todo 从composer 中卸载 ..速度太慢需要更改方式
          */
         $name = $package->getPackage();
         $rootDir = \Yii::getAlias("@root");

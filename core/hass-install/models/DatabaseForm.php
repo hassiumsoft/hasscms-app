@@ -37,7 +37,7 @@ class DatabaseForm extends Model
 
     public $port = "3306";
     
-    // @todo-hass 最后加入ha_
+    // @hass-todo 最后加入ha_
     public $prefix = "";
 
     public function rules()
