@@ -8,7 +8,7 @@ $config = [
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log',
-        'packageAlias'
+        'packageLoader'
     ],
     'components' => [
         'assetManager' => [
@@ -58,8 +58,8 @@ $config = [
         'themeManager' => [
             "class" => 'hass\theme\components\ThemeManager'
         ],
-        'packageAlias' => [
-            "class" => 'hass\base\components\PackageAlias'
+        'packageLoader' => [
+            "class" => 'hass\base\components\PackageLoader'
         ],
         "composerConfigurationReader" => [
             'class' => 'hass\base\components\ComposerConfigurationReader'
