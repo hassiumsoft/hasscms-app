@@ -58,7 +58,7 @@ class Hook extends Object
     }
 
     /**
-     * @todo-hass hook可以监听类...触发的时候再实例化
+     * @hass-todo hook可以监听类...触发的时候再实例化
      * @param unknown $event
      * @param unknown $listener
      * @param unknown $priority
