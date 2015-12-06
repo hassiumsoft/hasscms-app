@@ -90,7 +90,7 @@ return [
                 }
                 if ($dbrule) {
                     $ruleCache = [];
-                    // @todoHass 可以缓存
+                    // @hass-todo 可以缓存
                     $models = \hass\urlrule\models\UrlRule::find()->all();
                     foreach ($models as $model) {
                         $params = [];
