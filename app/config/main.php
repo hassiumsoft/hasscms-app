@@ -1,16 +1,10 @@
 <?php
 $basePath = dirname(__DIR__);
-$root = dirname($basePath);
-
-Yii::setAlias("@root", $root);
-Yii::setAlias("@core", '@root/core');
-Yii::setAlias("@storage", '@root/storage');
-
 $config = [
     'language' => 'zh-CN',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
-    'runtimePath' =>'@storage/runtime',
+    'runtimePath' => '@storage/runtime',
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log',
@@ -18,8 +12,8 @@ $config = [
     ],
     'components' => [
         'assetManager' => [
-            "basePath"=>"@webroot/storage/assets",
-            "baseUrl"=>"@web/storage/assets",
+            "basePath" => "@webroot/storage/assets",
+            "baseUrl" => "@web/storage/assets",
             'linkAssets' => true,
             'bundles' => [
                 'yii\web\JqueryAsset' => [
@@ -40,7 +34,7 @@ $config = [
             ]
         ],
         'cache' => [
-            'class' => '\yii\caching\DbCache'
+            'class' => '\yii\caching\FileCache'
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -64,36 +58,39 @@ $config = [
         'themeManager' => [
             "class" => 'hass\theme\components\ThemeManager'
         ],
-        'packageAlias'=>[
-            "class"=>'hass\base\components\PackageAlias'
+        'packageAlias' => [
+            "class" => 'hass\base\components\PackageAlias'
         ],
         "composerConfigurationReader" => [
             'class' => 'hass\base\components\ComposerConfigurationReader'
         ],
-        "i18n"=>[
+        "i18n" => [
             "translations" => [
                 "*" => [
-                    'class' => "yii\i18n\DbMessageSource",
+                    'class' => "yii\\i18n\\DbMessageSource",
                     'on missingTranslation' => [
                         '\hass\i18n\Module',
                         "missingTranslation"
                     ]
                 ],
                 "app*" => [
-                    'class' =>"yii\i18n\DbMessageSource",
+                    'class' => "yii\\i18n\\DbMessageSource",
                     'on missingTranslation' => [
                         '\hass\i18n\Module',
                         "missingTranslation"
                     ]
                 ],
                 "hass*" => [
-                    'class' => "yii\i18n\DbMessageSource",
+                    'class' => "yii\\i18n\\DbMessageSource",
                     'on missingTranslation' => [
                         '\hass\i18n\Module',
                         "missingTranslation"
                     ]
                 ]
             ]
+        ],
+        'db'=>[
+          "enableSchemaCache"=>true,
         ],
         'config' => [
             'class' => '\hass\config\components\Config', // Class (Required)
@@ -113,7 +110,6 @@ $config = [
         ],
     ]
 ];
-
 
 if (YII_ENV_DEV) {
     require __DIR__ . DIRECTORY_SEPARATOR . 'dev.php';

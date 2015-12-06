@@ -25,7 +25,6 @@ return [
             'csrfParam' => "_backendCsrf"
         ],
         'session' => [
-            'class' => 'yii\web\DbSession',
             'name' => 'BACKENDSESSID'
         ],
         'errorHandler' => [

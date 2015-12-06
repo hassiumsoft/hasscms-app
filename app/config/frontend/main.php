@@ -90,7 +90,7 @@ return [
                 }
                 if ($dbrule) {
                     $ruleCache = [];
-                    // @todo-hass 可以缓存
+                    // @todoHass 可以缓存
                     $models = \hass\urlrule\models\UrlRule::find()->all();
                     foreach ($models as $model) {
                         $params = [];
@@ -116,7 +116,7 @@ return [
                     'globals' => [
                         'html' => '\yii\helpers\Html',
                         "string" => '\yii\helpers\StringHelper',
-                        "array" => "\yii\helpers\ArrayHelper"
+                        "array" => "\\yii\\helpers\\ArrayHelper"
                     ],
                     'extensions' => [
                         '\hass\frontend\twig\Extension'
