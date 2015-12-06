@@ -17,7 +17,7 @@ namespace hass\frontend\models;
 class Menu extends \hass\menu\models\Menu
 {
 
-    //@todo-hass 未作缓存,没有反序列化options
+    //@hass-todo 未作缓存,没有反序列化options
     public static function findBySlug($slug)
     {
         $model = Menu::findOne([

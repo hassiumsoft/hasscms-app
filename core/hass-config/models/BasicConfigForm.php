@@ -37,7 +37,7 @@ class BasicConfigForm extends BaseConfig
 
     public $appFrontendThemePath;
 
-    public $cacheClass;
+
 
     public function rules()
     {
@@ -79,16 +79,6 @@ class BasicConfigForm extends BaseConfig
                 'required'
             ],
 
-            // Cache Class
-            [
-                'cacheClass',
-                'required'
-            ],
-            [
-                'cacheClass',
-                'string',
-                'max' => 128
-            ],
             [
                 'appLogo',
                 "safe"
@@ -108,7 +98,6 @@ class BasicConfigForm extends BaseConfig
             'appLanguage' => '语言',
             'appFrontendThemePath' => '前台主题路径',
             'appBackendTheme' => '后台主题',
-            'cacheClass' => '缓存方式'
         ];
     }
 
@@ -126,7 +115,6 @@ class BasicConfigForm extends BaseConfig
 
         $this->appFrontendThemePath = $config->get('theme.themePath', "@app/themes");
         $this->appBackendTheme = $config->get("app.backendTheme", "skin-purple");
-        $this->cacheClass = $config->get("cache.class", \yii\caching\FileCache::className());
     }
 
     public function load($data, $formName = NULL)
@@ -228,8 +216,6 @@ class BasicConfigForm extends BaseConfig
 
         $config->set('theme.themePath', $this->appFrontendThemePath);
         $config->set("app.backendTheme", $this->appBackendTheme);
-
-        $config->set("cache.class", $this->cacheClass);
         return true;
     }
 }

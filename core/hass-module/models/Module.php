@@ -39,7 +39,7 @@ class Module extends \hass\base\ActiveRecord
         $query = static::find();
         return $query->where([
             "status" => StatusEnum::STATUS_ON
-        ])->all();
+        ])->asArray()->all();
     }
     
     public function loadDefaultValues($skipIfSet = true)

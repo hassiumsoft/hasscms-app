@@ -35,12 +35,6 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
             $this,
             "onSetGroupNav"
         ]);
-
-        // 用户后台定义的.大于配置文件里定义的
-        Util::setComponent("cache", [
-            'class' => \Yii::$app->get("config")->get("cache.class")
-        ], true);
-
         Hook::on(\hass\backend\Module::EVENT_ADMIN_THEME, function ($event) {
             $event->parameters->set(\hass\backend\Module::EVENT_ADMIN_THEME, \Yii::$app->get('config')
                 ->get("app.backendTheme"));
@@ -53,7 +47,7 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
      */
     public function onSetGroupNav($event)
     {
- 
+
         $event->parameters->set(ModuleGroupEnmu::CONFIG, [
             [
                 'url' => [
