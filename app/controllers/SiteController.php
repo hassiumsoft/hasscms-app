@@ -70,16 +70,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-                'query' => Post::find()->orderBy(['id' => SORT_DESC,]),
-                'pagination' => [
-                    'pageSize' => 15
-                ]
-            ]
-        );
-        return $this->render('index', [
-            "posts" => $dataProvider->getModels(),
-            "pagination"=>$dataProvider->getPagination(),
-        ]);
+        return $this->render("index");
     }
 }
