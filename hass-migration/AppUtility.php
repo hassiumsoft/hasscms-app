@@ -35,7 +35,7 @@ class AppUtility
     private $schema;
 
 
-    function __construct($array, $databaseType)
+    function __construct($array, $databaseType="mysql")
     {
         $this->array = self::objectToArray($array);
         switch (strtolower($databaseType)) {
