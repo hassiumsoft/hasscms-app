@@ -25,6 +25,8 @@ class Module extends BaseModule implements BootstrapInterface
 {
 
     const EVENT_RBAC_PERMISSION = "EVENT_RBAC_PERMISSION";
+    
+    const SUPER_PERMISSION = "*";
 
     public function init()
     {
@@ -59,13 +61,13 @@ class Module extends BaseModule implements BootstrapInterface
                     "/rbac/role/index"
                 ]
             ],
-            [
-                'label' => "权限生成",
-                'icon' => "fa-users",
-                'url' => [
-                    "/rbac/tool/index"
-                ]
-            ]
+//             [
+//                 'label' => "权限生成",
+//                 'icon' => "fa-users",
+//                 'url' => [
+//                     "/rbac/tool/index"
+//                 ]
+//             ]
         ]);
     }
 }

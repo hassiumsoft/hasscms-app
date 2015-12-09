@@ -32,7 +32,7 @@ class DefaultController extends BaseController
     {
         /** @var \hass\module\components\ModuleManager $moduleManager */
         $moduleManager = \Yii::$app->get("moduleManager");
-        $packages = $moduleManager->findAll();
+        $packages = $moduleManager->findNoCoreModules();
         $dataProvider = new ArrayDataProvider([
             "allModels" => $packages,
             "key" => function ($model) {

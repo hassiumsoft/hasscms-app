@@ -54,6 +54,16 @@ class ModuleManager extends PackageManager
     {
         return $this->paths[1];
     }
+    
+    public function findNoCoreModules()
+    {
+        return parent::findAll([$this->getModulePath()]);
+    }
+    
+    public function findCoreModules()
+    {
+        return parent::findAll([$this->getCorePath()]);
+    }
 
     public function loadBootstrapModules($bootstrapType)
     {

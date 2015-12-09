@@ -23,8 +23,6 @@ use hass\system\enums\ModuleGroupEnmu;
  */
 class Module extends BaseModule implements BootstrapInterface
 {
-
-
     public function init()
     {
         parent::init();

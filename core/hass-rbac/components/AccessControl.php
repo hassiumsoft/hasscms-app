@@ -67,6 +67,11 @@ class AccessControl extends ActionFilter
     {
         $user = $this->getUser();
         
+        
+        if ($user->can(\hass\rbac\Module::SUPER_PERMISSION)) {
+            return true;
+        }
+        
         $route = \Yii::$app->requestedRoute;
         
         if ($user->can($route)) {

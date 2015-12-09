@@ -8,6 +8,8 @@
 */
 namespace hass\frontend\models;
 
+
+use yii\base\InvalidParamException;
 /**
 *
 * @package hass\package_name
@@ -20,13 +22,20 @@ class Menu extends \hass\menu\models\Menu
     //@hass-todo 未作缓存,没有反序列化options
     public static function findBySlug($slug)
     {
-        $model = Menu::findOne([
+        $model = static::findOne([
             'slug' => $slug
         ]);
 
-        $collection = $model->children()->select(["name","title","original","module","depth","options"])
-        ->asArray()
-        ->all();
-        return $collection;
+        if($model)
+        {
+            $collection = $model->children()->select(["name","title","original","module","depth","options"])
+            ->asArray()
+            ->all();
+            return $collection;
+        }
+        else 
+        {
+            throw new InvalidParamException("使用了一个不存在的menu slug");
+        }
     }
 }
