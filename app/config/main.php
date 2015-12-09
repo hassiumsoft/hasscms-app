@@ -1,4 +1,7 @@
 <?php
+
+define("APP_INSTALLED", "installed");
+
 $basePath = dirname(__DIR__);
 $config = [
     'language' => 'zh-CN',
@@ -91,6 +94,7 @@ $config = [
             ]
         ],
         'db'=>[
+            'class' => 'yii\db\Connection',
             'enableSchemaCache' => true,
             // Duration of schema cache.
             'schemaCacheDuration' => 3600,
