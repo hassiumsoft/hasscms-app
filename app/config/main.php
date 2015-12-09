@@ -8,7 +8,8 @@ $config = [
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log',
-        'packageLoader'
+        'packageLoader',
+        "install"
     ],
     'components' => [
         'assetManager' => [
@@ -112,6 +113,9 @@ $config = [
             ],
             'baseUrl' => '@web/storage/uploads'
         ],
+    ],
+    "modules"=>[
+        "install"=>"\\hass\\install\\Module"
     ]
 ];
 

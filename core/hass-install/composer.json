@@ -19,7 +19,7 @@
 		"hass-package-config" : {
 			"id" : "install",
 			"name" : "Install",
-			"bootstrap" : "1|2"
+			"bootstrap" : "0"
 		}
 	},
 	"autoload" : {
