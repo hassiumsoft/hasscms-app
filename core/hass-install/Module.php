@@ -21,8 +21,6 @@ use yii\base\BootstrapInterface;
 class Module extends \yii\base\Module implements BootstrapInterface
 {
 
-    const APP_INSTALLED = "installed";
-
     public $layout = "main";
 
     
@@ -62,7 +60,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     public function getIsInstalled()
     {
-        return isset(Yii::$app->params[static::APP_INSTALLED]) == true;
+        return isset(Yii::$app->params[APP_INSTALLED]) == true;
     }
 
     /**
@@ -87,7 +85,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $file = \Yii::getAlias("@app/config/params-local.php");
         
         $config = [
-            static::APP_INSTALLED => true
+            APP_INSTALLED => true
         ];
         
         $content = "<" . "?php return ";

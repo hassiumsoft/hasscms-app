@@ -147,13 +147,9 @@ class DefaultController extends Controller
         require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
         $migration = new $class();
         if ($migration->up() !== false) {
-            $command = \Yii::$app->getDb()->createCommand();
-            $command->insert('{{%migration}}', [
-                'version' => $class,
-                'apply_time' => time()
-            ])->execute();
+           return $this->writeConfig();
         }
-        return $this->writeConfig();
+        return false;
     }
 
     public function writeConfig()
