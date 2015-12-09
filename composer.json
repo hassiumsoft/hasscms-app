@@ -41,6 +41,7 @@
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",
 		"yiisoft/yii2-gii" : "*",
+		"fbi/yii2-xhprof": "*",
 		"digitalnature/php-ref" : "dev-master",
 		"php-console/php-console" : "*"
 	},
