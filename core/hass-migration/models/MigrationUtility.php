@@ -19,76 +19,29 @@ use yii\base\Model;
  */
 class MigrationUtility extends Model
 {
+    
+    public $migrationName = "migration";
+    
+    public $migrationPath;
+       
+    public $tableSchemas;
+    
+    public $tableDatas;
 
     /**
      * @var string
      */
-    public $tables = '';
+    public $tableOption = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 
     /**
      * @var string
      */
-    public $mysql = TRUE;
-    /**
-     * @var bool
-     */
-    public $mssql = FALSE;
-    /**
-     * @var bool
-     */
-    public $pgsql = FALSE;
-    /**
-     * @var bool
-     */
-    public $sqlite = FALSE;
+    public $foreignKeyOnDelete = 'CASCADE';
 
     /**
      * @var string
      */
-    public $mysql_options = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-    /**
-     * @var string
-     */
-    public $mssql_options = '';
-    /**
-     * @var string
-     */
-    public $pgsql_options = '';
-    /**
-     * @var string
-     */
-    public $sqlite_options = '';
-
-
-    /**
-     * @var array
-     */
-    public $databaseTables = [];
-
-    /**
-     * @var bool
-     */
-    public $addIfThenStatements = TRUE;
-
-    /**
-     * @var string
-     */
-    public $tableOptions = '';
-
-    /**
-     * @var bool
-     */
-    public $addTableInserts = FALSE;
-
-    /**
-     * @var string
-     */
-    public $ForeignKeyOnDelete = 'CASCADE';
-
-    /**
-     * @var string
-     */
-    public $ForeignKeyOnUpdate = 'NO ACTION';
+    public $foreignKeyOnUpdate = 'CASCADE';
 
     /**
      * @return array
@@ -96,10 +49,14 @@ class MigrationUtility extends Model
     function rules()
     {
         return [
-            [['tables', 'databaseTables', 'databaseType'], 'required'],
-            ['tableOptions', 'default', 'value' => '']
+          [["migrationName","migrationPath","tableSchemas","tableDatas","tableOption","foreignKeyOnDelete","foreignKeyOnUpdate"],'safe']
         ];
     }
 
+    public static function getTableNames()
+    {
+      $tables = \Yii::$app->db->getSchema()->getTableNames('', TRUE);
+      return array_combine($tables,$tables);
+    }
 
 }

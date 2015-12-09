@@ -19,7 +19,6 @@ use hass\install\models\AdminForm;
 use hass\install\Module;
 use hass\config\models\Config;
 use hass\user\models\User;
-use yii\rbac\Assignment;
 
 /**
  *
@@ -144,14 +143,21 @@ class DefaultController extends Controller
 
     public function install()
     {
-        $data = file_get_contents((dirname(__DIR__) . '/migrations/data.sql'));
-        Yii::$app->db->createCommand($data)->execute();
+        $class = "m151209_185057_migration";
+        require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
+        $migration = new $class();
+        if ($migration->up() !== false) {
+            $command = \Yii::$app->getDb()->createCommand();
+            $command->insert('{{%migration}}', [
+                'version' => $class,
+                'apply_time' => time()
+            ])->execute();
+        }
         return $this->writeConfig();
     }
 
     public function writeConfig()
     {
-      
         $data = \Yii::$app->getCache()->get("install-site-form");
         
         foreach ($data as $name => $value) {
@@ -173,15 +179,15 @@ class DefaultController extends Controller
         $user->password = $data['password'];
         
         $user->create();
-    
-                
-        $connection= \Yii::$app->getDb();
-        $connection->createCommand()->insert('{{%auth_assignment}}', [
+        
+        $connection = \Yii::$app->getDb();
+        $connection->createCommand()
+            ->insert('{{%auth_assignment}}', [
             'item_name' => 'admin',
             'user_id' => $user->id,
-            "created_at"=>time()
-        ])->execute();
-        
+            "created_at" => time()
+        ])
+            ->execute();
         
         Module::getInstance()->generateCookieValidationKey();
         Module::getInstance()->setInstalled();

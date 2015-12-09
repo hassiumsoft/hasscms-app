@@ -23,6 +23,8 @@ use hass\system\enums\ModuleGroupEnmu;
  */
 class Module extends BaseModule implements BootstrapInterface
 {
+    public $migrationPath = "@hass/install/migrations";
+    
     public function init()
     {
         parent::init();
