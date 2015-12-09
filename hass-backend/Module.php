@@ -19,7 +19,7 @@ use Yii;
  * @package hass\backend
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *       
+ *
  */
 class Module extends ApplicationModule
 {
@@ -27,14 +27,14 @@ class Module extends ApplicationModule
     const HASS_CMS_NAME = "HASSIUM";
 
     const HASS_CMS_VERSION = "0.1.0";
-    
+
     const EVENT_ADMIN_NAVBAR = "event_admin_navbar";
-    
+
     const EVENT_ADMIN_LEFTNAV = "event_admin_nav";
-    
+
     const EVENT_ADMIN_THEME = "event_admin_theme";
-    
-    public $theme = "skin-purple";
+
+    public $theme = "skin-blue";
 
     public $layout = "@hass/backend/views/layouts/main";
 
@@ -62,18 +62,18 @@ class Module extends ApplicationModule
         $moduleManager = \Yii::$app->get("moduleManager");
         $moduleManager->loadBootstrapModules(ModuleManager::BOOTSTRAP_BACKEND);
     }
-    
-    
+
+
     public function getNavbar()
     {
         return Hook::trigger(static::EVENT_ADMIN_NAVBAR)->parameters->toArray();
     }
-    
+
     public function getLeftNav()
     {
         return Hook::trigger(\hass\backend\Module::EVENT_ADMIN_LEFTNAV)->parameters->toArray();
     }
-    
+
     public function getTheme()
     {
         /**
@@ -83,36 +83,36 @@ class Module extends ApplicationModule
         $parameters = Hook::trigger(static::EVENT_ADMIN_THEME)->parameters;
         return $parameters->get(static::EVENT_ADMIN_THEME, $this->theme);
     }
-    
+
     public function getUserAvator()
     {
         return Yii::$app->getUser()
         ->getIdentity()
         ->getAvatar();
     }
-    
+
     public function getUserName()
     {
         return Yii::$app->getUser()->getIdentity()->username;
     }
-    
+
     public function getUserRole()
     {
         return Yii::$app->getUser()->getIdentity()->role;
     }
-    
+
     public function getUserProfileUrl()
     {
         return  ['/user/admin/update',"id"=>Yii::$app->getUser()->getId(),"menu-group"=>ModuleGroupEnmu::PEOPLE];
     }
-    
+
     public function getUserCreatedDate()
     {
         return Yii::$app->getUser()
         ->getIdentity()
         ->getCreatedDate();
     }
-    
+
     public function getWebUrl()
     {
         return Yii::$app->get("appUrlManager")->getScriptUrl();

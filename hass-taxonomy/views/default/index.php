@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                          return Html::a($value,$params,$options);
                     }
                 ],
-                'description',
+        
                 'slug',
                 [
                     'class' => 'hass\base\misc\grid\SwitcherColumn',

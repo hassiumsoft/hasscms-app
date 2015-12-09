@@ -36,7 +36,7 @@ class PackageManager extends Component
     /**
      * Looks for packages in the specified directories and creates the objects
      */
-    public function findAll()
+   public function findAll($paths=[])
     {
         if(!empty($this->packages))
         {
@@ -44,7 +44,13 @@ class PackageManager extends Component
         }
         
         $this->packages = [];
-        foreach ($this->paths as $path) {
+        
+        if(empty($paths))
+        {
+            $paths = $this->paths;
+        }
+     
+        foreach ($paths as $path) {
             /** @var \creocoder\flysystem\LocalFilesystem $fileSystem */
             $fileSystem = new LocalFilesystem([
                 "path" => $path

@@ -36,26 +36,26 @@ $form = ActiveForm::begin([
     ]
 ]);
 ?>
-<div class="col-md-10">
+<div class="col-md-9">
 	<?= $form->field($model, 'title')->label(false)?>
 	<?=$form->field($model, 'content')->label(false)->widget(EditorWidget::className(), ["config" => ["class" => '\vova07\imperavi\Widget','settings' => ['lang' => 'zh_cn','minHeight' => 200,'imageManagerJson' => Url::to(['/attachment/upload/images-get']),'imageUpload' => Url::to(['/attachment/upload/create-imperavi']),'fileUpload' => Url::to(['/attachment/upload/create-imperavi']),'plugins' => ['clips','fullscreen','imagemanager','filemanager']]]]);?>
 	<?= $form->boxField($model, 'meta',["collapsed"=>true])->widget(MetaForm::className())->header("SEO"); ?>
 </div>
-<div class="col-md-2">
+<div class="col-md-3">
 	<div class="box box-solid">
 		<div class="box-body">
 			<div class="form-group">
 				<label class="control-label"
 					style="float: left; padding-right: 5px;"> <?= $model->attributeLabels()['created_at']?>
 					:
-				</label> <span> <?= $model->createdDate?>
+				</label> <span> <?= $model->getCreatedDate()?>
 				</span>
 			</div>
 			<div class="form-group">
 				<label class="control-label"
 					style="float: left; padding-right: 5px;"> <?= $model->attributeLabels()['updated_at']?>
 					:
-				</label> <span> <?= $model->getUpdatedDateTime()?>
+				</label> <span> <?= $model->getUpdatedDate()?>
 				</span>
 			</div>
 			<?=Html::submitButton($model->isNewRecord ? '发布' : '更新', ['class' => 'btn bg-maroon btn-flat margin-bottom btn-block' ])?>

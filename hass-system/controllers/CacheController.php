@@ -47,4 +47,13 @@ class CacheController extends \hass\base\BaseController
         $this->flash('success', Yii::t('hass', 'Assets cleared'));
         return $this->goReferrer();
     }
+    
+    
+    public function actionFlushCacheKey($key)
+    {
+        if (Yii::$app->getCache()->delete($key)) {
+            $this->flash('success', \Yii::t('hass', 'Cache entry has been successfully deleted'));
+        };
+        return $this->redirect(['index']);
+    }
 }
