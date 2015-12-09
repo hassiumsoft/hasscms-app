@@ -21,7 +21,7 @@ use hass\config\enums\I18nEnum;
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 hass\config\assets\ConfigAsset::register($this);
 ?>
@@ -29,7 +29,10 @@ hass\config\assets\ConfigAsset::register($this);
 
 $form = ActiveForm::begin([
     'id' => 'basic-setting-form',
-    'enableAjaxValidation' => true
+    'enableAjaxValidation' => true,
+    'options' => [
+        "enctype" => "multipart/form-data"
+    ]
 ]);
 ?>
 <h4>Application Settings</h4>
@@ -43,9 +46,9 @@ $form = ActiveForm::begin([
 <?=$form->field($model, 'appLanguage')->dropDownList(I18nEnum::$i18nList,['autocomplete' => 'off'])?>
 
 	<?php
-echo $form->field($model, 'appLogo')
-    ->widget(SingleMediaWidget::className(),["multiple"=>false])
-?>
+echo $form->field($model, 'appLogo')->widget(SingleMediaWidget::className(), [
+    "multiple" => false
+])?>
 <hr />
 
 <h4>Theme Settings</h4>

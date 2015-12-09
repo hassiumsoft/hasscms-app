@@ -910,4 +910,16 @@
       ),
     ),
   ),
+  'super' => 
+  array (
+    'module' => 'SUPER_PERMISSION',
+    'permissions' => 
+    array (
+      '*' => 
+      array (
+        'type' => 2,
+        'description' => 'SUPER_PERMISSION',
+      ),
+    ),
+  ),
 );

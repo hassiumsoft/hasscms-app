@@ -133,16 +133,6 @@ class Module extends \hass\module\BaseModule implements BootstrapInterface
                 ],
                 'icon' => "fa-circle-o",
                 'label' => '缓存清理'
-            ],
-            [
-                'url' => [
-                    '/gii/default/index'
-                ],
-                'icon' => "fa-circle-o",
-                'label' => 'GII生成 ',
-                "activeItems" => [
-                    "/gii/default/view"
-                ]
             ]
         ]);
     }

@@ -53,15 +53,15 @@ class Module extends BaseModule implements BootstrapInterface
             ]
         ];
         $event->parameters->set(ModuleGroupEnmu::STRUCTURE,[$item]);
-        $event->parameters->set(ModuleGroupEnmu::CONFIG, [
-            [
-                'url' => [
-                    "/$this->id/default/config"
-                ],
-                'icon' =>  "fa-circle-o",
-                'label' => '评论设置'
-            ]
-        ]);
+//         $event->parameters->set(ModuleGroupEnmu::CONFIG, [
+//             [
+//                 'url' => [
+//                     "/$this->id/default/config"
+//                 ],
+//                 'icon' =>  "fa-circle-o",
+//                 'label' => '评论设置'
+//             ]
+//         ]);
     }
     
     public static function getUserInfo($model)

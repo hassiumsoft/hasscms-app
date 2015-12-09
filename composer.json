@@ -28,7 +28,6 @@
 		"almasaeed2010/adminlte" : "~2.0",
 		"FortAwesome/Font-Awesome" : "*",
 		"driftyco/ionicons" : "*",
-		"dektrium/yii2-rbac" : "dev-master",
 		"dektrium/yii2-user" : "dev-master",
 		"bower-asset/switchery" : "*",
 		"bower-asset/eonasdan-bootstrap-datetimepicker" : "*",
@@ -41,6 +40,7 @@
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",
 		"yiisoft/yii2-gii" : "*",
+		"trntv/yii2-debug-xhprof": "*",
 		"digitalnature/php-ref" : "dev-master",
 		"php-console/php-console" : "*"
 	},

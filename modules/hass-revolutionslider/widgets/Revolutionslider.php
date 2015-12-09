@@ -31,7 +31,7 @@ class Revolutionslider extends \yii\base\Widget{
             'data-slotamount'=>"7"
         ];
         
-        RevolutionsliderAsset::register($this->view);
+
     }
         
     public function run()
@@ -54,6 +54,11 @@ class Revolutionslider extends \yii\base\Widget{
         
         $items = \hass\revolutionslider\models\Revolutionslider::find()->all();
   
+        if(!empty($items))
+        {
+            RevolutionsliderAsset::register($this->view);
+        }
+        
         foreach ($items as $item)
         {
             $menu = $this->renderItem($item);

@@ -82,6 +82,11 @@ return [
                 '<controller:(post|page|cat|tag)>s' => '<controller>/list'
             ],
             'on ' . UrlManager::EVENT_INIT_RULECACHE => function ($event) {
+                if(isset(\Yii::$app->params[APP_INSTALLED]) == false)
+                {
+                    return;
+                }
+            
                 $dbrule = null;
                 foreach ($event->urlManager->rules as $rule) {
                     if ($rule instanceof \hass\urlrule\components\UrlRule) {

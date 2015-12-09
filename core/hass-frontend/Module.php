@@ -38,11 +38,10 @@ class Module extends ApplicationModule
     public function afterBootstrap()
     {
         parent::beforeBootstrap();
-        
         \Yii::$app->setTimeZone(\Yii::$app->get("config")
-            ->get("app.timezone"));
-        \Yii::$app->language = \Yii::$app->get("config")->get("app.language");
-        \Yii::$app->name = \Yii::$app->get("config")->get("app.name");
+            ->get("app.timezone",\Yii::$app->getTimeZone()));
+        \Yii::$app->language = \Yii::$app->get("config")->get("app.language")?:\Yii::$app->language;
+        \Yii::$app->name = \Yii::$app->get("config")->get("app.name")?:\Yii::$app->name;
         
         $this->initCoreHooks();
         $this->initControllerMap();

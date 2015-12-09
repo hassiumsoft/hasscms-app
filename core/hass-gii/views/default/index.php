@@ -9,11 +9,6 @@ $generators = Yii::$app->controller->module->generators;
 $this->title = 'Welcome to Gii';
 ?>
 <div class="default-index">
-	<div class="page-header">
-		<h1>
-			Welcome to Gii <small>a magical tool that can write code for you</small>
-		</h1>
-	</div>
 
 
 	<div class="row">

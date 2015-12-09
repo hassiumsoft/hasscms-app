@@ -1,4 +1,7 @@
 <?php
+
+define("APP_INSTALLED", "installed");
+
 $basePath = dirname(__DIR__);
 $config = [
     'language' => 'zh-CN',
@@ -8,7 +11,8 @@ $config = [
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log',
-        'packageAlias'
+        'packageLoader',
+        "install"
     ],
     'components' => [
         'assetManager' => [
@@ -58,8 +62,8 @@ $config = [
         'themeManager' => [
             "class" => 'hass\theme\components\ThemeManager'
         ],
-        'packageAlias' => [
-            "class" => 'hass\base\components\PackageAlias'
+        'packageLoader' => [
+            "class" => 'hass\base\components\PackageLoader'
         ],
         "composerConfigurationReader" => [
             'class' => 'hass\base\components\ComposerConfigurationReader'
@@ -90,7 +94,12 @@ $config = [
             ]
         ],
         'db'=>[
-          "enableSchemaCache"=>true,
+            'class' => 'yii\db\Connection',
+            'enableSchemaCache' => true,
+            // Duration of schema cache.
+            'schemaCacheDuration' => 3600,
+            // Name of the cache component used to store schema information
+            'schemaCache' => 'cache',
         ],
         'config' => [
             'class' => '\hass\config\components\Config', // Class (Required)
@@ -108,6 +117,9 @@ $config = [
             ],
             'baseUrl' => '@web/storage/uploads'
         ],
+    ],
+    "modules"=>[
+        "install"=>"\\hass\\install\\Module"
     ]
 ];
 
