@@ -108,7 +108,7 @@ class DatabaseForm extends Model
     {
         $definitions = \Yii::$app->getComponents();
         
-        if(isset($definitions["db"]))
+        if(isset($definitions["db"])&&isset($definitions["db"]['dsn']))
         {
             $dsn = Dsn::parse($definitions["db"]['dsn']);
             $this->hostname = $dsn->host;
