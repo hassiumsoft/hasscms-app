@@ -17,6 +17,7 @@ $(function() {
 
 	if (nextUrl == undefined) {
 		$("#nextButton").text("完成");
+		nextUrl="admin.php"
 	}
 	$("#nextButton").click(function() {
 

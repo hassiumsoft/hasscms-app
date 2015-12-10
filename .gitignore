@@ -28,3 +28,4 @@ phpunit.phar
 /composer.lock
 /vendor
 /InitHassCoreModule.php
+/autoload_psr4.php
