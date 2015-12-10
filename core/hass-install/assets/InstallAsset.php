@@ -21,10 +21,12 @@ class InstallAsset extends \yii\web\AssetBundle
     public $sourcePath = '@hass/install/misc';
 
     public $js = [
-        'install.js'
+        'js/loading-overlay.min.js',
+        'js/install.js'
     ];
     public $css = [
-        'install.css'
+        'css/loading-overlay.css',
+        'css/install.css'
     ];
     public $depends = [
         'yii\web\YiiAsset',
