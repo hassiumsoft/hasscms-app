@@ -15,6 +15,7 @@ class <?= $className ?> extends Migration
     public function up()
     {
 		<?= $up ?>
+        return true;
     }
 
     public function down()

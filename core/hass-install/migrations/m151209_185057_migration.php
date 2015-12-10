@@ -424,7 +424,10 @@ $this->insert('{{%module}}',['package'=>'hassium/hass-theme','id'=>'theme','clas
 $this->insert('{{%module}}',['package'=>'hassium/hass-url-rule','id'=>'urlrule','class'=>'hass\\urlrule\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-user','id'=>'user','class'=>'hass\\user\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
  
-$this->execute('SET foreign_key_checks = 1;');    }
+$this->execute('SET foreign_key_checks = 1;');    
+
+return true;
+}
 
     public function down()
     {

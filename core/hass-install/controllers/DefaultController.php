@@ -129,7 +129,7 @@ class DefaultController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             
-            if ($model->validate() && $model->save()&&$this->install()) {
+            if ($model->validate() && $model->save()&&$this->install($model)) {
                 return $this->renderJsonMessage(true);
             } else {
                 return $this->renderJsonMessage(false, $model->formatErrors());
@@ -141,14 +141,29 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function install()
+    public function install($model)
     {
         $class = "m151209_185057_migration";
         require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
+
+
         $migration = new $class();
-        if ($migration->up() == false) {
-            return false;
+
+  
+        try {
+            //yii2 迁移是在命令行下操作的。。会输出很多垃圾信息
+            ob_start();
+            if ($migration->up() == false) {
+                ob_end_clean();
+                $model->addError("username","数据库迁移失败");
+                return false;
+            }
+        } catch (\Exception $e) {
+             ob_end_clean();
+             $model->addError("username","数据表已经存在，或者其他错误！");
+             return false;
         }
+        ob_end_clean();
 
         $data = \Yii::$app->getCache()->get("install-site-form");
         
@@ -181,7 +196,7 @@ class DefaultController extends Controller
         ])
             ->execute();
         
-        Module::getInstance()->generateCookieValidationKey();
+        Module::getInstance()->setCookieValidationKey();
         Module::getInstance()->setInstalled();
         \Yii::$app->getCache()->flush();
         return true;
