@@ -129,8 +129,8 @@ class DefaultController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             
-            if ($model->validate() && $model->save()) {
-                return $this->install();
+            if ($model->validate() && $model->save()&&$this->install()) {
+                return $this->renderJsonMessage(true);
             } else {
                 return $this->renderJsonMessage(false, $model->formatErrors());
             }
@@ -146,14 +146,10 @@ class DefaultController extends Controller
         $class = "m151209_185057_migration";
         require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
         $migration = new $class();
-        if ($migration->up() !== false) {
-            return $this->writeConfig();
+        if ($migration->up() == false) {
+            return false;
         }
-        return false;
-    }
 
-    public function writeConfig()
-    {
         $data = \Yii::$app->getCache()->get("install-site-form");
         
         foreach ($data as $name => $value) {
@@ -188,6 +184,7 @@ class DefaultController extends Controller
         Module::getInstance()->generateCookieValidationKey();
         Module::getInstance()->setInstalled();
         \Yii::$app->getCache()->flush();
-        return $this->refresh();
+        return true;
     }
+
 }
