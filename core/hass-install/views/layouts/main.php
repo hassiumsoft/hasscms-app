@@ -5,7 +5,8 @@ use yii\widgets\Menu;
 use hass\backend\Module;
 use yii\helpers\Url;
 
-InstallAsset::register($this);
+/** @var \yii\web\AssetBundle $bundle */
+$bundle = InstallAsset::register($this);
 $this->beginPage();
 ?>
 <!DOCTYPE html>
@@ -21,15 +22,16 @@ $this->beginPage();
     <?php $this->beginBody()?>
 		<div class="container" id="wrapper">
 
-		<div class="panel">
+		<div class="panel loading" id="target">
 			<div class="panel-heading clearfix">
 				<h3 class="panel-title pull-left"><?php echo  Module::HASS_CMS_NAME ?></h3>
 				<div class="pull-right">
 					Version <strong><?php echo  Module::HASS_CMS_VERSION ?></strong>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body ">
 
+			
 				<div id="progress">
                                 <?php
                                 echo Menu::widget([
