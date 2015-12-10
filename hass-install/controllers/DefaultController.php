@@ -147,7 +147,8 @@ class DefaultController extends Controller
         require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
         $migration = new $class();
         if ($migration->up() !== false) {
-           return $this->writeConfig();
+            $this->writeConfig();
+            return true;
         }
         return false;
     }
@@ -188,6 +189,7 @@ class DefaultController extends Controller
         Module::getInstance()->generateCookieValidationKey();
         Module::getInstance()->setInstalled();
         \Yii::$app->getCache()->flush();
-        return $this->refresh();
+        \Yii::$app->getResponse()->redirect("/admin.php");
+        \Yii::$app->end();
     }
 }

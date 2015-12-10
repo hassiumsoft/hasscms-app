@@ -1,5 +1,6 @@
 $(function() {
 
+
 	$('.list-group-item.active').prevAll().addClass("done");
 
 	var prevUrl = $('.list-group-item.active').prev().data("url");
@@ -18,6 +19,8 @@ $(function() {
 		$("#nextButton").text("完成");
 	}
 	$("#nextButton").click(function() {
+
+		$('#target').loadingOverlay();
 		if ($(".install-form").length == 0) {
 			location.href = nextUrl;
 			return;
@@ -27,6 +30,7 @@ $(function() {
 			url : activeUrl,
 			data : $("form.install-form").serializeArray(),
 			success : function(msg) {
+				$('#target').loadingOverlay('remove');
 				if (msg.status == true) {
 					if (nextUrl) {
 						location.href = nextUrl;

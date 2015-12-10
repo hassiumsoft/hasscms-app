@@ -69,7 +69,7 @@ body {
     color: #999;
     text-indent: 30px;
     background-color: #555;
-    background-image: url(./icoStatus.gif);
+    background-image: url(../images/icoStatus.gif);
     background-repeat: no-repeat;
     background-position: 10px 0;
     *zoom: 1;
