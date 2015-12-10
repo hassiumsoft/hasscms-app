@@ -31,7 +31,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function beforeAction($action)
     {        
         if ($this->getIsInstalled() == true) {
-            \Yii::$app->getResponse()->redirect("/index.php");
+            \Yii::$app->getResponse()->redirect("admin.php");
             return false;
         }
         
@@ -50,11 +50,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        if ($this->getIsInstalled() == true || ($this->getIsInstalled() == false && Yii::$app->getRequest()->getScriptUrl() == "/install.php")) {
+        if ($this->getIsInstalled() == true || ($this->getIsInstalled() == false && pathinfo(Yii::$app->getRequest()->getScriptUrl(),PATHINFO_BASENAME) == "install.php")) {
             return;
         }
         
-        \Yii::$app->getResponse()->redirect("/install.php");
+        \Yii::$app->getResponse()->redirect("install.php");
         \Yii::$app->end();
     }
 
