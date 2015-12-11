@@ -14,6 +14,13 @@ deployment.xml
 # windows thumbnail cache
 Thumbs.db
 
+# composer vendor dir
+/vendor
+
+# composer itself is not needed
+composer.phar
+composer.lock
+
 # Mac DS_Store Files
 .DS_Store
 
@@ -23,9 +30,8 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-# composer vendor dir
-/composer.json
-/composer.lock
-/vendor
-/InitHassCoreModule.php
-/autoload_psr4.php
+
+/core
+
+/admin.php
+/index.php

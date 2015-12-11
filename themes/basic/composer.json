@@ -1,0 +1,26 @@
+{
+	"name" : "app/theme-basic",
+	"description" : "basic template",
+	"type" : "hass-theme",
+	"keywords" : [
+		"hass",
+		"hass plugin",
+		"hass theme"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+		    "name" : "basic"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"app\\themes\\basic\\" : ""
+		}
+	}
+}

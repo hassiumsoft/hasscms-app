@@ -1,0 +1,131 @@
+{{ use("/hass/frontend/widgets/MenuRenderWidget") }} 
+{{ this.theme.publicBundle(this) }}
+{{begin_page()}}
+<!DOCTYPE html>
+<html lang="{{app.language}}">
+<head>
+<meta charset="{{_charset}}">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+{{html.csrfMetaTags|raw}}
+<title>{{html.encode(this.title)}}</title> {{head()}}
+</head>
+<body>
+	{{begin_body()}}
+	<header class="header">
+		<div class="header-top  inner clr">
+			<a class="header-logo" href="{{ app.homeUrl }}"> <img
+				src="{{ config("app.logo")|default(this.theme.getUrl("images/logo2.png")) }}"
+				 alt="logo"> <span> 
+				{{ config("app.description") }}
+			</span>
+			</a>
+			<div class="header-message">
+				<a class="bell" href="{{ app.homeUrl }}"> <i class="ico"></i>
+					<em class="count"></em>
+				</a>
+			</div>
+			<div class="header-user-box">
+				<div class="header-user">
+					{% if app.user.isGuest %}
+    				<div class="user-main">
+    					<div class="avatar">
+    						<img width="36" height="36"
+    							src="{{ this.theme.getUrl("images/noLogin.jpg") }}"
+    							alt="">
+    					</div>
+    					<span class="nickname">用户</span><span class="arrow"></span>
+    				</div>
+    				<div class="user-link">
+    					<ul>
+    						<li class="l1">
+    						{{ html.a("<i></i>登录",['/user/security/login'])|raw }}
+    						</li>
+    						<li class="l2">
+    						{{ html.a("<i></i>注册",['/user/registration/register'])|raw }}
+    						</li>
+    					</ul>
+    				</div>
+    				{% else %}
+    				<div class="user-main user-haslg">
+    					<div class="avatar">
+    						<img
+    							src="{{ app.user.identity.avatar }}"
+    							alt="">
+    					</div>
+    					<span class="nickname">
+    					{{ html.a(app.user.identity.username,{0:"/user/profile/show",id:app.user.id})|raw }}
+    						</span><span class="arrow"></span>
+    				</div>
+    				<div class="user-link">
+    					<ul>
+    						<li class="l3">
+    						{{ html.a("<i></i>个人设置",['/user/settings/profile'])|raw }}</li>
+    						<li class="l4">
+    						{{ html.a("<i></i>退出",['/user/security/logout'],{"data-method":"post"})|raw }}
+    						</li>
+    					</ul>
+    				</div>
+    				{% endif %}
+				</div>
+			</div>
+			<div class="header-search">
+				<form method="GET" action="{{ url(["/search/index"]) }}"
+					style="height: 100%;">
+					<input class="text" type="text" name="q" autocomplete="off"
+						value=""> <input class="submit" type="submit" value="">
+				</form>
+			</div>
+		</div>
+		<nav class="header-nav nav-static">
+			<div class="nav_wrap">
+				<div class="inner clr">
+					<div class="header-menu">
+						<span class="arrow"></span>
+						{{ menu("main-menu",{"submenuTemplate":"\n<ul class=\"news-menu\">\n{items}\n</ul>\n"}) }}
+					</div>
+				</div>
+			</div>
+		</nav>
+		<nav class="header-nav nav-fixed">
+			<div class="nav_wrap">
+				<div class="inner clr">
+					<div class="header-menu">
+						<span class="arrow"></span>
+							{{ menu("main-menu",{"submenuTemplate":"\n<ul class=\"news-menu\">\n{items}\n</ul>\n"}) }}
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="main">
+		{{ content |raw }}
+	</div>
+	<div class="footer">
+		<div class="inner">
+			<div class="footer-top clr">
+				<div class="left">
+					<div class="flogo">
+						<img
+							src="{{ this.theme.getUrl("images/logo2.png") }}">
+					</div>
+				</div>
+				<div class="right clr">
+					{{ menu("footer-menu",{'options':{"class":"links"}}) }}
+				</div>
+			</div>
+			<div class="footer-btm">
+				<br> <span style="font-size: 13px; color: #636363;">友情链接：</span>
+				{{ menu("friend-links")}}
+			</div>
+		</div>
+		<div class="copyright">
+			<div class="inner">
+				<p>Copyright © 2011-2015 www.hassium.org 釒黑是一个现代的、轻量级的、可扩展的PHPCMS</p>
+			</div>
+		</div>
+	</div>
+	{{end_body()}}
+</body>
+</html>
+{{end_page()}}

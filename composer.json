@@ -1,0 +1,75 @@
+{
+	"name" : "hassium/hasscms",
+	"description" : "hassium hasscms",
+	"homepage" : "http://www.hassium.org/",
+	"type" : "project",
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"minimum-stability" : "dev",
+	"require" : {
+		"php" : ">=5.4.0",
+		"yiisoft/yii2" : "dev-master",
+		"yiisoft/yii2-bootstrap" : "dev-master",
+		"yiisoft/yii2-swiftmailer" : "dev-master",
+		"yiisoft/yii2-httpclient" : "dev-master",
+		"yiisoft/yii2-imagine" : "dev-master",
+		"yiisoft/yii2-twig" : "dev-master",
+		"league/event" : "*",
+		"eloquent/composer-config-reader" : "2.0.0",
+		"raulfraile/distill" : "*",
+		"paquettg/php-html-parser" : "dev-master",
+		"fourteenmeister/dsn" : "*",
+		"creocoder/yii2-flysystem" : "*",
+		"creocoder/yii2-nested-sets" : "dev-master",
+		"almasaeed2010/adminlte" : "~2.0",
+		"FortAwesome/Font-Awesome" : "*",
+		"driftyco/ionicons" : "*",
+		"dektrium/yii2-user" : "dev-master",
+		"bower-asset/switchery" : "*",
+		"bower-asset/eonasdan-bootstrap-datetimepicker" : "*",
+		"bower-asset/html.sortable" : "*",
+		"bower-asset/blueimp-file-upload" : "*",
+		"kartik-v/yii2-widget-select2" : "*",
+		"yiidoc/yii2-timeago" : "dev-master",
+		"vova07/yii2-imperavi-widget" : "dev-master"
+	},
+	"require-dev" : {
+		"yiisoft/yii2-debug" : "*",
+		"yiisoft/yii2-gii" : "*",
+		"trntv/yii2-debug-xhprof": "*",
+		"digitalnature/php-ref" : "dev-master",
+		"php-console/php-console" : "*"
+	},
+	"config" : {
+		"process-timeout" : 3600
+	},
+	"extra" : {
+		"asset-installer-paths" : {
+			"npm-asset-library" : "vendor/npm",
+			"bower-asset-library" : "vendor/bower"
+		}
+	},
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "http://packagist.phpcomposer.com"
+		}
+	],
+	"keywords" : [
+		"yii",
+		"cms",
+		"hass",
+		"yii2"
+	],
+	"suggest" : {
+		"yiisoft/yii2-sphinx" : "sphinx search",
+		"hightman/xunsearch" : "xunsearch search"
+	},
+	"support" : {
+		"email" : "zhepama@gmail.com",
+		"forum" : "http://www.hassium.org/forum"
+	}
+}

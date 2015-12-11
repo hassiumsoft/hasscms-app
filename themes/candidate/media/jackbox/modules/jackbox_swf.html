@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<style type="text/css">
+html {
+	background-color: #000;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #000;
+}
+
+object {
+	outline: none;
+}
+</style>
+
+<script type="text/javascript">
+        	
+			var swf, doc, bodies;
+			
+			function startIt() {
+				
+				doc = document;
+				bodies = doc.body;
+				
+				var st = doc.URL.split("?")[1], swfMarkup = 
+				
+					'<object type="application/x-shockwave-flash" data="{swfUrl}" id="flash" width="{swfWidth}" height="{swfHeight}">' + 
+						'<param name="movie" value="{swfUrl}" />' + 
+						'<param name="allowScriptAccess" value="always" />' + 
+						'<param name="bgcolor" value="#FF0000" />' + 
+						'<param name="allowfullscreen" value="true" />' +  
+						'<param name="wmode" value="transparent" />' +
+						'<param name="scale" value="showall" />' +
+						'<param name="salign" value="tl" />' +
+					'</object>';
+				
+				url = st.substring(st.indexOf("swf=") + 4, st.indexOf("&width"));
+				swfWidth = st.substring(st.indexOf("width=") + 6, st.indexOf("&height"));
+				swfHeight = st.substring(st.indexOf("height=") + 7, st.length);
+				
+				doc.getElementById("content").innerHTML = swfMarkup.split("{swfUrl}").join(url).split("{swfWidth}").join(swfWidth).split("{swfHeight}").join(swfHeight);
+				
+				setTimeout(function() {
+					
+					swf = doc.getElementById("flash");
+					sizeThis();
+					window.onresize = sizeThis;
+					
+				}, 1000);
+				
+			}
+			
+			function sizeThis() {
+				
+				swf.setAttribute("width", width());
+				swf.setAttribute("height", height());
+				
+			}
+			
+			function width() {
+			
+				return self.innerWidth || doc.documentElement.clientWidth || bodies.clientWidth;
+			
+			}
+			 
+			function height() {
+			  
+			  	return self.innerHeight || doc.documentElement.clientHeight || bodies.clientHeight;
+
+			}
+        
+        </script>
+
+</head>
+
+<body onLoad="startIt()">
+
+	<div id="content"></div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,27 @@
+{
+	"name" : "hassium/hass-revolutionslider",
+	"description" : "hass-revolutionslider",
+	"type" : "hass-module",
+	"keywords" : [
+		"yii2",
+		"extension"
+	],
+	"license" : "GPL-3.0+",
+	"authors" : [{
+			"name" : "zhepama",
+			"email" : "zhepama@gmail.com"
+		}
+	],
+	"extra" : {
+		"hass-package-config" : {
+			"id" : "revolutionslider",
+			"name" : "幻灯片",
+			"bootstrap" : "2"
+		}
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hass\\revolutionslider\\" : ""
+		}
+	}
+}

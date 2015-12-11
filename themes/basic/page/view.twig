@@ -1,0 +1,26 @@
+<div class="page">
+
+
+	<div class="inner  ">
+		<div class="content clr">
+			<div class="cont-left">{{ menu("page-sidebar",{
+				"options":{"class":"selects"}, 'showParentUrl':true,
+				'activeCssClass' : 'cur' }) }}</div>
+			<div class="cont-right">
+				<div class="cont-right-box">
+
+
+					<div class="cont-right-heading">
+						<h3>{{ page.title }}</h3>
+					</div>
+					<div class="cont-right-body">
+						<p>{{ page.content | raw}}</p>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

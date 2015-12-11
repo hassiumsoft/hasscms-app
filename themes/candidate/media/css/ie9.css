@@ -1,0 +1,13 @@
+.csstransforms .filter-dropdown ul, .csstransforms .shopping-cart-dropdown
+	{
+	display: none;
+}
+
+.csstransforms .filter-dropdown.opened ul, .csstransforms .shopping-cart:hover .shopping-cart-dropdown
+	{
+	display: block;
+}
+
+.banner .icons.icons-fadeout {
+	display: none;
+}

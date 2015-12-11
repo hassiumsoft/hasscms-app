@@ -1,0 +1,62 @@
+ {{ area(3,{ "blockClass":"box", "headerClass":"box-heading",
+"bodyClass":"box-body" }) }}
+
+
+<div class="kuaixun box">
+	<div class="box-heading">
+		<div class="box-title">
+			<h3>评论最多</h3>
+		</div>
+	</div>
+
+	<div class="box-body">
+		<ul class="kx-ul">
+			{% set items =
+			call('\\hass\\comment\\models\\CommentInfo',"getEntityOrderByTotal")
+			%} {% for item in items %}
+			<li class="clr"><a rel="nofollow" href="{{ entityToUrl(item) }}"
+				target="_blank">
+					<div class="time">
+						<span class="r">{{ item.published_at|date("d") }}</span>/ <span
+							class="y">{{ item.published_at|date("m") }}月</span>
+					</div>
+					<div class="title">{{ item.title }}</div>
+			</a></li> {% endfor %}
+		</ul>
+	</div>
+</div>
+
+<div class="week-hot box">
+	<div class="box-heading">
+		<div class="box-title">
+			<h3>最新新闻</h3>
+		</div>
+	</div>
+	<!-- 最新新闻 -->
+	<div class="box-body">
+		{% set items = call('\\hass\\post\\models\\Post',"findOrderByViews")
+		%} {% for item in items %} <a href="{{ entityToUrl(item) }}"
+			target="_blank" class="{{ loop.index<= 3?"hot-one":"" }}" title=""> <span>{{
+				loop.index }}</span>{{ item.title }}
+		</a> {% endfor %}
+	</div>
+	<!-- 最新新闻 end -->
+</div>
+
+
+<div class="hottags box">
+	<div class="box-heading">
+		<div class="box-title">
+			<h3>Tags</h3>
+		</div>
+	</div>
+	<!-- Tags-->
+	<div class="box-body">
+		<ul>
+			{% set tags = tags() %} {% for tag in tags %}
+			<li><a href="{{ entityToUrl(tag) }}" target="_blank"> {{ tag.name }}
+			</a></li> {% endfor %}
+		</ul>
+	</div>
+	<!-- Tags end -->
+</div>
