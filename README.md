@@ -25,6 +25,10 @@ With Composer installed, you can install Hassium Cms by running the following co
 
 ```
 composer create-project --prefer-dist --stability=dev hassium/hasscms hasscms
+cd hasscms
+chmod -R 777 storage
+chmod -R 777 app/config
+chmod 777 core
 ```
 go to http://YOURSITE.COM/install.php
 
