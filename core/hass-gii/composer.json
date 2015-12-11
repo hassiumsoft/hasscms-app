@@ -17,7 +17,7 @@
 		"hass-package-config" : {
 			"id" : "gii",
 			"name" : "Gii",
-			"bootstrap" : "2"
+			"bootstrap" : "0"
 		}
 	},
 	"autoload" : {

@@ -20,7 +20,7 @@ use hass\system\enums\ModuleGroupEnmu;
  */
 class Module extends \yii\gii\Module
 {
-
+    public $allowedIPs = ['*'];
     public $controllerNamespace = 'hass\gii\controllers';
 
     public function init()
