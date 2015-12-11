@@ -373,11 +373,11 @@ $this->execute('SET foreign_key_checks = 0');
  
 /* Table area */
 $this->insert('{{%area}}',['area_id'=>'1','title'=>'首页头部','slug'=>'index-header','description'=>'default','blocks'=>'']);
-$this->insert('{{%area}}',['area_id'=>'3','title'=>'侧边栏','slug'=>'slider','description'=>'侧边栏试试','blocks'=>'a:2:{i:0;s:1:\"7\";i:1;s:1:\"9\";}']);
+$this->insert('{{%area}}',['area_id'=>'3','title'=>'侧边栏','slug'=>'slider','description'=>'侧边栏','blocks'=>'']);
  
 /* Table area_block */
-$this->insert('{{%area_block}}',['block_id'=>'7','title'=>'公告','type'=>'text','widget'=>'hass\\area\\widgets\\TextWidget','slug'=>'gong-gao','config'=>'','template'=>'<p>这里是公告</p>','cache'=>'0','used'=>'1']);
-$this->insert('{{%area_block}}',['block_id'=>'9','title'=>'区域测试','type'=>'text','widget'=>'hass\\area\\widgets\\TextWidget','slug'=>'qu-yu-ce-shi','config'=>'','template'=>'<p>这里是侧边栏的区域中的一个区块</p>','cache'=>'0','used'=>'1']);
+$this->insert('{{%area_block}}',['block_id'=>'7','title'=>'公告','type'=>'text','widget'=>'hass\\area\\widgets\\TextWidget','slug'=>'gong-gao','config'=>'','template'=>'<p>这里是公告</p>','cache'=>'0','used'=>'0']);
+$this->insert('{{%area_block}}',['block_id'=>'9','title'=>'区域测试','type'=>'text','widget'=>'hass\\area\\widgets\\TextWidget','slug'=>'qu-yu-ce-shi','config'=>'','template'=>'<p>这里是侧边栏的区域中的一个区块</p>','cache'=>'0','used'=>'0']);
 
 /* Table auth_item */
 $this->insert('{{%auth_item}}',['name'=>'*','type'=>'2','description'=>'SUPER_PERMISSION','created_at'=>'1449578246','updated_at'=>'1449578246']);
