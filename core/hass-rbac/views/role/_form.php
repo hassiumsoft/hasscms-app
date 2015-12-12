@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use hass\base\misc\adminlte\ActiveForm;
+/** @var \hass\rbac\models\AuthItem $model */
 ?>
 <?php $form = ActiveForm::begin([
     'enableAjaxValidation' => true,
@@ -8,6 +9,7 @@ use hass\base\misc\adminlte\ActiveForm;
 ]); ?>
 
 <div class="box box-solid">
+
 <?php if($model->isNewRecord):?>
     <div class="box-header with-border" >
         创建新用户组
@@ -17,7 +19,7 @@ use hass\base\misc\adminlte\ActiveForm;
 	<div class="box-body">
 <?= $form->field($model, 'name') ?>
 <?= $form->field($model, 'description')->textarea() ?>
-<?= $form->field($model, 'ruleName')->textarea() ?>
+<?= $form->field($model, 'ruleName')->dropDownList($model->getAuthRuleList(),["prompt"=>"无"]) ?>
 <?= $form->field($model, 'data')->textarea() ?>
 	</div>
 </div>

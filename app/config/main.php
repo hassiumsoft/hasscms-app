@@ -1,6 +1,6 @@
 <?php
 
-define("APP_INSTALLED", "installed");
+define("APP_INSTALLED_NAME", "installed");
 
 $basePath = dirname(__DIR__);
 $config = [
@@ -126,5 +126,11 @@ $config = [
 if (YII_ENV_DEV) {
     require __DIR__ . DIRECTORY_SEPARATOR . 'dev.php';
 }
+
+//卸载dektrium的用户模块的引导
+$file = Yii::getAlias('@root/vendor/yiisoft/extensions.php');
+$extensions = is_file($file) ? include($file) : [];
+unset($extensions['dektrium/yii2-user']['bootstrap']);
+$config['extensions'] = $extensions;
 
 return $config;

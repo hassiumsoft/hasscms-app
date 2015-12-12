@@ -16,7 +16,7 @@
 		"hass-package-config" : {
 			"id" : "base",
 			"name" : "Base",
-			"bootstrap" : "1|2"
+			"bootstrap" : "0"
 		}
 	},
 	"autoload" : {

@@ -44,6 +44,8 @@ class Util
     }
 
     /**
+     * 配置文件中的配置，要高于模块中定义的配置。。。所以override默认是false
+     * 
      * @param unknown $id
      * @param unknown $config
      * @param string $override

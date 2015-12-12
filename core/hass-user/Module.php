@@ -34,26 +34,26 @@ class Module extends \dektrium\user\Module implements BootstrapInterface
     public function init()
     {
         parent::init();
-        \Yii::$app->getUser()->loginUrl = [
-            "/user/security/login"
-        ];
     }
 
     public function bootstrap($app)
     {
-        /**
-         *
-         * @var $boot \dektrium\user\Bootstrap
-         */
-        $boot = \Yii::createObject('\dektrium\user\Bootstrap');
-        $boot->bootstrap(\Yii::$app);
-        
-        Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
-            $this,
-            "onSetGroupNav"
-        ]);
-        
-        Hook::on(new \hass\user\hooks\EntityUrlPrefix());
+        if(HASS_APP_BACKEND)
+        {
+            /**
+             *
+             * @var $boot \dektrium\user\Bootstrap
+             */
+            $boot = \Yii::createObject('\dektrium\user\Bootstrap');
+            $boot->bootstrap(\Yii::$app);
+            
+            Hook::on(\hass\system\Module::EVENT_SYSTEM_GROUPNAV, [
+                $this,
+                "onSetGroupNav"
+            ]);
+            
+            Hook::on(new \hass\user\hooks\EntityUrlPrefix());
+        }
     }
 
     /**

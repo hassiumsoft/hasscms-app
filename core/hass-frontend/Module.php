@@ -133,9 +133,10 @@ class Module extends ApplicationModule
         Util::setComponent("view", [
             'theme' => [
                 'pathMap' => [
-                    "@dektrium/user/views" => [
+                    "@hass/user/views" => [
                         $themePath . "/user",
                         "@app/views/user",
+                        "@hass/user/views",
                         "@dektrium/user/views"
                     ]
                 ]

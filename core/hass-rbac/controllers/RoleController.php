@@ -69,6 +69,9 @@ class RoleController extends BaseController
         ]);
     }
     
+    
+    
+    
     /**
      * 1.获取所有模块配置的权限(前台模块...怎么办?)
      */

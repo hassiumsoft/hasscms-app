@@ -16,7 +16,7 @@
 		"hass-package-config" : {
 			"id" : "authclient",
 			"name" : "authclient",
-			"bootstrap" : "2"
+			"bootstrap" : "0"
 		}
 	},
 	"autoload" : {

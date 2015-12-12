@@ -68,24 +68,37 @@ class ModuleManager extends PackageManager
     public function loadBootstrapModules($bootstrapType)
     {
         $modules = \hass\module\models\Module::findEnabledModules();
+        $regModules = \Yii::$app->getModules();
         
         /** @var \hass\module\models\Module $model */
         foreach ($modules as $model) {
             $model = (object)$model;
-            if (empty($model->class)) {
-                continue;
-            }
-            // 如果有模块,而且模块的类存在则跳过,配置文件优先
-            if (\Yii::$app->hasModule($model->id)) {
-                $modules = \Yii::$app->getModules();
-                if (is_object($modules[$model->id]) || isset($modules[$model->id]['class'])) {
+            
+            $class = null;
+            if (isset($regModules[$model->id])) {
+                //是对象的话，说明绝对引导过了,配置高于程序中定义的
+                if(is_object($regModules[$model->id]))
+                {
                     continue;
                 }
+                // 如果有模块,而且模块的类存在,配置文件优先
+                if(isset($regModules[$model->id]['class']))
+                {
+                    $class = $regModules[$model->id]['class'];
+                }
+            }
+            //模块类未设置的话
+            if($class == null)
+            {
+                if (empty($model->class)) {
+                    continue;
+                }
+                
+                Util::setModule($model->id, [
+                    'class' => $model->class
+                ]);
             }
             
-            Util::setModule($model->id, [
-                'class' => $model->class
-            ]);
             $bootstraps = explode("|", $model->bootstrap);
             if (in_array($bootstrapType, $bootstraps)) {
                 /** @var \hass\module\BaseModule $module */

@@ -18,7 +18,21 @@ use hass\user\models\LoginForm;
 class SecurityController extends \dektrium\user\controllers\SecurityController
 {
     public $layout = '@hass/backend/views/layouts/main-login';
-
+    private $_viewPath;
+    
+    /**
+     * 将后台的登录模板文件设置到admin目录。security目录下的模板文件供给前台使用
+     * {@inheritDoc}
+     * @see \yii\base\Controller::getViewPath()
+     */
+    public function getViewPath()
+    {
+        if ($this->_viewPath === null) {
+            $this->_viewPath = $this->module->getViewPath() . DIRECTORY_SEPARATOR . "admin";
+        }
+        return $this->_viewPath;
+    }
+    
     public function actionIn()
     {
         if (!Yii::$app->user->isGuest) {

@@ -13,6 +13,8 @@
 * @package hass\package_name
 * @author zhepama <zhepama@gmail.com>
 * @since 0.1.0
-*/?>
+*/
 
-index
+?>
+
+恭喜！权限生产成功！

@@ -60,7 +60,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     public function getIsInstalled()
     {
-        return isset(Yii::$app->params[APP_INSTALLED]) == true;
+        return isset(Yii::$app->params[APP_INSTALLED_NAME]) == true;
     }
 
     /**
@@ -85,7 +85,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         $file = \Yii::getAlias("@app/config/params-local.php");
         
         $config = [
-            APP_INSTALLED => true
+            APP_INSTALLED_NAME => true
         ];
         
         $content = "<" . "?php return ";

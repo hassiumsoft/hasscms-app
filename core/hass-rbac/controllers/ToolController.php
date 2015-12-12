@@ -118,5 +118,7 @@ class ToolController extends BaseController
         
         $result = "<?php \n return " . var_export($result, true) . ";";
         file_put_contents(dirname(__DIR__) . "/permissions.php", $result);
+        
+        return $this->render("index");
     }
 }

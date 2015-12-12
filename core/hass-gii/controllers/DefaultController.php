@@ -7,6 +7,7 @@
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 */
 namespace hass\gii\controllers;
+use hass\rbac\components\AccessControl;
 /**
 *
 * @package hass\package_name
@@ -15,7 +16,15 @@ namespace hass\gii\controllers;
  */
 class DefaultController extends \yii\gii\controllers\DefaultController
 {
-
+    
+    public function behaviors()
+    {
+        return [
+            'rbac' => [
+                'class' => AccessControl::className()
+            ]
+        ];
+    }
 
     public function actionIndex()
     {

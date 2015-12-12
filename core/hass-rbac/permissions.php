@@ -688,6 +688,11 @@
         'type' => 2,
         'description' => 'cache-Clear Assets',
       ),
+      'system/cache/flush-cache-key' => 
+      array (
+        'type' => 2,
+        'description' => 'cache-Flush Cache Key',
+      ),
       'system/default/error' => 
       array (
         'type' => 2,
