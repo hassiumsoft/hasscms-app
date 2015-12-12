@@ -110,7 +110,11 @@ class AppUtility
             $this->string .= ($this->array['autoIncrement']) ? ' AUTO_INCREMENT' : '';
         if (isset($this->array['defaultValue']))
             if (!is_array($this->array['defaultValue'])) {
-                $this->string .= (empty($this->array['defaultValue'])) ? '' : " DEFAULT \'{$this->array['defaultValue']}\'";
+                //0 is int
+                if(is_int($this->array['defaultValue'])||!empty($this->array['defaultValue']))
+                {
+                    $this->string .= " DEFAULT \'{$this->array['defaultValue']}\'";
+                }
             } else {
                 $this->string .= (empty($this->array['defaultValue'])) ? '' : " DEFAULT " . $this->array['defaultValue']['expression'] . " ";
             }

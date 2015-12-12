@@ -123,7 +123,7 @@ class m151209_185057_migration extends Migration
             'entity' => 'VARCHAR(128) NULL',
             'entity_id' => 'INT(11) NULL',
             'status' => 'TINYINT(4) NULL',
-            'total' => 'INT(11) NULL'
+            'total' => 'INT(11) NULL DEFAULT \'0\''
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         
         $this->createIndex('entity_entity_id', '{{%comment_info}}', 'entity, entity_id', 0);
@@ -189,7 +189,7 @@ class m151209_185057_migration extends Migration
         
         $this->createTable('{{%page}}', [
             'id' => 'INT(11) NOT NULL AUTO_INCREMENT',
-            'parent' => 'INT(11) NOT NULL',
+            'parent' => 'INT(11) NOT NULL DEFAULT \'0\'',
             'title' => 'VARCHAR(128) NOT NULL',
             'content' => 'TEXT NOT NULL',
             'slug' => 'VARCHAR(128) NULL',
@@ -210,7 +210,7 @@ class m151209_185057_migration extends Migration
             'short' => 'VARCHAR(1024) NULL',
             'content' => 'TEXT NOT NULL',
             'slug' => 'VARCHAR(128) NULL',
-            'views' => 'INT(11) NULL',
+            'views' => 'INT(11) NULL DEFAULT \'0\'',
             'status' => 'TINYINT(1) NULL DEFAULT \'1\'',
             'published_at' => 'INT(11) NULL',
             'created_at' => 'INT(11) NOT NULL',
@@ -270,7 +270,7 @@ class m151209_185057_migration extends Migration
         $this->createTable('{{%tag}}', [
             'tag_id' => 'INT(11) NOT NULL AUTO_INCREMENT',
             'name' => 'VARCHAR(128) NOT NULL',
-            'frequency' => 'INT(11) NULL',
+            'frequency' => 'INT(11) NULL DEFAULT \'0\'',
             'PRIMARY KEY (`tag_id`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         
@@ -299,8 +299,8 @@ class m151209_185057_migration extends Migration
         
         $this->createTable('{{%taxonomy_index}}', [
             'taxonomy_index_id' => 'INT(11) NOT NULL AUTO_INCREMENT',
-            'entity_id' => 'INT(11) UNSIGNED NOT NULL',
-            'taxonomy_id' => 'INT(11) UNSIGNED NOT NULL',
+            'entity_id' => 'INT(11) UNSIGNED NOT NULL DEFAULT \'0\'',
+            'taxonomy_id' => 'INT(11) UNSIGNED NOT NULL DEFAULT \'0\'',
             'entity' => 'VARCHAR(128) NULL',
             'PRIMARY KEY (`taxonomy_index_id`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
@@ -334,7 +334,7 @@ class m151209_185057_migration extends Migration
             'defaults' => 'VARCHAR(255) NULL',
             'suffix' => 'VARCHAR(255) NULL',
             'verb' => 'VARCHAR(255) NULL',
-            'mode' => 'TINYINT(4) NOT NULL',
+            'mode' => 'TINYINT(4) NOT NULL DEFAULT \'0\'',
             'encodeParams' => 'TINYINT(4) NOT NULL DEFAULT \'1\'',
             'status' => 'TINYINT(4) NULL DEFAULT \'1\'',
             'PRIMARY KEY (`id`)'
@@ -352,7 +352,7 @@ class m151209_185057_migration extends Migration
             'registration_ip' => 'VARCHAR(45) NULL',
             'created_at' => 'INT(11) NOT NULL',
             'updated_at' => 'INT(11) NOT NULL',
-            'flags' => 'INT(11) NOT NULL',
+            'flags' => 'INT(11) NOT NULL DEFAULT \'0\'',
             'PRIMARY KEY (`id`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         

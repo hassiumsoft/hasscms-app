@@ -33,7 +33,7 @@ use hass\comment\Module;
         'validateOnBlur' => false,
     ])
     ?>
-        <div class="col-md-10">
+        <div class="col-md-9">
 
             <div class="box box-solid">
                 <div class="box-body">
@@ -43,7 +43,7 @@ use hass\comment\Module;
             </div>
         </div>
         <?php list($avatar,$username) = Module::getUserInfo($model)?>
-        <div class="col-md-2">
+        <div class="col-md-3">
 
             <div class="box box-solid ">
                 <div class="box-body">
