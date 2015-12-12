@@ -13,7 +13,7 @@ use hass\migration\models\MigrationUtility;
 use Yii;
 use yii\base\Object;
 use hass\migration\AppUtility;
-use hass\frontend\BaseController;
+use hass\base\BaseController;
 use yii\helpers\FileHelper;
 
 /**

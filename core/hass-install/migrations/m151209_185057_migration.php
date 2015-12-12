@@ -399,9 +399,9 @@ $this->insert('{{%menu}}',['slug'=>'shou-ye','name'=>'','title'=>'','module'=>'p
 /* Table module */
 $this->insert('{{%module}}',['package'=>'hassium/hass-area','id'=>'area','class'=>'hass\\area\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-attachment','id'=>'attachment','class'=>'hass\\attachment\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
-$this->insert('{{%module}}',['package'=>'hassium/hass-authclient','id'=>'authclient','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'2']);
+$this->insert('{{%module}}',['package'=>'hassium/hass-authclient','id'=>'authclient','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'0']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-backend','id'=>'backend','class'=>'hass\\backend\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
-$this->insert('{{%module}}',['package'=>'hassium/hass-base','id'=>'base','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'1|2']);
+$this->insert('{{%module}}',['package'=>'hassium/hass-base','id'=>'base','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'0']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-comment','id'=>'comment','class'=>'hass\\comment\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-config','id'=>'config','class'=>'hass\\config\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-frontend','id'=>'frontend','class'=>'hass\\frontend\\Module','status'=>'1','installed'=>'1','bootstrap'=>'1']);
@@ -409,7 +409,7 @@ $this->insert('{{%module}}',['package'=>'hassium/hass-gii','id'=>'gii','class'=>
 $this->insert('{{%module}}',['package'=>'hassium/hass-i18n','id'=>'i18n','class'=>'hass\\i18n\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-install','id'=>'install','class'=>'hass\\install\\Module','status'=>'1','installed'=>'1','bootstrap'=>'0']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-menu','id'=>'menu','class'=>'hass\\menu\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
-$this->insert('{{%module}}',['package'=>'hassium/hass-meta','id'=>'meta','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'2']);
+$this->insert('{{%module}}',['package'=>'hassium/hass-meta','id'=>'meta','class'=>'','status'=>'1','installed'=>'1','bootstrap'=>'0']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-migration','id'=>'migration','class'=>'hass\\migration\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-module','id'=>'module','class'=>'hass\\module\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-page','id'=>'page','class'=>'hass\\page\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
@@ -423,6 +423,7 @@ $this->insert('{{%module}}',['package'=>'hassium/hass-taxonomy','id'=>'taxonomy'
 $this->insert('{{%module}}',['package'=>'hassium/hass-theme','id'=>'theme','class'=>'hass\\theme\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-url-rule','id'=>'urlrule','class'=>'hass\\urlrule\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
 $this->insert('{{%module}}',['package'=>'hassium/hass-user','id'=>'user','class'=>'hass\\user\\Module','status'=>'1','installed'=>'1','bootstrap'=>'2']);
+
  
 $this->execute('SET foreign_key_checks = 1;');    
 

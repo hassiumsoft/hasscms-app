@@ -13,6 +13,8 @@ use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
 use hass\base\traits\ModelTrait;
+use hass\rbac\Module;
+use yii\helpers\ArrayHelper;
 
 /**
  *
@@ -62,18 +64,18 @@ class AuthItem extends \yii\base\Model
                 return $this->isNewRecord || $this->_item->name != $this->name;
             }],
             ['ruleName', function () {
-                try {
-                    $class = new \ReflectionClass($this->ruleName);
-                } catch (\Exception $ex) {
-                    $this->addError('rule', \Yii::t('rbac', 'Class "{0}" does not exist', $this->ruleName));
+                
+                if (empty($this->ruleName))
+                {
+                    $this->ruleName = null;
                     return;
                 }
-
-                if ($class->isInstantiable() == false) {
-                    $this->addError('rule', \Yii::t('rbac', 'Rule class can not be instantiated'));
-                }
-                if ($class->isSubclassOf('\yii\rbac\Rule') == false) {
-                    $this->addError('rule', \Yii::t('rbac', 'Rule class must extend "yii\rbac\Rule"'));
+                $authRules = $this->getAuthRules();
+                $names = ArrayHelper::getColumn($authRules, "name");
+                if(!in_array($this->ruleName,$names))
+                {
+                    $this->addError('rule', \Yii::t('rbac', 'rule "{0}" does not exist', $this->ruleName));
+                    return;
                 }
             }],
             [['data'], function(){
@@ -173,7 +175,7 @@ class AuthItem extends \yii\base\Model
         if ($this->validate() == false ) {
             return false;
         } 
-       
+        
         $manager = Yii::$app->authManager;
         if ($this->_item === null) {
             if ($this->type == Item::TYPE_ROLE) {
@@ -190,6 +192,29 @@ class AuthItem extends \yii\base\Model
         $this->_item->description = $this->description;
         $this->_item->ruleName = $this->ruleName;
         $this->_item->data = $this->_data;
+        
+        /**
+         * 检查规则
+         */
+        if(!empty($this->_item->ruleName))
+        {
+            $authRule = $this->getAuthRules();
+            $authRule = ArrayHelper::index($authRule, "name");
+            if(isset($authRule[$this->_item->ruleName]))
+            {
+                $rule = \Yii::$app->authManager->getRule($this->_item->ruleName);
+                if($rule == null)
+                {
+                    $rule = \Yii::createObject(['class'=>$authRule[$this->_item->ruleName]['class']]);
+                    if(empty($rule->name))
+                    {
+                        $rule->name = $this->_item->ruleName;
+                    }
+                    \Yii::$app->authManager->add($rule);
+                }
+            }
+        }
+        
         if ($isNew) {
             $manager->add($this->_item);
         } else {
@@ -223,5 +248,19 @@ class AuthItem extends \yii\base\Model
             $this->ruleName = $item->ruleName;
             $this->data = $item->data === null ? null : Json::encode($item->data);
         }
+    }
+    
+    public function getAuthRules()
+    {
+        /** @var \hass\rbac\Module $module */
+        $module = Module::getInstance();
+        $rules = $module->authRules;
+        return $rules;
+    }
+    
+    public function getAuthRuleList()
+    {
+        $rules = $this->getAuthRules();
+        return ArrayHelper::map($rules, "name", "description");
     }
 }

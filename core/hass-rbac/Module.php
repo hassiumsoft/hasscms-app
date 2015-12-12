@@ -25,8 +25,16 @@ class Module extends BaseModule implements BootstrapInterface
 {
 
     const EVENT_RBAC_PERMISSION = "EVENT_RBAC_PERMISSION";
-    
+
     const SUPER_PERMISSION = "*";
+
+    public $authRules = [
+        [
+            "name" => "disabled-post",
+            "class" => '\hass\rbac\rules\DisabledPost',
+            "description" => "禁用Post请求"
+        ]
+    ];
 
     public function init()
     {
@@ -44,7 +52,7 @@ class Module extends BaseModule implements BootstrapInterface
             "class" => "\\hass\\rbac\\components\\DbManager"
         ]);
         
-        Hook::on(new  \hass\rbac\hooks\Permission());
+        Hook::on(new \hass\rbac\hooks\Permission());
     }
 
     /**
