@@ -41,7 +41,7 @@ $(document).ready(function() {
 		var confirmMessage = $(this).data("confirm-msg");
         var id = $(this).data("item-id");
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: url,
 			beforeSend: function() {
 				if (!confirm(confirmMessage)) {
