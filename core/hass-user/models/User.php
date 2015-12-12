@@ -88,8 +88,14 @@ class User extends \dektrium\user\models\User
 
     public static  function getDefaultAvatar($width, $height)
     {
-        list (, $baseUrl) = \Yii::$app->getAssetManager()->publish("@hass/user/misc/avatars");
-        return $baseUrl . "/" . "avatar_" . $width."x".$height. ".png";
+        list ($basePath, $baseUrl) = \Yii::$app->getAssetManager()->publish("@hass/user/misc/avatars");
+        
+        $name = "avatar_" . $width."x".$height. ".png";
+        if(file_exists($basePath.DIRECTORY_SEPARATOR.$name))
+        {
+            return $baseUrl . "/" . $name;
+        }
+        return $baseUrl . "/" . "avatar_200x200.png";
     }
 
     /**

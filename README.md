@@ -14,7 +14,7 @@ Backend: http://demo.hassium.org/admin.php
 
 ```
 Username: demo
-Password: demo
+Password: demo1234
 ```
 
 Installing via Composer 

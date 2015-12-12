@@ -330,6 +330,7 @@ class Attachment extends \hass\base\ActiveRecord
     }
 
     /**
+     * @hass-todo  将thumb分离出来。。。现在的默认头像做缩略图就比较麻烦
      * Generates and returns a thumbnail path.
      */
     public function getThumb($width, $height, $options = [])
