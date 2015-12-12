@@ -20,7 +20,6 @@ use hass\base\behaviors\TimestampFormatter;
 use hass\comment\behaviors\CommentBehavior;
 use hass\comment\enums\CommentEnabledEnum;
 use hass\base\behaviors\SetMaxSortableModel;
-use hass\search\behaviors\RtSphinxBehavior;
 
 
 /**
@@ -159,6 +158,11 @@ class Page extends \hass\base\ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             
+            if(empty($this->parent))
+            {
+                $this->parent = 0;
+            }
+  
             if ($insert == true) {
                 $this->status = StatusEnum::STATUS_ON;
             }
