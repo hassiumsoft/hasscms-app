@@ -66,7 +66,7 @@
 		<div class="post-comments">
 			<h3 class="animate-onscroll">Comments</h3>
 			{{
-			call('\\hass\\comment\\widgets\\CommentWidget',"widget",[{"owner":post}])
+			call('\\hass\\comment\\widgets\\CommentWidget',"widget",[{"owner":post,"entityClass":"hass\\post\\models\\Post"}])
 			}}
 
 		</div>

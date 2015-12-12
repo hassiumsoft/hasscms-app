@@ -34,6 +34,6 @@ trait EntityRelevance
             $this->entityClass = get_class($this->owner);
         }
 
-        return $this->entityClass;
+        return ltrim($this->entityClass,"\\");
     }
 }

@@ -10,6 +10,7 @@
 namespace hass\comment\widgets;
 
 use hass\comment\enums\CommentEnabledEnum;
+use yii\base\InvalidConfigException;
 
 /**
  *
@@ -27,10 +28,6 @@ class CommentWidget extends \yii\base\Widget
     public function init()
     {
         parent::init();
-        if ($this->entityClass == null)
-        {
-            $this->entityClass = '\\hass\\post\\models\\Post';
-        }
         
         if($this->commentUrl == null)
         {
