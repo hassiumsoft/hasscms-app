@@ -11,14 +11,10 @@ return [
     'modules' => [
         'frontend' => 'hass\frontend\Module',
         "user" => [
-            'class' => 'dektrium\user\Module',
             'enableUnconfirmedLogin' => true,
             'confirmWithin' => 21600,
             'cost' => 12,
             'as frontend' => 'dektrium\user\filters\FrontendFilter',
-            'modelMap' => [
-                'User' => 'hass\user\models\User'
-            ],
             'controllerMap' => [
                 'recovery' => 'hass\frontend\controllers\user\RecoveryController',
                 'profile' => 'hass\frontend\controllers\user\ProfileController',
@@ -82,7 +78,7 @@ return [
                 '<controller:(post|page|cat|tag)>s' => '<controller>/list'
             ],
             'on ' . UrlManager::EVENT_INIT_RULECACHE => function ($event) {
-                if(isset(\Yii::$app->params[APP_INSTALLED]) == false)
+                if(isset(\Yii::$app->params[APP_INSTALLED_NAME]) == false)
                 {
                     return;
                 }

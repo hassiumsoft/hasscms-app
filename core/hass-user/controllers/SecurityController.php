@@ -19,6 +19,15 @@ class SecurityController extends \dektrium\user\controllers\SecurityController
 {
     public $layout = '@hass/backend/views/layouts/main-login';
 
+    
+    public function getViewPath()
+    {
+        if ($this->_viewPath === null) {
+            $this->_viewPath = $this->module->getViewPath() . DIRECTORY_SEPARATOR . "admin";
+        }
+        return $this->_viewPath;
+    }
+    
     public function actionIn()
     {
         if (!Yii::$app->user->isGuest) {
