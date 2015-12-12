@@ -34,22 +34,12 @@ class MigrationUtility extends Model
     public $tableOption = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 
     /**
-     * @var string
-     */
-    public $foreignKeyOnDelete = 'CASCADE';
-
-    /**
-     * @var string
-     */
-    public $foreignKeyOnUpdate = 'CASCADE';
-
-    /**
      * @return array
      */
     function rules()
     {
         return [
-          [["migrationName","migrationPath","tableSchemas","tableDatas","tableOption","foreignKeyOnDelete","foreignKeyOnUpdate"],'safe']
+          [["migrationName","migrationPath","tableSchemas","tableDatas","tableOption"],'safe']
         ];
     }
 
