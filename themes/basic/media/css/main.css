@@ -766,7 +766,7 @@ a {
 .pageList .wrap li.pbox .word .info .time{float: right;}
 .pageList .wrap li.pbox .word .info .time i{float: left; margin-right: 5px;;background: url(../images/pageList-sprite.png) no-repeat -2px -42px;width: 14px;height: 14px; margin-top: 6px; }
 .pageList .wrap li.pbox .word .info .aut{float: right; margin-right: 25px;}
-.pageList .wrap li.pbox .word .info .aut img{float: left; margin-right: 5px; border-radius: 100%;}
+.pageList .wrap li.pbox .word .info .aut img{float: left; margin-right: 5px; border-radius: 100%;width:20px;height:20px;}
 .pageList .wrap li.pbox .word .info .aut span{float: left;font-size: 13px; color: #b8b8b8;width: 64px;height: 26px;white-space: nowrap; overflow:hidden; text-overflow:ellipsis;}
 .pageList .wrap li.pbox .word .info .aut span:hover{color: #5878D7;}
 
