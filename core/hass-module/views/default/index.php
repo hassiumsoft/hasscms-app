@@ -57,14 +57,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'hass\base\misc\grid\SwitcherColumn',
                     'label' => "开启",
                     "value" => function ($model, $key, $index, $column) {
-               
-                        if($model->isCoreModule())
-                        {
+                        
+                        if ($model->isCoreModule()) {
                             return "系统模块";
                         }
                         
-                        if($model->installed() == false)
-                        {
+                        if ($model->installed() == false) {
                             return "请先安装模块";
                         }
                         return $model->enabled();
@@ -72,13 +70,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'label' => "操作",
-                    "format" => "html",
+                    "format" => "raw",
                     "value" => function ($model, $key, $index, $column) {
                         $result = "";
                         if ($model->canUninstall()) {
                             $result .= Html::a("卸载", [
                                 "uninstall",
                                 'id' => $model->getPackage()
+                            ], [
+                                "confirm" => "您确定要卸载此模块吗？",
+                                "method" => "post"
                             ]);
                         }
                         
@@ -93,6 +94,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             $result .= "&nbsp;&nbsp;" . Html::a("删除", [
                                 "delete",
                                 'id' => $model->getPackage()
+                            ], [
+                                "data-confirm" => "您确定要删除此模块吗？",
+                                "data-method" => "post"
                             ]);
                         }
                         

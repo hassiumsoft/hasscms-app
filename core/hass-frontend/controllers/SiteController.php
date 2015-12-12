@@ -14,7 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use hass\frontend\models\Post;
 use yii\data\ActiveDataProvider;
-use hass\base\helpers\Util;
+
 
 /**
  *
@@ -81,7 +81,7 @@ class SiteController extends Controller
             ]
         ]);
         
-        $this->getView()->setMetaData(\Yii::$app->get("config")->get("app.name"),\Yii::$app->get("config")->get("app.description"),\Yii::$app->get("config")->get("app.keywords"));
+        $this->getView()->setMetaData("",\Yii::$app->get("config")->get("app.description"),\Yii::$app->get("config")->get("app.keywords"));
         return $this->render('index', [
             "posts" => $dataProvider->getModels(),
             "pagination" => $dataProvider->getPagination()

@@ -114,7 +114,7 @@ class BasicConfigForm extends BaseConfig
         $this->adminMail = $config->get("app.adminEmail", 'no@reply.com');
 
         $this->appFrontendThemePath = $config->get('theme.themePath', "@app/themes");
-        $this->appBackendTheme = $config->get("app.backendTheme", "skin-purple");
+        $this->appBackendTheme = $config->get("app.backendTheme", "skin-blue");
     }
 
     public function load($data, $formName = NULL)

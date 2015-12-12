@@ -88,7 +88,7 @@ ThemeAsset::register($this);
 		</div>
 
 		<div class="box box-solid">
-        <?php echo  \yii\helpers\Html::a("删除主题",["delete","id"=>$model->getPackage()],["data-confirm"=>"你确定要删除此主题?","class"=>"btn bg-maroon btn-flat btn-block"])?>
+        <?php echo  \yii\helpers\Html::a("删除主题",["delete","id"=>$model->getPackage()],["data-confirm"=>"你确定要删除此主题?",'data-method' => 'post',"class"=>"btn bg-maroon btn-flat btn-block"])?>
         </div>
 		<?php endif;?>
 	</div>

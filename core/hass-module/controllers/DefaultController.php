@@ -11,8 +11,6 @@ namespace hass\module\controllers;
 
 use hass\base\BaseController;
 use yii\data\ArrayDataProvider;
-use hass\base\enums\BooleanEnum;
-use hass\module\BaseModule;
 
 /**
  *

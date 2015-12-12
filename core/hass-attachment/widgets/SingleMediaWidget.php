@@ -30,7 +30,7 @@ class SingleMediaWidget extends MultipleMediaWidget
         '/attachment/upload/create-temp'
     ];
 
-    public $maxFileSize = 500000;
+    public $maxFileSize = 0;
 
     /**
      * Registers required script for the plugin to work as jQuery File Uploader
