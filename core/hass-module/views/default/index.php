@@ -78,8 +78,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 "uninstall",
                                 'id' => $model->getPackage()
                             ], [
-                                "confirm" => "您确定要卸载此模块吗？",
-                                "method" => "post"
+                                "data-confirm" => "您确定要卸载此模块吗？",
+                                "data-method" => "post"
                             ]);
                         }
                         
