@@ -4,6 +4,8 @@ Hassium CMS for Yii 2
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
 
+Homepage:http://www.hassium.org/index.php
+
 Demo
 -----------------------------------
 Frontend: http://demo.hassium.org/index.php
