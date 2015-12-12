@@ -16,6 +16,7 @@ use hass\migration\AppUtility;
 use hass\base\BaseController;
 use yii\helpers\FileHelper;
 
+
 /**
  *
  * @package hass\package_name
@@ -27,6 +28,7 @@ class DefaultController extends BaseController
 
     /**
      * @hass-todo 没有添加事务
+     *
      * @return string
      */
     public function actionIndex()
@@ -39,7 +41,7 @@ class DefaultController extends BaseController
             ->post())) {
             
             if (! empty($model->tableSchemas)) {
-                list ($up, $down) = $this->generalTableSchemas($model->tableSchemas, $model->tableOption, $model->foreignKeyOnUpdate, $model->foreignKeyOnDelete);
+                list ($up, $down) = $this->generalTableSchemas($model->tableSchemas, $model->tableOption);
                 $upStr->outputStringArray = array_merge($upStr->outputStringArray, $up->outputStringArray);
                 $downStr->outputStringArray = array_merge($downStr->outputStringArray, $down->outputStringArray);
             }
@@ -64,7 +66,7 @@ class DefaultController extends BaseController
                 'down' => $downStr->output()
             ]);
             file_put_contents($file, $content);
-            $this->flash("success", "迁移成功，保存在".$file);            
+            $this->flash("success", "迁移成功，保存在" . $file);
         }
         
         if ($model->migrationPath == null) {
@@ -76,7 +78,14 @@ class DefaultController extends BaseController
         ]);
     }
 
-    public function generalTableSchemas($tables, $tableOption, $foreignKeyOnUpdate, $foreignKeyOnDelete)
+    public function getTableName($name)
+    {
+        $prefix = \Yii::$app->db->tablePrefix;
+        
+        return str_replace($prefix, '', $name);
+    }
+
+    public function generalTableSchemas($tables, $tableOption)
     {
         $initialTabLevel = 0;
         $upStr = new OutputString([
@@ -88,81 +97,79 @@ class DefaultController extends BaseController
         foreach ($tables as $table) {
             $upStr->tabLevel = $initialTabLevel;
             
-            $prefix = \Yii::$app->db->tablePrefix;
-            $table_prepared = str_replace($prefix, '', $table);
+            $tablePrepared = $this->getTableName($table);
             
             // 添加表结构
-            $upStr->addStr('$this->createTable(\'{{%' . $table_prepared . '}}\', [');
+            $upStr->addStr('$this->createTable(\'{{%' . $tablePrepared . '}}\', [');
             $upStr->tabLevel ++;
-            $k = 0;
             $tableSchema = \Yii::$app->db->getTableSchema($table);
             
-
             foreach ($tableSchema->columns as $column) {
                 $appUtility = new AppUtility($column);
                 $upStr->addStr($appUtility->string . "',");
             }
-            if(!empty($tableSchema->primaryKey))
-            {
+            if (! empty($tableSchema->primaryKey)) {
                 $upStr->addStr("'PRIMARY KEY (`" . implode("`,`", $tableSchema->primaryKey) . "`)'");
             }
-
+            
             $upStr->tabLevel --;
             $upStr->addStr('], "' . $tableOption . '");');
             
-            // 添加外键
-            if (! empty($tableSchema->foreignKeys)) {
-                $upStr->addStr(' ');
-                $yy = 0;
-                foreach ($tableSchema->foreignKeys as $fk) {
-                    $link_table = '';
-                    $ii = 0;
-                    foreach ($fk as $k => $v) {
-                        if ($k == '0') {
-                            $link_table = $v;
-                        } else {
-                            $link_to_column = $k;
-                            $link_column = $v;
-                            $str = '$this->addForeignKey(';
-                            $str .= '\'fk_' . $link_table . '_' . explode('.', microtime('usec'))[1] . '_' . $yy.$ii . "',";
-                            $str .= '\'{{%' . $table . '}}\', ';
-                            $str .= '\'' . $link_to_column . '\', ';
-                            $str .= '\'{{%' . $link_table . '}}\', ';
-                            $str .= '\'' . $link_column . '\', ';
-                            $str .= '\'' . $foreignKeyOnDelete . '\', ';
-                            $str .= '\'' . $foreignKeyOnUpdate . '\' ';
-                            $str .= ');';
-                            $upStr->addStr($str);
-                        }
-                        $ii ++;
-                    }
-                    $yy++;
-                }
-            }
-            
+
             // 添加索引
             $tableIndexes = Yii::$app->db->createCommand('SHOW INDEX FROM `' . $table . '`')->queryAll();
-            $ii = 0;
+            $indexs = [];
             foreach ($tableIndexes as $item) {
-                if ($item['Key_name'] != 'PRIMARY' && $item['Seq_in_index'] == 1) {
-                    if ($ii == 0) {
-                        $upStr->addStr(' ');
-                    }
-                    $unique = ($item['Non_unique']) ? '' : '_UNIQUE';
-                    $item = [
-                        'name' => 'idx' . $unique . '_' . $item['Column_name'] . '_' . explode('.', microtime('usec'))[1] . '_' . $ii,
-                        'unique' => (($item['Non_unique']) ? 0 : 1),
-                        'column' => $item['Column_name'],
-                        'table' => $item['Table']
-                    ];
-                    $str = '$this->createIndex(\'' . $item['name'] . '\',\'' . $item['table'] . '\',\'' . $item['column'] . '\',' . $item['unique'] . ');';
-                    $upStr->addStr($str);
-                    $ii ++;
+                if ($item['Key_name'] == 'PRIMARY') {
+                    continue;
                 }
+                if (! isset($indexs[$item["Key_name"]])) {
+                    $indexs[$item["Key_name"]] = [];
+                    $indexs[$item["Key_name"]]["unique"] = ($item['Non_unique']) ? 0 : 1;
+                }
+                $indexs[$item["Key_name"]]["columns"][] = $item['Column_name'];
+            }
+            
+            if (! empty($indexs)) {
+                $upStr->addStr(' ');
+            }
+            
+            foreach ($indexs as $index => $item) {
+                $str = '$this->createIndex(\'' . $index . '\',\'{{%' . $tablePrepared . '}}\',\'' . implode(', ', $item['columns']) . '\',' . $item['unique'] . ');';
+                $upStr->addStr($str);
             }
             
             $upStr->addStr(' ');
         }
+        
+        //添加外键
+        $sql = "SELECT tb1.CONSTRAINT_NAME, tb1.TABLE_NAME, tb1.COLUMN_NAME,
+            tb1.REFERENCED_TABLE_NAME, tb1.REFERENCED_COLUMN_NAME, tb2.MATCH_OPTION,
+        
+            tb2.UPDATE_RULE, tb2.DELETE_RULE
+        
+            FROM information_schema.KEY_COLUMN_USAGE AS tb1
+            INNER JOIN information_schema.REFERENTIAL_CONSTRAINTS AS tb2 ON
+            tb1.CONSTRAINT_NAME = tb2.CONSTRAINT_NAME AND tb1.CONSTRAINT_SCHEMA = tb2.CONSTRAINT_SCHEMA
+            WHERE TABLE_SCHEMA = DATABASE()
+            AND REFERENCED_TABLE_SCHEMA = DATABASE() AND REFERENCED_COLUMN_NAME IS NOT NULL";
+        $foreignKeys = Yii::$app->db->createCommand($sql)->queryAll();
+        foreach ($foreignKeys as $fk)
+        {
+            $str = '$this->addForeignKey(';
+            $str .= '\'' . $fk['CONSTRAINT_NAME'] . '\', ';
+            $str .= '\'{{%' . $this->getTableName($fk['TABLE_NAME']) . '}}\', ';
+            $str .= '\'' . $fk['COLUMN_NAME'] . '\', ';
+            $str .= '\'{{%' . $this->getTableName($fk['REFERENCED_TABLE_NAME'])  . '}}\', ';
+            $str .= '\'' . $fk['REFERENCED_COLUMN_NAME'] . '\', ';
+            $str .= '\'' . $fk['DELETE_RULE'] . '\', ';
+            $str .= '\'' . $fk['UPDATE_RULE'] . '\' ';
+            $str .= ');';
+            $upStr->addStr($str);
+        }
+
+        
+        $upStr->addStr(' ');
         $upStr->addStr('$this->execute(\'SET foreign_key_checks = 1;\');');
         
         $downStr = new OutputString();
@@ -190,11 +197,14 @@ class DefaultController extends BaseController
         $upStr->addStr('$this->execute(\'SET foreign_key_checks = 0\');');
         $upStr->addStr(' ');
         foreach ($tables as $table) {
+            
+            $tablePrepared = $this->getTableName($table);
+            
             $upStr->addStr('/* Table ' . $table . ' */');
             $tableSchema = \Yii::$app->db->getTableSchema($table);
             $data = Yii::$app->db->createCommand('SELECT * FROM `' . $table . '`')->queryAll();
             foreach ($data as $row) {
-                $out = '$this->insert(\'{{%' . $table . '}}\',[';
+                $out = '$this->insert(\'{{%' . $tablePrepared . '}}\',[';
                 foreach ($tableSchema->columns as $column) {
                     $out .= "'" . $column->name . "'=>'" . addslashes($row[$column->name]) . "',";
                 }
