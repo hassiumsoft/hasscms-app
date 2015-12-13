@@ -41,6 +41,7 @@ Features
 -----------------------------------
   - Admin theme based on AdminLTE
   - SEO optimized
+  - sphinx and xun search 
   - Dynamic Yii 2 themes (include blocks in your theme or layout file)
   - Menu system with nested menu items based on [Yii2 Nested Sets](https://github.com/creocoder/yii2-nested-sets)
   - Theme System
@@ -48,8 +49,9 @@ Features
   - CMS components (pages, categories, menus, blocks, file manager)
   - User registration 
   - Short Url
-  - .....
-
+  - online db migrate
+  - page and post module for blog
+  - ...
 Contacts
 -----------------------------------
   - Feel free to email me on zhepama@gmail.com
