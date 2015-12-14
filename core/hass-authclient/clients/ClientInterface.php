@@ -16,14 +16,5 @@ namespace hass\authclient\clients;
 */
 interface ClientInterface extends \dektrium\user\clients\ClientInterface
 {
-    /**
-     *
-     * @return []
-     */
-    public function getUserInfo();
-    /**
-     *
-     * @return mixed
-     */
-    public function getOpenid();
+
 }

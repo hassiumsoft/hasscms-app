@@ -254,10 +254,15 @@ class m151209_185057_migration extends Migration
             'provider' => 'VARCHAR(255) NOT NULL',
             'client_id' => 'VARCHAR(255) NOT NULL',
             'data' => 'TEXT NULL',
+            'code' => 'VARCHAR(32) NULL',
+            'created_at' => 'INT(11) NULL',
+            'email' => 'VARCHAR(255) NULL',
+            'username' => 'VARCHAR(255) NULL',
             'PRIMARY KEY (`id`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         
         $this->createIndex('account_unique', '{{%social_account}}', 'provider, client_id', 1);
+        $this->createIndex('account_unique_code', '{{%social_account}}', 'code', 1);
         $this->createIndex('fk_user_account', '{{%social_account}}', 'user_id', 0);
         
         $this->createTable('{{%source_message}}', [
@@ -342,7 +347,7 @@ class m151209_185057_migration extends Migration
         
         $this->createTable('{{%user}}', [
             'id' => 'INT(11) NOT NULL AUTO_INCREMENT',
-            'username' => 'VARCHAR(25) NOT NULL',
+            'username' => 'VARCHAR(255) NOT NULL',
             'email' => 'VARCHAR(255) NOT NULL',
             'password_hash' => 'VARCHAR(60) NOT NULL',
             'auth_key' => 'VARCHAR(32) NOT NULL',
@@ -356,8 +361,8 @@ class m151209_185057_migration extends Migration
             'PRIMARY KEY (`id`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         
-        $this->createIndex('user_unique_username', '{{%user}}', 'username', 1);
         $this->createIndex('user_unique_email', '{{%user}}', 'email', 1);
+        $this->createIndex('user_unique_username', '{{%user}}', 'username', 1);
         
         $this->addForeignKey('auth_assignment_ibfk_1', '{{%auth_assignment}}', 'item_name', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
         $this->addForeignKey('auth_item_ibfk_1', '{{%auth_item}}', 'rule_name', '{{%auth_rule}}', 'name', 'SET NULL', 'CASCADE');

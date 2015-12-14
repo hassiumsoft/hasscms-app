@@ -11,6 +11,7 @@ namespace hass\install;
 
 use Yii;
 use yii\base\BootstrapInterface;
+use hass\base\helpers\Util;
 
 /**
  *
@@ -23,10 +24,24 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
     public $layout = "main";
 
-    
     public function init(){
         parent::init();
+        $this->registerTranslations();
     }
+    
+    public function registerTranslations()
+    {
+        Util::setComponent("i18n", [
+            'translations' => [
+                "hass/install" => [
+                    'class' => "\\yii\\i18n\\PhpMessageSource",
+                    'basePath' => '@hass/install/messages'
+                ]
+            ]
+        ], true);
+    }
+    
+
     
     public function beforeAction($action)
     {        
@@ -41,10 +56,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     
     /**
      *  index.php 因为其引导的配置和前台模块使用了大量的数据库..所以不使用
-     *  
      *  为了不污染frontend模块.所以不会在frontend模块中判断是否是安装模块.进行安装判断
-     * 
-     *  
      * {@inheritDoc}
      * @see \yii\base\BootstrapInterface::bootstrap()
      */
@@ -62,6 +74,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         return isset(Yii::$app->params[APP_INSTALLED_NAME]) == true;
     }
+    
+
 
     /**
      * config/main-local.php

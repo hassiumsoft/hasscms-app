@@ -59,31 +59,11 @@ class DoubanAuth extends OAuth2 implements ClientInterface
     /** @inheritdoc */
     public function getUsername()
     {
-        return isset($this->getUserAttributes()['login'])
-        ? $this->getUserAttributes()['login']
+        return isset($this->getUserAttributes()['name'])
+        ? $this->getUserAttributes()['name']
         : null;
     }
 
-
-    /**
-     *
-     * @return array
-     * @see http://developers.douban.com/wiki/?title=user_v2#User
-     */
-    public function getUserInfo()
-    {
-        return $this->getUserAttributes();
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getOpenid()
-    {
-        $attributes = $this->getUserAttributes();
-        return $attributes['id'];
-    }
 
     protected function defaultName()
     {

@@ -39,11 +39,12 @@ class RenrenAuth extends OAuth2 implements ClientInterface
     /**
      * Try to use getUserAttributes to get simple user info
      *
-     * @see http://wiki.dev.renren.com/wiki/Authentication @inheritdoc
+     * @see http://open.renren.com/wiki/Authentication @inheritdoc
+     * @see http://open.renren.com/wiki/V2/user/get
      */
     protected function initUserAttributes()
     {
-        return $this->getAccessToken()->getParams()['user'];
+         return  $this->getAccessToken()->getParams()['user'];
     }
 
     /** @inheritdoc */
@@ -57,32 +58,9 @@ class RenrenAuth extends OAuth2 implements ClientInterface
     /** @inheritdoc */
     public function getUsername()
     {
-        return isset($this->getUserAttributes()['login'])
-        ? $this->getUserAttributes()['login']
+        return isset($this->getUserAttributes()['name'])
+        ? $this->getUserAttributes()['name']
         : null;
-    }
-
-    /**
-     * Get authed user info
-     *
-     * @see http://wiki.dev.renren.com/wiki/V2/user/get
-     * @return array
-     */
-    public function getUserInfo()
-    {
-        return $this->api("v2/user/get", 'GET', [
-            'userId' => $this->getOpenid()
-        ]);
-    }
-
-    /**
-     *
-     * @return int
-     */
-    public function getOpenid()
-    {
-        $attributes = $this->getUserAttributes();
-        return $attributes['id'];
     }
 
     /**

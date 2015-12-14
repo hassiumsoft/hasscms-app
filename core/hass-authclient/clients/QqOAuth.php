@@ -26,20 +26,25 @@ class QqOAuth extends OAuth2 implements ClientInterface
     public $tokenUrl = 'https://graph.qq.com/oauth2.0/token';
 
     public $apiBaseUrl = 'https://graph.qq.com';
-
-    public function init()
-    {
-        parent::init();
-        if ($this->scope === null) {
-            $this->scope = implode(',', [
-                'get_user_info'
-            ]);
-        }
-    }
-
+    //授权内容
+    public $scope = "get_user_info";
+    
+    /**
+     * @see http://wiki.connect.qq.com/oauth2.0/me
+     * @see http://wiki.connect.qq.com/get_user_info
+     * @see \yii\authclient\BaseClient::initUserAttributes()
+     */
     protected function initUserAttributes()
     {
-        return $this->api('oauth2.0/me', 'GET');
+        $attributes =  $this->api('oauth2.0/me', 'GET');
+        
+        $openid = $attributes['openid'];
+        $result =  $this->api("user/get_user_info", 'GET', [
+            'oauth_consumer_key' => $this->clientId,
+            'openid' => $openid
+        ]);
+        $result['id'] = $openid;
+        return $result;
     }
 
     /** @inheritdoc */
@@ -53,32 +58,9 @@ class QqOAuth extends OAuth2 implements ClientInterface
     /** @inheritdoc */
     public function getUsername()
     {
-        return isset($this->getUserAttributes()['login'])
-        ? $this->getUserAttributes()['login']
+        return isset($this->getUserAttributes()['nickname'])
+        ? $this->getUserAttributes()['nickname']
         : null;
-    }
-
-    /**
-     *
-     * @return []
-     * @see http://wiki.connect.qq.com/get_user_info
-     */
-    public function getUserInfo()
-    {
-        return $this->api("user/get_user_info", 'GET', [
-            'oauth_consumer_key' => $this->clientId,
-            'openid' => $this->getOpenid()
-        ]);
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getOpenid()
-    {
-        $attributes = $this->getUserAttributes();
-        return $attributes['openid'];
     }
 
     protected function defaultName()

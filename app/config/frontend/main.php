@@ -6,6 +6,7 @@ $params = array_merge(require (__DIR__ . '/../params.php'), require (__DIR__ . '
 return [
     'id' => 'hassium-frontend',
     'bootstrap' => [
+        'install',
         'frontend'
     ],
     'modules' => [
@@ -68,7 +69,7 @@ return [
         ],
         "urlManager" => [
             "class" => '\hass\base\components\UrlManager', // 主题预览中会用到
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => true,
             'rules' => [
                 [
@@ -89,8 +90,8 @@ return [
                         $dbrule = $rule;
                     }
                 }
+                $ruleCache = [];
                 if ($dbrule) {
-                    $ruleCache = [];
                     // @hass-todo 可以缓存
                     $models = \hass\urlrule\models\UrlRule::find()->all();
                     foreach ($models as $model) {

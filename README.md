@@ -32,7 +32,7 @@ chmod -R 777 storage
 chmod -R 777 app/config
 chmod 777 core
 ```
-go to http://YOURSITE.COM/install.php
+Go to http://YOURSITE.COM/install.php
 
 Then follow the on screen instructions which helps you specify database login credentials.
 
@@ -52,6 +52,7 @@ Features
   - online db migrate
   - page and post module for blog
   - ...
+
 Contacts
 -----------------------------------
   - Feel free to email me on zhepama@gmail.com
