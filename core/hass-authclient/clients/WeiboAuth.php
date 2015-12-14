@@ -16,7 +16,7 @@ use yii\authclient\OAuth2;
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 class WeiboAuth extends OAuth2 implements ClientInterface
 {
@@ -35,23 +35,27 @@ class WeiboAuth extends OAuth2 implements ClientInterface
      */
     protected function initUserAttributes()
     {
-        return $this->api('oauth2/get_token_info', 'POST');
+        $attributes = $this->api('oauth2/get_token_info', 'POST');
+        $result = $this->api("2/users/show", 'GET', [
+            'uid' => $attributes['uid']
+        ]);
+        return $result;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getEmail()
     {
-        return isset($this->getUserAttributes()['email'])
-        ? $this->getUserAttributes()['email']
-        : null;
+        return isset($this->getUserAttributes()['email']) ? $this->getUserAttributes()['email'] : null;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getUsername()
-    {        
-        return isset($this->getUserAttributes()['name'])
-        ? $this->getUserAttributes()['name']
-        : null;
+    {
+        return isset($this->getUserAttributes()['name']) ? $this->getUserAttributes()['name'] : null;
     }
 
     protected function defaultName()

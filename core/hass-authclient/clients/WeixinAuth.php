@@ -112,7 +112,6 @@ class WeixinAuth extends OAuth2 implements ClientInterface
         return isset($this->getUserAttributes()['login']) ? $this->getUserAttributes()['login'] : null;
     }
 
-
     protected function defaultName()
     {
         return 'weixin';
