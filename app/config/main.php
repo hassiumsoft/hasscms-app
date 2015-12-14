@@ -4,15 +4,14 @@ define("APP_INSTALLED_NAME", "installed");
 
 $basePath = dirname(__DIR__);
 $config = [
-    'language' => 'zh-CN',
+    'language' => 'en-US',
     'sourceLanguage' => 'en-US',
     'basePath' => $basePath,
     'runtimePath' => '@storage/runtime',
     'vendorPath' => '@root/vendor',
     'bootstrap' => [
         'log',
-        'packageLoader',
-        "install"
+        'packageLoader'
     ],
     'components' => [
         'assetManager' => [

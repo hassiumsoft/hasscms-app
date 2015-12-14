@@ -59,7 +59,7 @@ class DefaultController extends Controller
             if (\Yii::$app->getRequest()->post("license") == "on") {
                 return $this->renderJsonMessage(true);
             } else {
-                return $this->renderJsonMessage(false, "同意安装协议才能继续安装!");
+                return $this->renderJsonMessage(false, \Yii::t("hass/install", "同意安装协议才能继续安装!"));
             }
         }
         

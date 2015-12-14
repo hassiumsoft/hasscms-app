@@ -57,6 +57,11 @@ class Module extends BaseModule implements BootstrapInterface
         ]);
     }
 
+    public static function t($message, $params = [], $language = null)
+    {
+        return \Yii::t('hass/area', $message, $params, $language);
+    }
+    
     /**
      *
      * @param \hass\base\helpers\Event $event            

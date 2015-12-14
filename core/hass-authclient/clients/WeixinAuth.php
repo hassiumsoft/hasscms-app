@@ -16,7 +16,7 @@ use yii\authclient\OAuth2;
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
- *
+ *       
  */
 class WeixinAuth extends OAuth2 implements ClientInterface
 {
@@ -91,45 +91,27 @@ class WeixinAuth extends OAuth2 implements ClientInterface
      */
     protected function initUserAttributes()
     {
-        return $this->api('sns/userinfo');
+        $attributes = $this->api('sns/userinfo');
+        $attributes['id'] = $attributes['openid'];
+        return $attributes;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getEmail()
     {
-        return isset($this->getUserAttributes()['email'])
-        ? $this->getUserAttributes()['email']
-        : null;
+        return isset($this->getUserAttributes()['email']) ? $this->getUserAttributes()['email'] : null;
     }
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function getUsername()
     {
-        return isset($this->getUserAttributes()['login'])
-        ? $this->getUserAttributes()['login']
-        : null;
+        return isset($this->getUserAttributes()['login']) ? $this->getUserAttributes()['login'] : null;
     }
 
-    /**
-     * get UserInfo
-     *
-     * @return []
-     * @see http://open.weibo.com/wiki/2/users/show
-     */
-    public function getUserInfo()
-    {
-        return $this->getUserAttributes();
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getOpenid()
-    {
-        $attributes = $this->getUserAttributes();
-        return $attributes['openid'];
-    }
 
     protected function defaultName()
     {

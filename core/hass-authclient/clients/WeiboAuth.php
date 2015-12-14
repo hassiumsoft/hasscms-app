@@ -48,33 +48,10 @@ class WeiboAuth extends OAuth2 implements ClientInterface
 
     /** @inheritdoc */
     public function getUsername()
-    {
-        return isset($this->getUserAttributes()['login'])
-        ? $this->getUserAttributes()['login']
+    {        
+        return isset($this->getUserAttributes()['name'])
+        ? $this->getUserAttributes()['name']
         : null;
-    }
-
-    /**
-     * get UserInfo
-     *
-     * @return []
-     * @see http://open.weibo.com/wiki/2/users/show
-     */
-    public function getUserInfo()
-    {
-        return $this->api("2/users/show.json", 'GET', [
-            'uid' => $this->getOpenid()
-        ]);
-    }
-
-    /**
-     *
-     * @return int
-     */
-    public function getOpenid()
-    {
-        $attributes = $this->getUserAttributes();
-        return $attributes['uid'];
     }
 
     protected function defaultName()

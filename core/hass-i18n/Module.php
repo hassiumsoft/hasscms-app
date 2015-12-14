@@ -32,10 +32,11 @@ class Module extends BaseModule implements BootstrapInterface
             "onSetGroupNav"
         ]);
     }
-
+    
+    
     public static  function getInstallLanguages()
     {
-        return ["zh-CN","zh-TW"];
+        return  (array)\Yii::$app->get("config")->get("app.language");
     }
     
     /**

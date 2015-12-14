@@ -4,6 +4,7 @@ $params = array_merge(require (__DIR__ . '/../params.php'), require (__DIR__ . '
 return [
     'id' => 'hassium-backend',
     'bootstrap' => [
+        'install',
         'backend'
     ],
     'modules' => [
