@@ -36,7 +36,7 @@ class WeiboAuth extends OAuth2 implements ClientInterface
     protected function initUserAttributes()
     {
         $attributes = $this->api('oauth2/get_token_info', 'POST');
-        $result = $this->api("2/users/show", 'GET', [
+        $result = $this->api("2/users/show.json", 'GET', [
             'uid' => $attributes['uid']
         ]);
         return $result;
