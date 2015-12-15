@@ -127,79 +127,89 @@ class DefaultController extends Controller
         
         $model->loadDefaultValues();
         
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             
-            if ($model->validate() && $model->save()&&$this->install($model)) {
+            $user = new User();
+            $user->setScenario("create");
+            $user->email = $model->email;
+            $user->username = $model->username;
+            $user->password = $model->password;
+            
+            if ($user->validate()) {
+                $error = $this->installDb();
+                if ($error != null) {
+                    return $this->renderJsonMessage(false, $error);
+                }
+                $this->installConfig();
+                // 创建用户
+                if($user->create() == false)
+                {
+                    return $this->renderJsonMessage(false, "添加管理员失败");
+                }
+                //添加管理员权限
+                $connection = \Yii::$app->getDb();
+                $connection->createCommand()
+                    ->insert('{{%auth_assignment}}', [
+                    'item_name' => 'admin',
+                    'user_id' => $user->id,
+                    "created_at" => time()
+                ])
+                    ->execute();
+                \Yii::$app->getCache()->flush();
+                //安装完成
+                Module::getInstance()->setInstalled();
                 return $this->renderJsonMessage(true);
             } else {
-                return $this->renderJsonMessage(false, $model->formatErrors());
+                return $this->renderJsonMessage(false, $user->formatErrors());
             }
+        } else {
+            return $this->renderJsonMessage(false, $model->formatErrors());
         }
         
         return $this->render('setadmin', [
             "model" => $model
         ]);
     }
-
-    public function install($model)
+    /**
+     * 安装数据库
+     */
+    public function installDb()
     {
         $class = "m151209_185057_migration";
         require Yii::getAlias("@hass/install/migrations/" . $class . ".php");
-
-
+        
         $migration = new $class();
-
-  
+        
+        $error = "";
+        // yii2 迁移是在命令行下操作的。。会输出很多垃圾信息
+        ob_start();
         try {
-            //yii2 迁移是在命令行下操作的。。会输出很多垃圾信息
-            ob_start();
             if ($migration->up() == false) {
-                ob_end_clean();
-                $model->addError("username","数据库迁移失败");
-                return false;
+                $error = "数据库迁移失败";
             }
         } catch (\Exception $e) {
-             ob_end_clean();
-             $model->addError("username","数据表已经存在，或者其他错误！");
-             return false;
+            $error = "数据表已经存在，或者其他错误！";
         }
         ob_end_clean();
-
-        $data = \Yii::$app->getCache()->get("install-site-form");
         
+        if (! empty($error)) {
+            return $error;
+        }
+        return null;
+    }
+    //写入配置文件
+    public function installConfig()
+    {
+        Module::getInstance()->setCookieValidationKey();
+        $data = \Yii::$app->getCache()->get("install-site-form");
         foreach ($data as $name => $value) {
             $config = new Config();
-            
             $config->name = preg_replace_callback('/([a-z]*)([A-Z].*)/', function ($matches) {
                 return $matches[1] . "." . strtolower($matches[2]);
             }, $name);
             $config->value = $value;
             $config->save();
         }
-        
-        $data = \Yii::$app->getCache()->get("install-admin-form");
-        
-        $user = new User();
-        $user->setScenario("create");
-        $user->email = $data['email'];
-        $user->username = $data['username'];
-        $user->password = $data['password'];
-        
-        $user->create();
-        
-        $connection = \Yii::$app->getDb();
-        $connection->createCommand()
-            ->insert('{{%auth_assignment}}', [
-            'item_name' => 'admin',
-            'user_id' => $user->id,
-            "created_at" => time()
-        ])
-            ->execute();
-        
-        Module::getInstance()->setCookieValidationKey();
-        Module::getInstance()->setInstalled();
-        \Yii::$app->getCache()->flush();
         return true;
     }
-
 }
