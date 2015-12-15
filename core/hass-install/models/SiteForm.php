@@ -33,7 +33,7 @@ class SiteForm extends Model
     public $appDescription;
 
     
-    protected  $cacheKey = "install-site-form";
+    const CACHE_KEY = "install-site-form";
     
     public function rules()
     {
@@ -66,7 +66,7 @@ class SiteForm extends Model
     
     public function  loadDefaultValues()
     {
-        $data = \Yii::$app->getCache()->get($this->cacheKey);
+        $data = \Yii::$app->getCache()->get(SiteForm::CACHE_KEY);
         if($data)
         {
             $this->setAttributes($data);
@@ -80,7 +80,7 @@ class SiteForm extends Model
 
     public function save()
     {
-       \Yii::$app->getCache()->set($this->cacheKey, $this->toArray());
+       \Yii::$app->getCache()->set(SiteForm::CACHE_KEY, $this->toArray());
         return true;
     }
 }

@@ -127,44 +127,29 @@ class DefaultController extends Controller
         
         $model->loadDefaultValues();
         
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             
-            $user = new User();
-            $user->setScenario("create");
-            $user->email = $model->email;
-            $user->username = $model->username;
-            $user->password = $model->password;
-            
-            if ($user->validate()) {
+            if (!$model->validate() || !$model->save()) {
+                return $this->renderJsonMessage(false, $model->formatErrors());
+            }
+
                 $error = $this->installDb();
                 if ($error != null) {
                     return $this->renderJsonMessage(false, $error);
                 }
                 $this->installConfig();
                 // 创建用户
-                if($user->create() == false)
-                {
-                    return $this->renderJsonMessage(false, "添加管理员失败");
+                $error = $this->createAdminUser();
+                if ($error != null) {
+                    return $this->renderJsonMessage(false, $error);
                 }
-                //添加管理员权限
-                $connection = \Yii::$app->getDb();
-                $connection->createCommand()
-                    ->insert('{{%auth_assignment}}', [
-                    'item_name' => 'admin',
-                    'user_id' => $user->id,
-                    "created_at" => time()
-                ])
-                    ->execute();
+
                 \Yii::$app->getCache()->flush();
                 //安装完成
                 Module::getInstance()->setInstalled();
                 return $this->renderJsonMessage(true);
-            } else {
-                return $this->renderJsonMessage(false, $user->formatErrors());
-            }
-        } else {
-            return $this->renderJsonMessage(false, $model->formatErrors());
-        }
+           
+        } 
         
         return $this->render('setadmin', [
             "model" => $model
@@ -201,7 +186,7 @@ class DefaultController extends Controller
     public function installConfig()
     {
         Module::getInstance()->setCookieValidationKey();
-        $data = \Yii::$app->getCache()->get("install-site-form");
+        $data = \Yii::$app->getCache()->get(SiteForm::CACHE_KEY);
         foreach ($data as $name => $value) {
             $config = new Config();
             $config->name = preg_replace_callback('/([a-z]*)([A-Z].*)/', function ($matches) {
@@ -211,5 +196,31 @@ class DefaultController extends Controller
             $config->save();
         }
         return true;
+    }
+
+    public function createAdminUser()
+    {
+            $data = \Yii::$app->getCache()->get(AdminForm::CACHE_KEY);
+            $user = new User();
+            $user->setScenario("create");
+            $user->email = $data["email"];
+            $user->username = $data["username"];
+            $user->password = $data["password"];
+
+                if($user->create() == false)
+                {
+                    return $user->formatErrors();
+                }
+                //添加管理员权限
+                $connection = \Yii::$app->getDb();
+                $connection->createCommand()
+                    ->insert('{{%auth_assignment}}', [
+                    'item_name' => 'admin',
+                    'user_id' => $user->id,
+                    "created_at" => time()
+                ])
+                    ->execute();
+
+                    return null;
     }
 }

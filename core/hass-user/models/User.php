@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
 use hass\base\behaviors\TimestampFormatter;
 use hass\attachment\models\Attachment;
 use hass\attachment\models\AttachmentIndex;
+use hass\base\traits\ModelTrait;
 /**
  *
  * @package hass\user
@@ -21,6 +22,7 @@ use hass\attachment\models\AttachmentIndex;
  */
 class User extends \dektrium\user\models\User
 {
+    use ModelTrait;
 
     /**
      * @inheritdoc

@@ -32,7 +32,7 @@ class AdminForm extends Model
 
     public $passwordConfirm;
 
-    protected $cacheKey = "install-admin-form";
+    const CACHE_KEY = "install-admin-form";
 
     public function rules()
     {
@@ -87,7 +87,7 @@ class AdminForm extends Model
 
     public function loadDefaultValues()
     {
-        $data = \Yii::$app->getCache()->get($this->cacheKey);
+        $data = \Yii::$app->getCache()->get(AdminForm::CACHE_KEY);
         if ($data) {
             $this->setAttributes($data);
         }
@@ -95,7 +95,7 @@ class AdminForm extends Model
 
     public function save()
     {
-        \Yii::$app->getCache()->set($this->cacheKey, $this->toArray());
+        \Yii::$app->getCache()->set(AdminForm::CACHE_KEY, $this->toArray());
         return true;
     }
 }
