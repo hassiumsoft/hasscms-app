@@ -46,8 +46,21 @@ class Module extends BaseModule implements BootstrapInterface
         $item = [
             'label' => "文章",
             'icon' => "fa-circle-o",
-            'url' => [
-                "/$this->id/default/index"
+            "items"=>[
+                [
+                    'label' => "所有文章",
+                    'icon' => "fa-circle-o",
+                    'url' => [
+                        "/$this->id/default/index"
+                    ],
+                ],
+                [
+                'label' => "写文章",
+                'icon' => "fa-circle-o",
+                'url' => [
+                    "/$this->id/default/create"
+                ],
+                ]
             ]
         ];
         

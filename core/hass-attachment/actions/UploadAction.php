@@ -121,7 +121,7 @@ class UploadAction extends BaseAction
 
                     if($this->storageLocation == static::STORAGE_LOCATION_TEMPPATH)
                     {
-                        $attachment->setStorageDirectory($attachment->getTempDirectory());
+                        $attachment->setStorageDirectory(Attachment::getTempDirectory());
                         $attachment->uploadFromPost($uploadedFile);
                     }
                     else if($this->storageLocation == static::STORAGE_LOCATION_USERPATH_DATABASE)

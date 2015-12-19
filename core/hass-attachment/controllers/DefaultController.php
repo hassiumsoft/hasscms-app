@@ -88,7 +88,7 @@ class DefaultController extends BaseController
                 break;
             case CropType::THUMBNAIL:
                 $original = $model->getAbsolutePath();
-                $newPath = $model->getTempDirectory() . DIRECTORY_SEPARATOR . $model->hash . "." . $model->extension;
+                $newPath = Attachment::getTempDirectory() . DIRECTORY_SEPARATOR . $model->hash . "." . $model->extension;
                 $newOriginal = \Yii::$app->get("fileStorage")->getPath($newPath);
 
                 Image::crop($original, $w, $h, [

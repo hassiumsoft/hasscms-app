@@ -184,6 +184,7 @@ class m151209_185057_migration extends Migration
             'status' => 'TINYINT(4) NULL',
             'installed' => 'TINYINT(4) NULL',
             'bootstrap' => 'VARCHAR(50) NULL',
+            'weight' => 'INT(11) NULL DEFAULT \'1\'',
             'PRIMARY KEY (`package`)'
         ], "CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB");
         
@@ -527,7 +528,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\area\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-attachment',
@@ -535,7 +537,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\attachment\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-authclient',
@@ -543,7 +546,8 @@ class m151209_185057_migration extends Migration
             'class' => '',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '0'
+            'bootstrap' => '0',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-backend',
@@ -551,7 +555,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\backend\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-base',
@@ -559,7 +564,8 @@ class m151209_185057_migration extends Migration
             'class' => '',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '0'
+            'bootstrap' => '0',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-comment',
@@ -567,7 +573,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\comment\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-config',
@@ -575,7 +582,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\config\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-frontend',
@@ -583,7 +591,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\frontend\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '1'
+            'bootstrap' => '1',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-gii',
@@ -591,7 +600,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\gii\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-i18n',
@@ -599,7 +609,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\i18n\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-install',
@@ -607,7 +618,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\install\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '0'
+            'bootstrap' => '0',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-menu',
@@ -615,7 +627,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\menu\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-meta',
@@ -623,7 +636,8 @@ class m151209_185057_migration extends Migration
             'class' => '',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '0'
+            'bootstrap' => '0',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-migration',
@@ -631,7 +645,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\migration\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-module',
@@ -639,7 +654,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\module\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-page',
@@ -647,7 +663,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\page\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-post',
@@ -655,7 +672,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\post\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '10'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-rbac',
@@ -663,7 +681,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\rbac\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-revolutionslider',
@@ -671,7 +690,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\revolutionslider\\Module',
             'status' => '0',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-search',
@@ -679,7 +699,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\search\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-system',
@@ -687,7 +708,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\system\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-tag',
@@ -695,7 +717,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\tag\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-taxonomy',
@@ -703,7 +726,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\taxonomy\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-theme',
@@ -711,7 +735,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\theme\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-url-rule',
@@ -719,7 +744,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\urlrule\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         $this->insert('{{%module}}', [
             'package' => 'hassium/hass-user',
@@ -727,7 +753,8 @@ class m151209_185057_migration extends Migration
             'class' => 'hass\\user\\Module',
             'status' => '1',
             'installed' => '1',
-            'bootstrap' => '2'
+            'bootstrap' => '2',
+            'weight' => '1'
         ]);
         
         $this->execute('SET foreign_key_checks = 1;');

@@ -187,7 +187,7 @@ class Attachment extends \hass\base\ActiveRecord
         return $file;
     }
 
-    public function getTempDirectory()
+    public static function getTempDirectory()
     {
         $folder = \Yii::$app->get("config")->get("attachment.temp.foler", "temps");
         \Yii::$app->session->open();
@@ -398,7 +398,7 @@ class Attachment extends \hass\base\ActiveRecord
      */
     protected function makeThumbStorage($thumbFile, $thumbPath, $width, $height, $options)
     {
-        $tempThumb = $this->getTempDirectory().DIRECTORY_SEPARATOR.$thumbFile;
+        $tempThumb = Attachment::getTempDirectory().DIRECTORY_SEPARATOR.$thumbFile;
 
         /**
          *1.首先得把文件保存到temps文件夹中

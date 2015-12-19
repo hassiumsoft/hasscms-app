@@ -20,6 +20,7 @@ use hass\base\enums\StatusEnum;
  * @property integer $status
  * @property integer $installed
  * @property string $bootstrap
+ * @property string $weight
  * @package hass\package_name
  * @author zhepama <zhepama@gmail.com>
  * @since 0.1.0
@@ -39,13 +40,14 @@ class Module extends \hass\base\ActiveRecord
         $query = static::find();
         return $query->where([
             "status" => StatusEnum::STATUS_ON
-        ])->asArray()->all();
+        ])->orderBy(["weight"=>SORT_DESC])->asArray()->all();
     }
     
     public function loadDefaultValues($skipIfSet = true)
     {
         $this->status = 0;
         $this->installed = 0;
+        $this->weight = 1;
         return $this;
     }
 }
